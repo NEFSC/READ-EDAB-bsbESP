@@ -1,0 +1,127 @@
+---
+title: "Black sea bass shapefiles"
+author: "Abigail Tyrell"
+date: "11/3/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+`%>%` <- magrittr::`%>%`
+```
+
+The purpose of this document is to create shapefiles for the southern MAB, northern MAB, and GB/GOM regions of black sea bass habitat.
+
+First, here are the strata:
+```{r}
+strata <- readxl::read_excel(here::here("black-sea-bass/BSB.2021RT.NEFSC.Strata.Specifications.By.Region.xlsx")) %>%
+  # dplyr::select(-Series) %>%
+  dplyr::distinct()
+```
+
+Use these strata with the NEFSC bottom trawl strata shapefile to create a black sea bass shapefile. Split the northern subgroup into NMAB and GB/GOM. Not sure why this can't run in Rmarkdown, so saving output and reading in.
+```{r, eval = FALSE}
+bsb_shape <- NEesp::shape %>%
+  dplyr::select(STRATA, geometry) %>%
+  dplyr::filter(STRATA %in% strata$Stratum) %>%
+  dplyr::full_join(strata,
+                   by = c("STRATA" = "Stratum")) %>%
+  dplyr::mutate(Region = ifelse(Region == "North" &
+                       (STRATA < 1090 |
+                         (STRATA > 3000 &
+                            STRATA < 3460)), "NMAB", Region)
+                )
+saveRDS(bsb_shape, here::here("black-sea-bass/bsb_shape.RDS"))
+```
+
+```{r}
+bsb_shape <- readRDS(here::here("black-sea-bass/bsb_shape.RDS"))
+```
+
+Plot to make sure everything looks right:
+
+```{r, echo = FALSE}
+xlims <- c(-81, -66)
+ylims <- c(34, 45)
+crs <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+ne_countries <- rnaturalearth::ne_countries(
+  scale = 10,
+  continent = "North America",
+  returnclass = "sf"
+) %>%
+  sf::st_transform()
+
+ne_states <- rnaturalearth::ne_states(
+  country = "united states of america",
+  returnclass = "sf"
+) %>% sf::st_transform()
+
+# plot
+p1 <- ggplot2::ggplot() +
+  ggplot2::geom_sf(
+    data = bsb_shape,
+    ggplot2::aes(fill = Region)
+  ) +
+  ggplot2::geom_sf(
+    data = ne_countries,
+    color = "grey60",
+    size = 0.25
+  ) +
+  ggplot2::geom_sf(
+    data = ne_states,
+    color = "grey60",
+    size = 0.05
+  ) +
+  ggplot2::coord_sf(
+    crs = crs,
+    xlim = xlims,
+    ylim = ylims
+  ) +
+  ggthemes::theme_map() +
+  ggplot2::theme(legend.direction = "horizontal")
+print(p1)
+```
+
+Simplify the shapefile:
+```{r}
+bsb_shape2 <- bsb_shape %>%
+  dplyr::group_by(Region) %>%
+dplyr::summarise(geometry = sf::st_union(geometry))
+
+bsb_shape2
+```
+
+Plot the simplified shapefile:
+
+```{r, echo = FALSE}
+p1 <- ggplot2::ggplot() +
+  ggplot2::geom_sf(
+    data = bsb_shape2,
+    ggplot2::aes(fill = Region)
+  ) +
+  ggplot2::geom_sf(
+    data = ne_countries,
+    color = "grey60",
+    size = 0.25
+  ) +
+  ggplot2::geom_sf(
+    data = ne_states,
+    color = "grey60",
+    size = 0.05
+  ) +
+  ggplot2::coord_sf(
+    crs = crs,
+    xlim = xlims,
+    ylim = ylims
+  ) +
+  ggthemes::theme_map() +
+  ggplot2::theme(legend.direction = "horizontal")
+print(p1)
+```
+
+Save both shapefiles:
+```{r}
+sf::write_sf(bsb_shape, here::here("black-sea-bass/full_strata_bsb.shp"))
+sf::write_sf(bsb_shape2, here::here("black-sea-bass/simplified_bsb.shp"))
+```

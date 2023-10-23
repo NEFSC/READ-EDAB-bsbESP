@@ -1,0 +1,913 @@
+---
+title: "Black sea bass environmental covariates"
+author: "Abigail Tyrell"
+date: "10/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+`%>%`<- magrittr::`%>%`
+```
+
+# Data
+
+## Black sea bass
+
+```{r}
+## south ----
+south_index1 <- readxl::read_excel(here::here("black-sea-bass/BSB.Southern.Region.Indices.xlsx"),
+                                             sheet = 1,
+                                   col_types = "numeric") %>%
+  dplyr::mutate(Survey = "Albatross")
+
+south_index2 <- readxl::read_excel(here::here("black-sea-bass/BSB.Southern.Region.Indices.xlsx"),
+                                  sheet = 2,
+                                  col_types = "numeric") %>%
+  dplyr::mutate(Survey = "NEAMAP") %>%
+  dplyr::mutate(Age1 = 1)
+
+south_index3 <- readxl::read_excel(here::here("black-sea-bass/BSB.Southern.Region.Indices.xlsx"),
+                                  sheet = 3,
+                                  col_types = "numeric") %>%
+  dplyr::mutate(Survey = "Bigelow")
+
+south_index <- rbind(south_index1, south_index3) %>%
+  dplyr::full_join(south_index2)
+
+dat <- south_index %>%
+  dplyr::mutate(Age1_N = Number * Age1) %>%
+  dplyr::select(Year, Survey, Age1_N) %>%
+  tidyr::drop_na() %>%
+  dplyr::group_by(Survey) %>%
+  # dplyr::mutate(normalized_N = Age1_N / mean(Age1_N))
+  dplyr::mutate(normalized_N = (Age1_N - mean(Age1_N)) / sd(Age1_N))
+
+## north ----
+north_index1 <- readxl::read_excel(here::here("black-sea-bass/BSB.Northern.Region.Indices.xlsx"),
+                                   sheet = 1,
+                                   col_types = "numeric") %>%
+  dplyr::mutate(Survey = "Albatross")
+
+north_index2 <- readxl::read_excel(here::here("black-sea-bass/BSB.Northern.Region.Indices.xlsx"),
+                                   sheet = 2,
+                                   col_types = "numeric") %>%
+  dplyr::mutate(Survey = "NEAMAP") 
+
+north_index3 <- readxl::read_excel(here::here("black-sea-bass/BSB.Northern.Region.Indices.xlsx"),
+                                   sheet = 3,
+                                   col_types = "numeric") %>%
+  dplyr::mutate(Survey = "Bigelow")
+
+north_index <- rbind(north_index1, north_index2, north_index3) 
+
+dat2 <- north_index %>%
+  dplyr::mutate(Age1_N = Number * Age1) %>%
+  dplyr::select(Year, Survey, Age1_N) %>%
+  tidyr::drop_na() %>%
+  dplyr::group_by(Survey) %>%
+  # dplyr::mutate(normalized_N = Age1_N / mean(Age1_N))
+  dplyr::mutate(normalized_N = (Age1_N - mean(Age1_N)) / sd(Age1_N))
+
+all_index <- rbind(dat %>%
+                     dplyr::mutate(Region = "South"),
+                   dat2 %>%
+                     dplyr::mutate(Region = "North"))
+
+south_rec <- read.table(here::here("black-sea-bass/SOUTH.MT.2021.FINAL.STD.txt"),
+                        header = TRUE) %>%
+  dplyr::filter(stringr::str_detect(name, "log_recruit_devs")) %>%
+  dplyr::mutate(Year = 1989:2019,
+                Region = "South")
+
+north_rec <- read.table(here::here("black-sea-bass/NORTH.MT.2021.FINAL.STD.txt"),
+                        header = TRUE) %>%
+  dplyr::filter(stringr::str_detect(name, "log_recruit_devs")) %>%
+  dplyr::mutate(Year = 1989:2019,
+                Region = "North")
+
+all_rec <- dplyr::full_join(north_rec, south_rec)
+
+all_index2 <- dplyr::full_join(all_index %>%
+                                dplyr::select(-Age1_N),
+                              all_rec %>%
+                                dplyr::rename(Survey = name,
+                                              normalized_N = value) %>%
+                                dplyr::select(-index, -stddev),
+                              by = c("Year",
+                                     "Region",
+                                     "Survey",
+                                     "normalized_N")) %>%
+  dplyr::rename(Index = normalized_N)
+```
+
+### Numbers in surveys
+
+```{r}
+all_index %>%
+    ggplot2::ggplot(ggplot2::aes(x = Year,
+                               y = Age1_N,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_wrap(~Survey,
+                      ncol = 1,
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2)
+```
+
+Why do the Bigelow and NEAMAP catch almost nothing in the South?
+
+### Anomalies in age-1 surveys; log recruitment deviations
+
+```{r, fig.height = 4}
+all_index2 %>%
+  ggplot2::ggplot(ggplot2::aes(x = Year,
+                               y = Index,
+                               color = Survey)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_wrap(~Region,
+                      ncol = 1) +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2)
+```
+
+## Temperature 
+
+### SST anomalies
+
+```{r}
+covariates <- ecodata::ESP_seasonal_oisst_anom %>% 
+                     dplyr::filter(stringr::str_detect(ESP, "bass")) %>%
+                     dplyr::mutate(Var = paste(ESP %>% 
+                                                 stringr::str_remove("_spring") %>% 
+                                                 stringr::str_remove("black_sea_bass"), 
+                                               Var) %>%
+                                     stringr::str_replace_all("_", " "),
+                                   Season = dplyr::case_when(stringr::str_detect(Var, "summer") ~ "summer",
+                                                             stringr::str_detect(Var, "spring") ~ "spring",
+                                                             stringr::str_detect(Var, "fall") ~ "fall",
+                                                             stringr::str_detect(Var, "winter") ~ "winter"),
+                                   Region = dplyr::case_when(stringr::str_detect(Var, "north") ~ "North",
+                                                             stringr::str_detect(Var, "south") ~ "South",
+                                                             stringr::str_detect(Var, "north", negate = TRUE) & stringr::str_detect(Var, "south", negate = TRUE)
+                                                               ~ "all",
+                                                             ))
+
+covariates %>%
+  ggplot2::ggplot(ggplot2::aes(x = Time,
+                               y = Value,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::facet_wrap(~Season) +
+  ggplot2::theme_bw()
+```
+
+### Bottom temperature (seasonal effect removed)
+
+```{r}
+bt1 <- readxl::read_excel(here::here("black-sea-bass/MAB_regAvg_TSanom_BSB.xlsx"),
+                         sheet = 1) %>%
+  dplyr::mutate(Region = "South")
+
+bt2 <- readxl::read_excel(here::here("black-sea-bass/MAB_regAvg_TSanom_BSB.xlsx"),
+                         sheet = 2) %>%
+  dplyr::mutate(Region = "North")
+
+bt3 <- readxl::read_excel(here::here("black-sea-bass/MAB_regAvg_TSanom_BSB.xlsx"),
+                         sheet = 3) %>%
+  dplyr::mutate(Region = "All")
+
+bt <- rbind(bt1, bt2, bt3) %>%
+  dplyr::mutate(decimal = Year - floor(Year),
+                Season = dplyr::case_when(decimal <= 0.25 ~ "winter",
+                                          decimal > 0.25 & decimal <= 0.5 ~ "spring",
+                                          decimal > 0.5 & decimal <= 0.75 ~ "summer",
+                                          decimal >0.75 ~ "fall"))
+
+bt %>%
+  ggplot2::ggplot(ggplot2::aes(x = floor(Year),
+                               y = T,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = `Annual Avg T`,
+                                     color = Region),
+                      lty = 2) +
+  ggplot2::facet_wrap(~Season) +
+  ggplot2::theme_bw() +
+  ggplot2::ggtitle("Temperature")
+
+bt %>%
+  ggplot2::ggplot(ggplot2::aes(x = floor(Year),
+                               y = as.numeric(S),
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = `Annual Avg S`,
+                                     color = Region),
+                      lty = 2) +
+  ggplot2::facet_wrap(~Season) +
+  ggplot2::theme_bw() +
+  ggplot2::ggtitle("Salinity")
+```
+
+# Compare to surface temperatures
+
+## Compare to survey anomaly
+
+```{r}
+plt_correlation <- function(data) {
+  plt <- data %>%
+    ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = Index,
+                               fill = Survey)) +
+  ggplot2::geom_point(pch = 21) +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(Region),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(ggplot2::aes(color = Survey),
+                       method = "lm",
+                       se = FALSE,
+                       lty = 2
+                       ) +
+  ggplot2::ylab("Index") +
+  ggplot2::xlab("covariate value") +
+  ggplot2::theme(legend.position = "bottom")
+  
+  return(plt)
+}
+```
+
+### Northern contingent
+```{r}
+dat <- dplyr::left_join(all_index2, 
+                 covariates %>%
+                   # dplyr::filter(stringr::str_detect(Var, "summer")) %>%
+                   dplyr::mutate(Time = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               Time + 1, Time),
+                                 Var = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               paste("prior", Var), Var)),
+                 by = c("Year" = "Time", "Region")) 
+
+dat %>%
+  dplyr::filter(Region == "North") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_correlation()
+```
+
+### Southern contingent
+```{r}
+dat %>%
+  dplyr::filter(Region == "South") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_correlation()
+```
+
+### Thoughts
+
+Northern recruitment deviations are almost always larger (more positive) when it has been a warm year. NEAMAP and Bigelow surveys show the same positive correlation with temperature in winter and spring. But why would there be no pattern in the Albatross years?
+
+## Compare to log survey N
+
+```{r}
+plt_N_correlation <- function(data) {
+  plt <- data %>%
+    ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = log(Age1_N),
+                               fill = Survey)) +
+  ggplot2::geom_point(pch = 21) +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(Region),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(ggplot2::aes(color = Survey),
+                       method = "lm",
+                       se = FALSE,
+                       lty = 2
+                       ) +
+  ggplot2::ylab("log(Survey N)") +
+  ggplot2::xlab("covariate value") +
+  ggplot2::theme(legend.position = "bottom")
+
+  return(plt)
+}
+```
+
+
+### Northern contingent
+```{r}
+dat <- dplyr::left_join(all_index, 
+                 covariates %>%
+                   # dplyr::filter(stringr::str_detect(Var, "summer")) %>%
+                   dplyr::mutate(Time = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               Time + 1, Time),
+                                 Var = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               paste("prior", Var), Var)),
+                 by = c("Year" = "Time", "Region")) 
+
+dat %>%
+  dplyr::filter(Region == "North") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_N_correlation()
+```
+
+### Southern contingent
+```{r}
+dat %>%
+  dplyr::filter(Region == "South") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_N_correlation()
+```
+
+## Table
+
+```{r}
+dat <- dplyr::full_join(
+  all_index2 %>%
+    dplyr::filter(Region == "North"),
+  covariates %>%
+  dplyr::filter(Region == "North") %>%
+    dplyr::select(Value, Time, Season) %>%
+    dplyr::mutate(Time = ifelse(Season == "summer" |
+                                  Season == "fall",
+                                Time - 1, Time),
+                  Season = ifelse(Season == "summer" |
+                                  Season == "fall",
+                                paste("prior", Season), Season)),
+  by = c("Year" = "Time",
+         "Index" = "Value",
+         "Survey" = "Season")
+)
+
+ft <- dat %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(Year, Survey, Index) %>% 
+  tidyr::pivot_wider(names_from = Survey, 
+                     values_from = Index) %>%
+  dplyr::filter(!(is.na(Bigelow) &
+                is.na(Albatross) &
+                is.na(NEAMAP)))
+
+col_palette <- c("#D73027", "#F46D43", "#FDAE61", "#FEE08B", 
+  "#D9EF8B", "#A6D96A", "#66BD63", "#1A9850")
+
+my_matrix <- as.matrix(ft)
+
+mycut <- cut(
+  my_matrix, 
+  breaks = seq(-3.5, 3.5, length.out = 8), 
+  include.lowest = TRUE, 
+  label = FALSE)
+
+mycolors <- col_palette[mycut]
+```
+
+```{r, results = "asis"}
+flextable::flextable(ft %>%
+  dplyr::mutate(Year = as.character(Year))) %>%
+  flextable::bg(j = colnames(my_matrix), bg = mycolors) %>%
+  flextable::colformat_double(digits = 2)
+```
+
+## More thoughts
+
+None of the age 1 surveys seem to have a trend over time, and they don't seem to be strongly related to temperature in any season. However, the assessment model (northern contingent) has a positive time trend in log recruitment deviations, meaning it used to over-predict recruitment, and now it is under-predicting recruitment. There used to be fewer recruits than predicted, and now there are more recruits than predicted. Given that the age 1 indices aren't trending in any particular direction, it seems to me that something else is causing this pattern in the recruitment deviations (it is not a change in the "true" number of age 1 fish). Maybe northern fish used to leave the system (migrate to the southern contingent, reducing the year class size and pulling recruitment down), and now southern fish are entering the north (increasing year class size and pulling recruitment up).  
+
+# Compare to bottom temperatures
+
+## Compare to survey anomaly
+
+### Northern contingent
+```{r}
+dat <- dplyr::left_join(all_index2, 
+                 bt %>%
+                                      dplyr::mutate(Year = Year + 1,
+                                 Var = paste(Region, Season, "bottom temp"),
+                                 Year = floor(Year),
+                                 Value = T) %>% 
+                   dplyr::select(Year, Value, Var, Region) %>%
+                   dplyr::mutate(Year = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               Year + 1, Year),
+                                 Var = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               paste("prior", Var), Var)),
+                 by = c("Year", "Region")) %>%
+  tidyr::drop_na()
+
+dat %>%
+  dplyr::filter(Region == "North") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_correlation()
+```
+
+### Southern contingent
+```{r}
+dat %>%
+  dplyr::filter(Region == "South") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_correlation()
+```
+
+### Thoughts
+
+Similar patterns to SST. Northern recruitment deviations are almost always larger (more positive) when it has been a warm year. NEAMAP and Bigelow surveys show the same positive correlation with temperature in winter and spring. But why would there be no pattern in the Albatross years?
+
+## Compare to log survey N
+
+### Northern contingent
+```{r}
+dat <- dplyr::left_join(all_index, 
+                 bt %>%
+                                      dplyr::mutate(Year = Year + 1,
+                                 Var = paste(Region, Season, "bottom temp"),
+                                 Year = floor(Year),
+                                 Value = T) %>% 
+                   dplyr::select(Year, Value, Var, Region) %>%
+                   dplyr::mutate(Year = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               Year + 1, Year),
+                                 Var = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               paste("prior", Var), Var)),
+                 by = c("Year", "Region")) %>%
+  tidyr::drop_na()
+
+dat %>%
+  dplyr::filter(Region == "North") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_N_correlation()
+```
+
+### Southern contingent
+```{r}
+dat %>%
+  dplyr::filter(Region == "South") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_N_correlation()
+```
+
+
+## Table
+
+```{r}
+dat <- dplyr::full_join(
+  all_index2 %>%
+    dplyr::filter(Region == "North"),
+  bt %>%
+  dplyr::filter(Region == "North") %>%
+    dplyr::mutate(Value = T,
+                  Time = floor(Year),
+                  Decimal_Year = Year - Time) %>%
+    dplyr::select(Value, Time, Season, Decimal_Year) %>%
+    dplyr::mutate(Time = ifelse(Season == "summer" |
+                                  Season == "fall",
+                                Time - 1, Time),
+                  Season = ifelse(Season == "summer" |
+                                  Season == "fall",
+                                paste("prior", Season), Season)) %>% 
+  dplyr::group_by(Time, Season) %>%
+  dplyr::mutate(row_num = dplyr::row_number()),
+  by = c("Year" = "Time",
+         "Index" = "Value",
+         "Survey" = "Season")
+)
+
+ft <- dat %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(Year, Survey, Index, row_num)%>%
+  tidyr::pivot_wider(names_from = c(Survey, row_num),
+                     values_from = Index) %>%
+  dplyr::rename(Bigelow = Bigelow_NA,
+                Albatross = Albatross_NA,
+                NEAMAP = NEAMAP_NA) %>%
+  dplyr::filter(!(is.na(Bigelow) &
+                is.na(Albatross) &
+                is.na(NEAMAP)))
+
+col_palette <- c("#D73027", "#F46D43", "#FDAE61", "#FEE08B", 
+  "#D9EF8B", "#A6D96A", "#66BD63", "#1A9850",
+  # rev
+  (c("#D73027", "#F46D43", "#FDAE61", "#FEE08B", 
+  "#D9EF8B", "#A6D96A", "#66BD63", "#1A9850")))
+
+my_matrix <- as.matrix(ft)
+
+mycut <- cut(
+  my_matrix, 
+  breaks = c(seq(-3.5, 3.5, length.out = 8),
+             seq(6.5, 13, length.out = 8)), 
+  include.lowest = TRUE, 
+  label = FALSE)
+
+mycolors <- col_palette[mycut]
+```
+
+```{r, results = "asis"}
+flextable::flextable(ft %>%
+  dplyr::mutate(Year = as.character(Year))) %>%
+  flextable::bg(j = colnames(my_matrix), bg = mycolors) %>%
+  flextable::colformat_double(digits = 2)
+```
+
+## More thoughts
+
+None of the age 1 surveys seem to have a trend over time, and they don't seem to be strongly related to temperature in any season. However, the assessment model (northern contingent) has a positive time trend in log recruitment deviations, meaning it used to over-predict recruitment, and now it is under-predicting recruitment. There used to be fewer recruits than predicted, and now there are more recruits than predicted. Given that the age 1 indices aren't trending in any particular direction, it seems to me that something else is causing this pattern in the recruitment deviations (it is not a change in the "true" number of age 1 fish). Maybe northern fish used to leave the system (migrate to the southern contingent, reducing the year class size and pulling recruitment down), and now southern fish are entering the north (increasing year class size and pulling recruitment up).  
+
+# More ages
+
+## All
+
+```{r}
+all_ages <- rbind(north_index %>%
+                    dplyr::mutate(Region = "North"),
+                  south_index %>%
+                    dplyr::mutate(Region = "South")) %>%
+  tidyr::pivot_longer(cols = 3:10) %>%
+  dplyr::mutate(n_at_age = Number * value) %>%
+  dplyr::group_by(Region, Survey, name) %>%
+  dplyr::mutate(mean_n = mean(n_at_age, na.rm = TRUE),
+                sd_n = sd(n_at_age, na.rm = TRUE)) %>%
+  dplyr::group_by(Region, Survey, name, Year) %>%
+  dplyr::mutate(anomaly = (n_at_age - mean_n) / sd_n)
+
+all_ages %>%
+  dplyr::filter(n_at_age > 0) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Year,
+                               y = n_at_age,
+                               color = Survey)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Region),
+                      rows = ggplot2::vars(name),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::ggtitle("Numbers at age")
+
+all_ages %>%
+  dplyr::filter(n_at_age > 0) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Year,
+                               y = anomaly,
+                               color = Survey)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Region),
+                      rows = ggplot2::vars(name),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::ggtitle("Anomalies at age")
+
+## north vs south
+
+# all_ages %>%
+#   dplyr::select(Survey, Region, name, anomaly, Year) %>%
+#   tidyr::pivot_wider(values_from = anomaly,
+#                      names_from = Region) %>%
+#   ggplot2::ggplot(ggplot2::aes(x = South,
+#                                y = North,
+#                                color = Survey)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_line() +
+#   ggplot2::theme_bw() +
+#   ggplot2::facet_grid(#cols = ggplot2::vars(Region),
+#                       rows = ggplot2::vars(name),
+#                       scales = "free_y") +
+#   ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+#                       lty = 2) 
+
+all_ages2 <- dplyr::full_join(all_ages %>%
+  dplyr::mutate(numeric_age = name %>%
+                  stringr::str_remove("Age") %>%
+                  as.numeric(),
+                year_recruited = Year - numeric_age + 1) ,
+                              all_index2 %>% 
+                                dplyr::filter(Survey == "log_recruit_devs") %>%
+                                dplyr::ungroup() %>%
+                                dplyr::select(-Survey) %>%
+    dplyr::rename(year_recruited = Year)
+                              )
+
+all_ages2 %>%
+  ggplot2::ggplot(ggplot2::aes(x = anomaly,
+                               y = Index,
+                               color = year_recruited,
+                               shape = Survey)) +
+  ggplot2::geom_point() +
+  # ggplot2::geom_line() +
+  ggplot2::stat_smooth(method = "lm", 
+                       se = FALSE,
+                       lty = 2) +
+  nmfspalette::scale_color_nmfs(palette = "regional web",
+                                discrete = FALSE) +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Region),
+                      rows = ggplot2::vars(name),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::xlab("Survey abundance anomaly at age") +
+  ggplot2::ylab("Recruitment deviations for the year class")
+
+all_ages2 %>%
+    ggplot2::ggplot() +
+    ggplot2::geom_col(data = all_ages2 %>%
+                        dplyr::ungroup() %>%
+                        dplyr::select(Year, Index, name, Region) %>%
+                        dplyr::distinct(),
+                      ggplot2::aes(x = Year,
+                                   y = Index),
+                      color = "gray",
+                      fill = "gray") +
+    ggplot2::geom_point(ggplot2::aes(x = Year,
+                                 y = anomaly,
+                                 color = Survey)) +
+    ggplot2::geom_line(ggplot2::aes(x = Year,
+                                 y = anomaly,
+                                 color = Survey)) +
+    ggplot2::theme_bw() +
+    ggplot2::facet_grid(cols = ggplot2::vars(Region),
+                        rows = ggplot2::vars(name)) +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                        lty = 2)
+```
+
+## Cohorts
+
+### Numbers at age
+
+```{r, fig.height = 12}
+all_ages2 <- all_ages %>%
+  dplyr::mutate(numeric_age = name %>%
+                  stringr::str_remove("Age") %>%
+                  as.numeric(),
+                birth_year = Year - numeric_age)
+
+all_ages2 %>%
+  dplyr::filter(n_at_age > 0,
+                Survey == "Albatross") %>%
+  ggplot2::ggplot(ggplot2::aes(x = numeric_age,
+                               y = n_at_age,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Survey),
+                      rows = ggplot2::vars(Year),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::ggtitle("Numbers at age")
+
+all_ages2 %>%
+  dplyr::filter(n_at_age > 0,
+                Survey != "Albatross") %>%
+  ggplot2::ggplot(ggplot2::aes(x = numeric_age,
+                               y = n_at_age,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Survey),
+                      rows = ggplot2::vars(Year),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::ggtitle("Numbers at age")
+```
+
+### Anomalies
+
+```{r, fig.height = 12}
+all_ages2 %>%
+  dplyr::filter(n_at_age > 0,
+                Survey == "Albatross") %>%
+  ggplot2::ggplot(ggplot2::aes(x = numeric_age,
+                               y = anomaly,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Survey),
+                      rows = ggplot2::vars(Year),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::ggtitle("Anomalies at age")
+
+all_ages2 %>%
+  dplyr::filter(n_at_age > 0,
+                Survey != "Albatross") %>%
+  ggplot2::ggplot(ggplot2::aes(x = numeric_age,
+                               y = anomaly,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Survey),
+                      rows = ggplot2::vars(Year),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::ggtitle("Anomalies at age")
+```
+
+```{r}
+all_ages2 %>% 
+  dplyr::filter(name != "Age1") %>%
+  dplyr::group_by(Survey, Region, birth_year) %>% 
+  dplyr::summarise(mean_anomaly = mean(anomaly, na.rm = TRUE)) %>%
+    ggplot2::ggplot(ggplot2::aes(x = birth_year + 1,
+                               y = mean_anomaly,
+                               color = Region)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Survey),
+                      # rows = ggplot2::vars(Year),
+                      scales = "free_y") +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::ggtitle("Mean anomalies by year recruited (birth year + 1), ages 2+")
+
+all_ages2 %>% 
+    dplyr::filter(name != "Age1") %>%
+    dplyr::group_by(Survey, Region, Year) %>% 
+    dplyr::summarise(mean_anomaly = mean(anomaly, na.rm = TRUE)) %>% 
+  tidyr::drop_na() %>%
+    ggplot2::ggplot(ggplot2::aes(x = Year,
+                                 y = mean_anomaly,
+                                 color = Region)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_line() +
+    ggplot2::theme_bw() +
+    ggplot2::facet_grid(cols = ggplot2::vars(Survey),
+                        # rows = ggplot2::vars(Year),
+                        scales = "free_y") +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                        lty = 2) +
+    ggplot2::ggtitle("Mean anomalies by year, ages 2+")
+
+cohort_anom <- all_ages2 %>% 
+  dplyr::filter(name != "Age1") %>%
+  dplyr::group_by(Survey, Region, birth_year) %>% 
+  dplyr::summarise(mean_anomaly = mean(anomaly, na.rm = TRUE),
+                   sd_anomaly = sd(anomaly, na.rm = TRUE)) %>%
+  dplyr::mutate(Year_recruited = birth_year + 1)
+
+rec_devs <- all_index2 %>% 
+  dplyr::filter(Survey == "log_recruit_devs") %>%
+  dplyr::rename(Year_recruited = Year,
+                Rec_devs = Index) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(-Survey)
+
+all_dat <- dplyr::full_join(cohort_anom, 
+                            rec_devs) %>%
+  tidyr::drop_na(Rec_devs)
+
+all_dat %>%
+  tidyr::drop_na() %>%
+  ggplot2::ggplot(ggplot2::aes(x = mean_anomaly,
+                               y = Rec_devs,
+                               color = Year_recruited)) +
+      ggplot2::geom_point() +
+  ggplot2::geom_errorbarh(ggplot2::aes(xmin = mean_anomaly - 1.96*sd_anomaly,
+                                      xmax = mean_anomaly + 1.96*sd_anomaly)) +
+    ggplot2::theme_bw() +
+    ggplot2::facet_grid(cols = ggplot2::vars(Survey),
+                         rows = ggplot2::vars(Region),
+                        scales = "free") +
+  ggplot2::stat_smooth(method = "lm",
+                       lty = 2,
+                       se = FALSE) +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                        lty = 2) +
+  ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
+                        lty = 2) +
+  viridis::scale_color_viridis() +
+  ggplot2::theme(legend.position = "bottom") +
+  ggplot2::xlab("Mean index anomaly for the year class") +
+  ggplot2::ylab("Modeled recruitment deviations for the year class (ages 2+)")
+```
+
+
+# Compare to surface temperatures
+
+## Compare to survey anomaly
+
+```{r}
+plt_correlation <- function(data) {
+  plt <- data %>%
+    ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = anomaly,
+                               fill = Survey)) +
+  ggplot2::geom_point(pch = 21) +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(name),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(ggplot2::aes(color = Survey),
+                       method = "lm",
+                       se = FALSE,
+                       lty = 2
+                       ) +
+  ggplot2::ylab("Index") +
+  ggplot2::xlab("covariate value") +
+  ggplot2::theme(legend.position = "bottom")
+  
+  return(plt)
+}
+```
+
+### Northern contingent
+```{r, fig.height = 8}
+dat <- dplyr::left_join(all_ages2, 
+                 covariates %>%
+                   # dplyr::filter(stringr::str_detect(Var, "summer")) %>%
+                   dplyr::mutate(Time = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               Time + 1, Time),
+                                 Var = ifelse(stringr::str_detect(Var, "summer") |
+                                                 stringr::str_detect(Var, "fall"),
+                                               paste("prior", Var), Var)),
+                 by = c("Year" = "Time", "Region")) 
+
+dat %>%
+  dplyr::filter(Region == "North") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_correlation()
+```
+
+### Southern contingent
+```{r, fig.height = 8}
+dat %>%
+  dplyr::filter(Region == "South") %>%
+  dplyr::mutate(Var = stringr::str_wrap(Var, 20)) %>%
+  plt_correlation()
+```
+
+
+`r knitr::knit_exit()`
+
+### Thoughts
+
+Northern recruitment deviations are almost always larger (more positive) when it has been a warm year. NEAMAP and Bigelow surveys show the same positive correlation with temperature in winter and spring. But why would there be no pattern in the Albatross years?
+
+## Compare to log survey N
+
+```{r}
+plt_N_correlation <- function(data) {
+  plt <- data %>%
+    ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = log(Age1_N),
+                               fill = Survey)) +
+  ggplot2::geom_point(pch = 21) +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(Region),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(ggplot2::aes(color = Survey),
+                       method = "lm",
+                       se = FALSE,
+                       lty = 2
+                       ) +
+  ggplot2::ylab("log(Survey N)") +
+  ggplot2::xlab("covariate value") +
+  ggplot2::theme(legend.position = "bottom")
+
+  return(plt)
+}
+```
+
+
+
+
+

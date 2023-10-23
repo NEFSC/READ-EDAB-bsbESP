@@ -1,0 +1,131 @@
+---
+title: "Black sea bass environmental covariates"
+author: "Abigail Tyrell"
+date: "10/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+`%>%`<- magrittr::`%>%`
+```
+
+
+```{r}
+south_rec <- read.table(here::here("black-sea-bass/SOUTH.MT.2021.FINAL.STD.txt"),
+                        header = TRUE) %>%
+  dplyr::filter(stringr::str_detect(name, "log_recruit_devs")) %>%
+  dplyr::mutate(Year = 1989:2019,
+                group = "south")
+
+north_rec <- read.table(here::here("black-sea-bass/NORTH.MT.2021.FINAL.STD.txt"),
+                        header = TRUE) %>%
+  dplyr::filter(stringr::str_detect(name, "log_recruit_devs")) %>%
+  dplyr::mutate(Year = 1989:2019,
+                group = "north")
+
+all_rec <- dplyr::full_join(north_rec, south_rec)
+```
+
+# Compare to surface temperatures
+I don't have bottom temperature data yet
+
+## Prior year summer
+```{r}
+covariates <- ecodata::ESP_seasonal_oisst_anom %>% 
+                     dplyr::filter(stringr::str_detect(ESP, "bass")) %>%
+                     dplyr::mutate(Var = paste(ESP %>% 
+                                                 stringr::str_remove("_spring"), 
+                                               Var) %>%
+                                     stringr::str_replace_all("_", " ") %>%
+                                     stringr::str_wrap(20))
+  
+dplyr::left_join(all_rec, 
+                 covariates %>%
+                   dplyr::filter(stringr::str_detect(Var, "summer")) %>%
+                   dplyr::mutate(Time = Time + 1),
+                 by = c("Year" = "Time")) %>%
+  dplyr::filter(stringr::str_detect(Var, "bass")) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = value)) +
+  ggplot2::geom_point() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(group),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::ylab("log recruitment deviations") +
+  ggplot2::xlab("covariate value")
+```
+
+## Prior year fall
+```{r}
+dplyr::left_join(all_rec, 
+                 covariates %>%
+                   dplyr::filter(stringr::str_detect(Var, "fall")) %>%
+                   dplyr::mutate(Time = Time + 1),
+                 by = c("Year" = "Time")) %>%
+  dplyr::filter(stringr::str_detect(Var, "bass")) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = value)) +
+  ggplot2::geom_point() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(group),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::ylab("log recruitment deviations") +
+  ggplot2::xlab("covariate value")
+```
+
+## Same year winter
+```{r}
+dplyr::left_join(all_rec, 
+                 covariates %>%
+                   dplyr::filter(stringr::str_detect(Var, "winter")),
+                 by = c("Year" = "Time")) %>%
+  dplyr::filter(stringr::str_detect(Var, "bass")) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = value)) +
+  ggplot2::geom_point() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(group),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::ylab("log recruitment deviations") +
+  ggplot2::xlab("covariate value")
+```
+
+## Same year spring
+```{r}
+dplyr::left_join(all_rec, 
+                 covariates %>%
+                   dplyr::filter(stringr::str_detect(Var, "spring")),
+                 by = c("Year" = "Time")) %>%
+  dplyr::filter(stringr::str_detect(Var, "bass")) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Value,
+                               y = value)) +
+  ggplot2::geom_point() +
+  ggplot2::facet_grid(cols = ggplot2::vars(Var),
+                      rows = ggplot2::vars(group),
+                      scales = "free") +
+  ggplot2::theme_bw() +
+  ggplot2::geom_hline(ggplot2::aes(yintercept = 0),
+                      lty = 2) +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::ylab("log recruitment deviations") +
+  ggplot2::xlab("covariate value")
+```
+
+
+

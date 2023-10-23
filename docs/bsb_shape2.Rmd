@@ -1,0 +1,99 @@
+---
+title: "Black sea bass shapefiles"
+author: "Abigail Tyrell"
+date: "11/3/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+`%>%` <- magrittr::`%>%`
+```
+
+The purpose of this document is to create shapefiles for the southern MAB, northern MAB, and GB/GOM regions of black sea bass habitat.
+
+First, here are the coordinates Paula uses for the Northern MAB:
+```{r}
+lat <- c(40.50, 39.50, 40.00, 40.00, 41.00, 41.10, 41.00, 40.50)
+lon <- -c(74.00, 72.00, 71.40, 69.50, 69.50, 70.00, 72.00, 74.00)
+  
+shape_df <- data.frame(lon, lat)
+
+north <- shape_df %>% 
+  sf::st_as_sf(coords = c("lon", "lat"),
+               crs =  "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") %>% 
+  dplyr::summarise(geometry = sf::st_combine(geometry)) %>%
+  sf::st_cast("POLYGON")
+```
+
+Next, the coordinates for the Southern MAB:
+```{r}
+lat <- c(37.00, 36.00, 35.50, 36.00, 37.40, 39.50, 40.50, 39.40, 37.00)
+lon <- -c(76.00, 75.50, 75.00, 74.75, 74.50, 72.00, 74.00, 74.25, 76.00)
+  
+shape_df <- data.frame(lon, lat)
+
+south <- shape_df %>% 
+  sf::st_as_sf(coords = c("lon", "lat"),
+               crs =  "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") %>% 
+  dplyr::summarise(geometry = sf::st_combine(geometry)) %>%
+  sf::st_cast("POLYGON")
+```
+
+Combine north and south:
+```{r}
+bsb_shape <- rbind(north %>%
+                     dplyr::mutate(Region = "North"),
+                   south %>%
+                     dplyr::mutate(Region = "South"))
+```
+
+Plot to make sure it looks correct:
+
+```{r, echo = FALSE}
+xlims <- c(-81, -66)
+ylims <- c(34, 45)
+crs <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+ne_countries <- rnaturalearth::ne_countries(
+  scale = 10,
+  continent = "North America",
+  returnclass = "sf"
+) %>%
+  sf::st_transform()
+
+ne_states <- rnaturalearth::ne_states(
+  country = "united states of america",
+  returnclass = "sf"
+) %>% sf::st_transform()
+
+# plot
+p1 <- ggplot2::ggplot() +
+  ggplot2::geom_sf(
+    data = bsb_shape,
+    ggplot2::aes(fill = Region)
+  ) +
+  ggplot2::geom_sf(
+    data = ne_countries,
+    color = "grey60",
+    size = 0.25
+  ) +
+  ggplot2::geom_sf(
+    data = ne_states,
+    color = "grey60",
+    size = 0.05
+  ) +
+  ggplot2::coord_sf(
+    crs = crs,
+    xlim = xlims,
+    ylim = ylims
+  ) +
+  ggthemes::theme_map() +
+  ggplot2::theme(legend.direction = "horizontal")
+print(p1)
+```
+
+Save the shapefile:
+```{r}
+sf::write_sf(bsb_shape, here::here("black-sea-bass/bsb_shape.shp"))
+```

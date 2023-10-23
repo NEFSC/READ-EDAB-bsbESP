@@ -1,0 +1,146 @@
+---
+title: "Black sea bass temperature"
+author: "Abigail Tyrell"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      fig.height = 4,
+                      message = FALSE)
+
+`%>%` <- magrittr::`%>%`
+devtools::load_all()
+dat <- read.csv(here::here("data-raw/bsb_For_Rob.csv"))
+dat_hubert <- read.csv(here::here("data-raw/monthly_bottom_temp.csv"))
+
+all_temp <- dplyr::full_join(phys_data %>%
+                               dplyr::select(-Salinity, -Annual_Avg_S, -towdate, -day, -season) %>%
+                               dplyr::filter(month == 2 | month == 3) %>%
+                               dplyr::mutate(Region = dplyr::case_when(Region == "NMAB" ~ "North",
+                                                                       Region == "SMAB" ~ "South",
+                                                                       Region == "MAB" ~ "MAB"),
+                                             data_source = "Paula"),
+                             dat %>%
+                               dplyr::select(-Proportion, -X) %>%
+                               dplyr::mutate(data_source = "Alex"),
+                             by = c("Region" = "Stock",
+                                    "Year",
+                                    "data_source",
+                                    "month" = "Month",
+                                    "Temp" = "Btemp")) %>%
+  dplyr::full_join(dat_hubert %>%
+                     dplyr::mutate(data_source = "Hubert") %>%
+                     dplyr::filter(month %in% 2:3) %>%
+                     dplyr::select(-X),
+                   by = c("Year" = "year",
+                          "Temp" = "bt_temp",
+                   "Region", "data_source", "month"))
+```
+
+The purpose of this document is to explore bottom temperature in black sea bass regions from various data sources.
+
+# Temperature
+
+```{r}
+all_temp %>%
+  tidyr::drop_na(month) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Year,
+                               y = Temp,
+                               color = data_source)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line(lty = 2) +
+  ggplot2::facet_grid(cols = ggplot2::vars(month),
+                      rows = ggplot2::vars(Region)) +
+  ggplot2::theme_bw()
+```
+
+With mean subtracted to put temperatures on similar scale:
+
+```{r}
+all_temp %>%
+  tidyr::drop_na(month) %>%
+  dplyr::group_by(month, Region, data_source) %>%
+  dplyr::mutate(new_temp = Temp - mean(Temp)) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Year,
+                               y = new_temp,
+                               color = data_source)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line(lty = 2) +
+  ggplot2::facet_grid(cols = ggplot2::vars(month),
+                      rows = ggplot2::vars(Region)) +
+  ggplot2::theme_bw()
+```
+
+# Compare to black sea bass
+
+```{r}
+props <- dat %>%
+  tidyr::drop_na() %>%
+  dplyr::select(Year, Stock, Proportion) %>%
+  dplyr::distinct()
+```
+
+Black sea bass proportions over time:
+
+
+```{r}
+props %>%
+  ggplot2::ggplot(ggplot2::aes(x = Year,
+                               y = Proportion,
+                               color = Stock)) +
+  ggplot2::geom_point(alpha = 0.8) +
+  ggplot2::geom_path(lty = 2,
+                     alpha = 0.5) +
+  ggplot2::theme_bw()
+```
+
+
+```{r}
+dat2 <- dplyr::full_join(props, 
+                         all_temp %>%
+                             tidyr::drop_na(month) %>%
+  dplyr::group_by(month, Region, data_source) %>%
+  dplyr::mutate(new_temp = Temp - mean(Temp))
+  ) %>%
+  tidyr::drop_na(Stock) %>%
+  dplyr::rename(Temp_region = Region) %>%
+  dplyr::mutate(Temp_region = paste("Temperature in", Temp_region),
+                Stock = paste(Stock, "subunit"))
+```
+
+Stock relationship with temperature in February:
+
+```{r}
+dat2 %>%
+  dplyr::filter(month == 2) %>%
+  ggplot2::ggplot(ggplot2::aes(x = new_temp,
+                               y = Proportion,
+                               color = data_source)) +
+  ggplot2::geom_point(alpha = 0.8) +
+  ggplot2::geom_path(lty = 2,
+                     alpha = 0.5) +
+  ggplot2::facet_grid(cols = ggplot2::vars(Temp_region),
+                      rows = ggplot2::vars(Stock)) +
+  ggplot2::theme_bw()
+```
+
+Stock relationship with temperature in March:
+
+```{r}
+dat2 %>%
+  dplyr::filter(month == 3) %>%
+  ggplot2::ggplot(ggplot2::aes(x = new_temp,
+                               y = Proportion,
+                               color = data_source)) +
+  ggplot2::geom_point(alpha = 0.8) +
+  ggplot2::geom_path(lty = 2,
+                     alpha = 0.5) +
+  ggplot2::facet_grid(cols = ggplot2::vars(Temp_region),
+                      rows = ggplot2::vars(Stock)) +
+  ggplot2::theme_bw()
+```
+
+
+
