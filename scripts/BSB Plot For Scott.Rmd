@@ -1,0 +1,128 @@
+---
+title: "BSB Strata Mapping"
+output: html_document
+date: "2023-11-28"
+---
+# Brining in shape files
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#Read in shapefiles
+remotes::install_github("NEFSC/NEFSC-Spatial")
+
+library(sf)
+# library(sp)
+# library(maptools)
+library(tidyverse)
+# stat.areas <- read_sf(here::here('data-raw/bsb_shape.shp'))
+
+stats <- NEFSCspatial::BTS_Strata
+usa <- read_sf(here::here("data-raw/shapefiles/USA.shp"))
+canada <- read_sf(here::here("data-raw/shapefiles/Canada.shp"))
+eez <- read_sf(here::here("data-raw/shapefiles/eez.shp"))
+bsb <- read_sf(here::here("data-raw/bsb_shape.shp"))
+bsb_areas <- read.csv(here::here("data-raw/BSB.2021RT.Strata.Specs.For.Biology.Analyses.csv"))
+
+bsb_stats <- stats %>% 
+  filter(STRATA %in% bsb_areas$Stratum)
+
+```
+
+# Making a plot
+
+```{r message=FALSE, warning=FALSE}
+#Making a ggplot version
+#Getting bathy data
+# library(marmap)
+# atl <- marmap::getNOAA.bathy(-80,-66, 33, 45.5)
+# atl <- read.bathy("./bathydata/marmap_coord_-80_33_-66_46_res_1.csv",header = TRUE)
+# atl = fortify.bathy(atl)
+
+## prepare bottom depth
+xlims <- c(-77, -65)
+ylims <- c(35, 45)
+res <- 1
+bath_filename <- sprintf("marmap_coord_%s;%s;%s;%s_res_%s.csv",
+                         xlims[1], ylims[1], xlims[2], ylims[2], res)
+
+if(!bath_filename %in% list.files(here::here("data/"))){
+  # 200 m isobath layer
+  nesbath <- marmap::getNOAA.bathy(lon1 = xlims[1], lon2 = xlims[2],
+                                   lat1 = ylims[1], lat2 = ylims[2],
+                                   resolution = res,
+                                   keep = TRUE) %>%
+    marmap::as.xyz()
+
+  file.copy(bath_filename, here::here("data/"))
+  file.remove(bath_filename)
+} else {
+  nesbath <- marmap::read.bathy(here::here(sprintf("data/%s", bath_filename)), header = T) %>%
+    marmap::as.xyz()
+}
+
+
+#Setting the map boundary
+lons = c(-75.8, -66.9)
+lats = c(35.5, 44)
+
+#loading two more packages
+library(pals)
+library(ggthemes)
+library(ggnewscale)
+library(ggspatial)
+
+#Adding survey strata
+# proj4string(strata) = CRS("+proj=longlat +ellps=WGS84")
+# proj4string(strata) <- CRS("+init=epsg:4326")
+
+label_interval <- function(breaks) {
+  paste0("(", breaks[1:length(breaks) - 1], "-", breaks[2:length(breaks)], ")")
+}
+
+#Making breaks for depths
+my_depths <- c(0,50,100,200,300,Inf)
+
+#Putting it all together in a rough ggplot
+p1 <- ggplot() + 
+  ### Adding bathy data
+  geom_contour_filled(data = nesbath,
+                      aes(x=V1,y=V2,z=-1*V3),
+                      breaks=c(0,50,100,250,500,Inf),
+                      size=c(0.3)) +
+  scale_fill_manual(values = pals::brewer.blues(20)[5:20],
+                    name = paste("Depth (m)"),
+                    labels = label_interval(my_depths)) +
+  theme(legend.position = 'bottom',
+        legend.box = "vertical",
+        legend.margin = margin()) +
+  theme(legend.key.width=unit(0.25, "cm")) +
+  ### Data
+  geom_sf(data=eez, fill=NA, linetype='dashed') +
+  ggnewscale::new_scale_fill() +
+  geom_sf(data = canada) +
+  geom_sf(data = bsb_stats, fill = NA) +
+  geom_sf(data = usa) +
+  coord_sf(xlim = lons, ylim = lats, crs = 4140) +
+  ### More legend stuff
+  ggthemes::theme_map() +
+  theme(legend.position = c(1, 0), legend.justification = c(1, 0),
+        legend.spacing.y = unit(0.2, "mm"),
+        aspect.ratio = 1, axis.text = element_text(colour = 1, size = 12),
+        legend.background = element_rect(colour = 'White',fill='White'),
+        legend.box.background = element_rect(colour = 'White',fill='White')) +
+  theme(legend.key.width=unit(0.25, "cm"),legend.text=element_text(size=5)) +
+  scale_fill_manual(values = pals::brewer.spectral(3)) +
+  guides(fill=guide_legend(nrow=2),color=guide_legend(nrow=1),size=guide_legend(nrow=2)) +
+  ### Scale etc
+  ggspatial::annotation_scale(location = "tl", width_hint = 0.5) +
+  ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
+                                    pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
+                                    style = ggspatial::north_arrow_fancy_orienteering) +
+  ### BSB annotations
+  annotate("segment", x = -74, xend = -72, y = 40.5, yend = 39.5, colour = "blue", size = 1.5)+
+  annotate("text", x = -72.5, y = 38, label = "South") +
+  annotate("text", x = -70, y = 39.5, label = "North")
+p1
+
+ggsave(here::here("images/bsb_map.png"), p1, bg = "white", width = 205, height = 150, units = "mm")
+
+```
