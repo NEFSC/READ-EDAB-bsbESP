@@ -13,14 +13,13 @@
 
 # Libraries & functions ----
 
-library(tidync)
-library(ggplot2)
-library(terra)
-library(tidyr)
-library(dplyr)
-library(stringr)
 library(tidyverse)
+library(tidync)
+library(sf)
 
+# this function is not used but keeping here for reference
+# uses raster::mask instead of extracting intersecting cells
+# produces slightly different results
 create_temp_index <- function(shape, # shapefile to average over
                               fname, # filename of temp data (.nc)
                               region_name # north or south, will be returned in output
@@ -49,35 +48,85 @@ create_temp_index <- function(shape, # shapefile to average over
   data_bt2 <- df_bt %>%
     dplyr::mutate(month = RNetCDF::utcal.nc(tunit$value, .data$time)[,"month"],
                   year = RNetCDF::utcal.nc(tunit$value, .data$time)[,"year"]) %>%
-    dplyr::filter(month %in% 2:3)
-
-  # get mean
-  results <- data_bt2 %>%
-    group_by(year) %>%
-    summarize(subarea = region_name,
-              mean = mean(temp, na.rm = TRUE),
-              sd = sd(temp, na.rm = TRUE))
-  return(results)
+    dplyr::filter(month %in% 2:3) %>%
+    # calculate monthly mean
+    group_by(longitude, latitude, year, month) %>%
+    summarise(bt_temp = mean(temp , na.rm = TRUE)) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(year) %>%
+    # calculate results
+    summarise(mean = mean(bt_temp, na.rm = TRUE),
+              count = n(),
+              sd = sd(bt_temp, na.rm = TRUE),
+              se = sd/sqrt(count))
+  return(data_bt2)
 }
+# create_temp_index(fname = fname,
+#                   shape = shape_bsb,
+#                   region_name = "All")
 
 
 # Data ----
 fname <- here::here("data-raw/PSY_daily_BottomTemp_2020-01-012023-12-01.nc")
-bsb_area <- vect("data-raw/bsb_shape.shp")
+shape_bsb <- read_sf('data-raw/bsb_shape.shp') %>%
+  st_transform(4140)
 
 # Analyses ----
 
-## data update
+## load bottom temperature data and calculate monthly mean ----
+data_bt <- tidync(fname) %>%
+  hyper_tibble(force = TRUE)
 
-north <- create_temp_index(shape = subset(bsb_area, bsb_area$Region == "North"),
-                           fname = here::here("data-raw/PSY_daily_BottomTemp_2020-01-012023-12-01.nc"),
-                           region_name = "NMAB")
-south <- create_temp_index(shape = subset(bsb_area, bsb_area$Region == "South"),
-                           fname = here::here("data-raw/PSY_daily_BottomTemp_2020-01-012023-12-01.nc"),
-                           region_name = "SMAB")
+### get time info and add to tibble ----
+tunit <- ncmeta::nc_atts(fname, "time") %>%
+  dplyr::filter(name == "units") %>%
+  tidyr::unnest(cols = c(value))
 
-out <- rbind(north, south)
-write.csv(out, here::here("data-raw", paste0("output_", Sys.Date(), ".csv")))
+data_bt2 <- data_bt %>%
+  dplyr::mutate(month = RNetCDF::utcal.nc(tunit$value, .data$time)[,"month"],
+                year = RNetCDF::utcal.nc(tunit$value, .data$time)[,"year"]) %>%
+  # filter to feb and march
+  dplyr::filter(month %in% 2:3) %>%
+  # calculate monthly mean
+  group_by(longitude, latitude, year, month) %>%
+  summarise(bt_temp = mean(tob , na.rm = TRUE))
+
+## cut to area of interest ----
+# this could possibly be done quicker with raster::mask
+
+# Extract the grid and create a spatial object for each grid cell (center of the grid cell)
+glorys_grid <- unique(data_bt2[c("longitude","latitude")]) %>%
+  as.data.frame() %>%
+  bind_cols(geometry = st_as_sf(.,coords = c("longitude", "latitude"), crs = st_crs(shape_bsb)),.)
+
+# SPATIAL JOIN - identify cells whose the centers is included or intersect the BSB area
+cell_intersects <- st_join(shape_bsb, glorys_grid, join = st_intersects) %>%
+  as.data.frame()
+
+# select grid cells within the BSB areas and calculate the winter mean for each area
+data_bt_bsb <- inner_join(data_bt2, cell_intersects, by = c("longitude","latitude")) %>%
+  filter(month %in% c(2, 3)) %>%
+  group_by(Region, year) %>%
+  summarise(mean = mean(bt_temp, na.rm = TRUE),
+            count = n(),
+            sd = sd(bt_temp, na.rm = TRUE),
+            se = sd/sqrt(count))
+
+# select grid cells within the BSB areas and calculate the winter mean for entire area
+data_bt_bsb_all <- inner_join(data_bt2, cell_intersects, by = c("longitude","latitude")) %>%
+  filter(month %in% c(2, 3)) %>%
+  group_by(year) %>%
+  summarise(mean = mean(bt_temp, na.rm = TRUE),
+            count = n(),
+            sd = sd(bt_temp, na.rm = TRUE),
+            se = sd/sqrt(count))
+
+## create results tibble ----
+results <- rbind(data_bt_bsb,
+                 data_bt_bsb_all %>%
+                   dplyr::mutate(Region = "All"))
+
+write.csv(x = results, file = here::here("data", paste0(Sys.Date(), "_bsb_bt_temp_update.csv")), row.names = FALSE)
 
 ## compare to previous data ----
 dat <- read.csv("data/bsb_bt_temp_nmab_1959-2022.csv")
