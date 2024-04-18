@@ -29,7 +29,7 @@ create_temp_index <- function(shape, # shapefile to average over
   r <- rast(fname)
 
   # crop to size
-  this_r <- crop(r, shape)
+  this_r <- raster::mask(r, shape)
 
   # save temp file as .nc
   terra::writeCDF(this_r, "data-raw/temp.nc", overwrite = TRUE)
@@ -67,6 +67,8 @@ bsb_area <- vect("data-raw/bsb_shape.shp")
 
 # Analyses ----
 
+## data update
+
 north <- create_temp_index(shape = subset(bsb_area, bsb_area$Region == "North"),
                            fname = here::here("data-raw/PSY_daily_BottomTemp_2020-01-012023-12-01.nc"),
                            region_name = "NMAB")
@@ -74,3 +76,18 @@ south <- create_temp_index(shape = subset(bsb_area, bsb_area$Region == "South"),
                            fname = here::here("data-raw/PSY_daily_BottomTemp_2020-01-012023-12-01.nc"),
                            region_name = "SMAB")
 
+out <- rbind(north, south)
+write.csv(out, here::here("data-raw", paste0("output_", Sys.Date(), ".csv")))
+
+## compare to previous data ----
+dat <- read.csv("data/bsb_bt_temp_nmab_1959-2022.csv")
+sdat <- read.csv("data/bsb_bt_temp_smab_1959-2022.csv")
+
+dat2 <- dat %>%
+  dplyr::bind_rows(sdat) %>%
+  dplyr::rename(val = mean,
+                name = Region) %>%
+  dplyr::group_by(name) %>%
+  dplyr::mutate(mean = mean(val),
+                sd = sd(val)) %>%
+  dplyr::ungroup()
