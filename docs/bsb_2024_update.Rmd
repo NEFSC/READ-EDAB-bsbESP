@@ -1,0 +1,108 @@
+---
+title: "BSB 2024 bottom temp update"
+output: html_document
+date: "`r Sys.Date()`"
+author: "Abigail Tyrell"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+`%>%` <- magrittr::`%>%`
+
+library(tidyverse)
+library(tidync)
+library(sf)
+
+```
+
+## Data
+
+```{r}
+fname <- here::here("data-raw/cmems_mod_glo_phy_myint_0.083deg_P1D-m_1713817868836.nc")
+
+shape_bsb <- read_sf(here::here('data-raw/bsb_shape.shp')) %>%
+  st_transform(4140)
+```
+
+## Analysis
+
+```{r}
+## load bottom temperature data and calculate monthly mean ----
+data_bt <- tidync(fname) %>%
+  hyper_tibble(force = TRUE)
+
+### get time info and add to tibble ----
+tunit <- ncmeta::nc_atts(fname, "time") %>%
+  dplyr::filter(name == "units") %>%
+  tidyr::unnest(cols = c(value))
+
+data_bt2 <- data_bt %>%
+  dplyr::mutate(month = RNetCDF::utcal.nc(tunit$value, .data$time)[,"month"],
+                year = RNetCDF::utcal.nc(tunit$value, .data$time)[,"year"]) %>%
+  # filter to feb and march
+  dplyr::filter(month %in% 2:3) %>%
+  # calculate monthly mean
+  group_by(longitude, latitude, year, month) %>%
+  summarise(bt_temp = mean(bottomT, na.rm = TRUE))
+
+## cut to area of interest ----
+# this could possibly be done quicker with raster::mask
+
+# Extract the grid and create a spatial object for each grid cell (center of the grid cell)
+glorys_grid <- unique(data_bt2[c("longitude","latitude")]) %>%
+  as.data.frame() %>%
+  bind_cols(geometry = st_as_sf(.,coords = c("longitude", "latitude"), crs = st_crs(shape_bsb)),.)
+
+# SPATIAL JOIN - identify cells whose the centers is included or intersect the BSB area
+cell_intersects <- st_join(shape_bsb, glorys_grid, join = st_intersects) %>%
+  as.data.frame()
+
+# select grid cells within the BSB areas and calculate the winter mean for each area
+data_bt_bsb <- inner_join(data_bt2, cell_intersects, by = c("longitude","latitude")) %>%
+  filter(month %in% c(2, 3)) %>%
+  group_by(Region, year) %>%
+  summarise(mean = mean(bt_temp, na.rm = TRUE),
+            count = n(),
+            sd = sd(bt_temp, na.rm = TRUE),
+            se = sd/sqrt(count))
+
+# select grid cells within the BSB areas and calculate the winter mean for entire area
+data_bt_bsb_all <- inner_join(data_bt2, cell_intersects, by = c("longitude","latitude")) %>%
+  filter(month %in% c(2, 3)) %>%
+  group_by(year) %>%
+  summarise(mean = mean(bt_temp, na.rm = TRUE),
+            count = n(),
+            sd = sd(bt_temp, na.rm = TRUE),
+            se = sd/sqrt(count))
+
+## create results tibble ----
+results <- rbind(data_bt_bsb,
+                 data_bt_bsb_all %>%
+                   dplyr::mutate(Region = "All"))
+```
+
+## Compare to past data
+```{r, echo = FALSE}
+dat <- read.csv(here::here("data/bsb_bt_temp_nmab_1959-2022.csv"))
+sdat <- read.csv(here::here("data/bsb_bt_temp_smab_1959-2022.csv"))
+
+dat2 <- dat %>%
+  dplyr::bind_rows(sdat) %>%
+  dplyr::mutate(type = "2023 data") %>%
+  dplyr::bind_rows(results %>%
+                     dplyr::mutate(type = "2024 data"))
+
+dat2 %>%
+  dplyr::filter(Region != "All") %>%
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                               y = mean,
+                               color = Region,
+                               shape = type)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_path() + 
+  ggplot2::theme_bw() +
+  ggplot2::xlim(c(2010, 2023)) +
+  ggplot2::labs(title = "Mean bottom temperature in Feb & March")
+```

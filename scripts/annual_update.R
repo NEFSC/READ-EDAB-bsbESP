@@ -67,7 +67,9 @@ create_temp_index <- function(shape, # shapefile to average over
 
 
 # Data ----
-fname <- here::here("data-raw/PSY_daily_BottomTemp_2020-01-012023-12-01.nc")
+# fname <- here::here("data-raw/PSY_daily_BottomTemp_2020-01-012023-12-01.nc")
+fname <- here::here("data-raw/cmems_mod_glo_phy_myint_0.083deg_P1D-m_1713817868836.nc")
+
 shape_bsb <- read_sf('data-raw/bsb_shape.shp') %>%
   st_transform(4140)
 
@@ -89,7 +91,7 @@ data_bt2 <- data_bt %>%
   dplyr::filter(month %in% 2:3) %>%
   # calculate monthly mean
   group_by(longitude, latitude, year, month) %>%
-  summarise(bt_temp = mean(tob , na.rm = TRUE))
+  summarise(bt_temp = mean(bottomT, na.rm = TRUE))
 
 ## cut to area of interest ----
 # this could possibly be done quicker with raster::mask
