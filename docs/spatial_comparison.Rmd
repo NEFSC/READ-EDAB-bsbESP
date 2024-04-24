@@ -1,0 +1,118 @@
+---
+title: "Investigate spatial extent of BSB bottom temperature sources"
+output: html_document
+date: "`r Sys.Date()`"
+author: "Abigail Tyrell"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+
+library(tidyverse)
+library(tidync)
+library(sf)
+```
+
+
+## BSB shapefile
+```{r}
+shape_bsb <- read_sf(here::here('data-raw/bsb_shape.shp')) %>%
+  st_transform(4140)
+
+plot(shape_bsb)
+```
+
+## The "original" data
+
+Used in the 2023 RTSA.
+
+```{r}
+# load bottom temperature data and calculate monthly mean
+
+# showing this code for the sake of documentation,
+# but it take a long time to run, so reading in data from csv
+
+# data_bt <- tidync("data-raw/bottom_temp_combined_product_1959_2022.nc") %>% # original file from Hubert, NE shelf
+#   hyper_tibble(force = TRUE) %>%
+#   mutate(origin = as.Date(paste0(year, "-01-01"), tz = "UTC") - days(1),
+#          date = as.Date(day, origin = origin, tz = "UTC"),
+#          month = month(date)) %>%
+#   group_by(longitude, latitude, year, month) %>% # calculate monthly mean
+#   summarise(bt_temp = mean(sea_water_temperature_at_sea_floor, na.rm = TRUE))
+
+# write.csv(data_bt, here::here("data-raw/temp_bt_dataframe.csv"))
+
+data_bt <- read.csv(here::here("data-raw/temp_bt_dataframe.csv"))
+# filter for comparison
+orig_dat <- data_bt %>%
+  dplyr::filter(month %in% 2:3,
+                year %in% 2022:2023)
+
+orig_dat %>%
+  ggplot2::ggplot(ggplot2::aes(x = longitude,
+                               y = latitude,
+                               color = bt_temp)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_wrap(~paste(month, year, sep = "-")) +
+  viridis::scale_color_viridis() +
+  ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
+                                            dplyr::filter(Region == "North")) %>%
+                        as.data.frame(),
+                   inherit.aes = FALSE,
+                   mapping = ggplot2::aes(x = X,
+                                          y = Y)) +
+  ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
+                                            dplyr::filter(Region == "South")) %>%
+                        as.data.frame(),
+                   inherit.aes = FALSE,
+                   mapping = ggplot2::aes(x = X,
+                                          y = Y))
+```
+
+## The "new" data
+
+GLORYS reanalysis provided by Sarah S.
+
+```{r}
+fname <- here::here("data-raw/cmems_mod_glo_phy_myint_0.083deg_P1D-m_1713817868836.nc")
+
+data_bt <- tidync(fname) %>%
+  hyper_tibble(force = TRUE)
+
+### get time info and add to tibble ----
+tunit <- ncmeta::nc_atts(fname, "time") %>%
+  dplyr::filter(name == "units") %>%
+  tidyr::unnest(cols = c(value))
+
+data_bt2 <- data_bt %>%
+  dplyr::mutate(month = RNetCDF::utcal.nc(tunit$value, .data$time)[,"month"],
+                year = RNetCDF::utcal.nc(tunit$value, .data$time)[,"year"]) %>%
+  # filter to feb and march
+  dplyr::filter(month %in% 2:3)
+
+data_bt2 %>%
+  ggplot2::ggplot(ggplot2::aes(x = longitude,
+                               y = latitude,
+                               color = bottomT)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw() +
+  ggplot2::facet_wrap(~paste(month, year, sep = "-")) +
+  viridis::scale_color_viridis() +
+  ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
+                                            dplyr::filter(Region == "North")) %>%
+                        as.data.frame(),
+                   inherit.aes = FALSE,
+                   mapping = ggplot2::aes(x = X,
+                                          y = Y)) +
+  ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
+                                            dplyr::filter(Region == "South")) %>%
+                        as.data.frame(),
+                   inherit.aes = FALSE,
+                   mapping = ggplot2::aes(x = X,
+                                          y = Y))
+```
+
+

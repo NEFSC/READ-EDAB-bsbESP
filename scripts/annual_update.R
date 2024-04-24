@@ -93,6 +93,26 @@ data_bt2 <- data_bt %>%
   group_by(longitude, latitude, year, month) %>%
   summarise(bt_temp = mean(bottomT, na.rm = TRUE))
 
+# compare to previous data
+data_bt <- read.csv(here::here("data-raw/temp_bt_dataframe.csv"))
+orig_dat <- data_bt %>%
+  dplyr::filter(month %in% 2:3,
+                year %in% 2022:2023)
+
+data_bt2 %>%
+  dplyr::anti_join(orig_dat) %>%
+  ggplot2::ggplot(ggplot2::aes(x = longitude,
+                               y = latitude)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+
+orig_dat %>%
+  ggplot2::ggplot(ggplot2::aes(x = longitude,
+                               y = latitude)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+
+
 ## cut to area of interest ----
 # this could possibly be done quicker with raster::mask
 
@@ -142,3 +162,27 @@ dat2 <- dat %>%
   dplyr::mutate(mean = mean(val),
                 sd = sd(val)) %>%
   dplyr::ungroup()
+
+
+all_dat <- inner_join(data_bt2, cell_intersects, by = c("longitude","latitude")) %>%
+  filter(month %in% c(2, 3))
+
+orig_all_dat
+
+all_dat %>%
+  dplyr::mutate(source = "new") %>%
+  dplyr::bind_rows(orig_all_dat %>%
+                    dplyr::mutate(source = "old")) %>%
+  ggplot2::ggplot(ggplot2::aes(x = longitude,
+                               y = latitude,
+                               color = source)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+
+# coord <- data_bt2 %>%
+#   dplyr::select(longitude, latitude) %>%
+#   dplyr::distinct()
+#
+# orig_coord <- orig_dat %>%
+#   dplyr::select(longitude, latitude) %>%
+#   dplyr::distinct()
