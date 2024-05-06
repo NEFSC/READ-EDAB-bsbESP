@@ -57,7 +57,7 @@ orig_dat %>%
   ggplot2::geom_point() +
   ggplot2::theme_bw() +
   ggplot2::facet_wrap(~paste(month, year, sep = "-")) +
-  viridis::scale_color_viridis() +
+  viridis::scale_color_viridis(limits = c(-2, 24)) +
   ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
                                             dplyr::filter(Region == "North")) %>%
                         as.data.frame(),
@@ -100,7 +100,7 @@ data_bt2 %>%
   ggplot2::geom_point() +
   ggplot2::theme_bw() +
   ggplot2::facet_wrap(~paste(month, year, sep = "-")) +
-  viridis::scale_color_viridis() +
+  viridis::scale_color_viridis(limits = c(-2, 24)) +
   ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
                                             dplyr::filter(Region == "North")) %>%
                         as.data.frame(),
