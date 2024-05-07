@@ -120,6 +120,38 @@ write.csv(results,
           here::here("data", paste0("bt_update_", Sys.Date(), ".csv")))
 ```
 
+### Verify spatial extent
+```{r}
+for(i in 1:9){
+  fig <- inner_join(data3, cell_intersects, by = c("longitude","latitude")) %>%
+    tidyr::drop_na() %>%
+  ggplot2::ggplot(ggplot2::aes(x = longitude,
+                               y = latitude,
+                               color = bt_temp)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw() +
+  ggforce::facet_grid_paginate(year ~ month,
+                               ncol = 2,
+                               nrow = 4,
+                               page = i) +
+  viridis::scale_color_viridis(#limits = c(-2, 24)
+    ) +
+  ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
+                                            dplyr::filter(Region == "North")) %>%
+                        as.data.frame(),
+                   inherit.aes = FALSE,
+                   mapping = ggplot2::aes(x = X,
+                                          y = Y)) +
+  ggplot2::geom_path(data = sf::st_coordinates(shape_bsb %>% 
+                                            dplyr::filter(Region == "South")) %>%
+                        as.data.frame(),
+                   inherit.aes = FALSE,
+                   mapping = ggplot2::aes(x = X,
+                                          y = Y))
+    print(fig)
+}
+```
+
 ## Compare to past data
 ```{r, echo = FALSE}
 dat <- read.csv(here::here("data/bsb_bt_temp_nmab_1959-2022.csv"))
