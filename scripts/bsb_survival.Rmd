@@ -9,42 +9,411 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.width=12)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.width=12)
 ```
 
 
-```{r load_dat, message = FALSE, warning=FALSE}
+```{r load_dat, message = FALSE, warning = FALSE}
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(patchwork)
 library(lubridate)
 
-remotes::install_github("NOAA-EDAB/stocksmart")
+# remotes::install_github("NOAA-EDAB/stocksmart")
 # install.packages("dsem")
-library(dsem) ## 1.2.1
-library(phylopath)
+# library(dsem) ## 1.2.1
+# library(phylopath)
+library(stocksmart)
+library(mgcv)
+library(gratia)
+source(here::here("scripts/thresholds_gam.R"))
 
 
+
+bt_dat <- read.csv(here::here("data/bt_update_2024-05-06.csv")) %>% 
+  filter(Region %in% c("North", "South")) %>% 
+  mutate(date = as.Date(paste0(year, "-01-01")),
+         upper = mean + se,
+         lower = mean - se)
+
+recruit_dat_s <- read.csv(here::here("data/1.south.Rect.yr.csv")) %>% 
+  mutate(date = as.Date(paste0(Year, "-01-01")),
+         Region = "South")
+
+recruit_dat_n <- read.csv(here::here("data/1.north.Rect.yr.csv")) %>% 
+  mutate(date = as.Date(paste0(Year, "-01-01")),
+         Region = "North")
+recruit_dat <- bind_rows(recruit_dat_s, recruit_dat_n)
+
+# ssb_dat_n <- read.csv("https://raw.githubusercontent.com/emilyliljestrand/BSB.2024.MT/main/Modeling/Run3/fit/outputs/1.north.SSB.yr.csv") %>% 
+#   mutate(date = as.Date(paste0(Year, "-01-01")),
+#          Region = "North")
+# saveRDS(ssb_dat, file = "data/ssb_dat.rds")
+# ssb_dat_s <- read.csv("https://raw.githubusercontent.com/emilyliljestrand/BSB.2024.MT/main/Modeling/Run3/fit/outputs/1.south.SSB.yr.csv?token=GHSAT0AAAAAACVRCJTCC24RZMMFAMPB2Q52ZVKNWRA") %>% 
+#   mutate(date = as.Date(paste0(Year, "-01-01")),
+#          Region = "South")
+# ssb_dat <- bind_rows(ssb_dat_n, ssb_dat_s)
+ssb_dat <- readRDS(here::here("data/ssb_dat.rds"))
 ```
 
 
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r bt_plot}
 
-```{r cars}
-summary(cars)
+bt_plot <- ggplot(bt_dat,aes(x = date, y = mean, ymin = lower, ymax = upper, color = Region, fill = Region), show.legend = FALSE) +
+  geom_line(alpha = 0.3)+
+  geom_point()+
+  theme_minimal() +
+  scale_x_date(date_breaks = "5 years",
+               date_labels = "%Y") +
+  labs(title = "Winter bottom temperature (°C)",
+       subtitle = "GLORYS reanalysis",
+       x = "",
+       y = "",
+       fill = "", 
+       color = "") +
+  theme(legend.position = "bottom")
+bt_plot
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+```{r recruit_plot}
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+recruit_plot <- ggplot(recruit_dat,
+                  aes(x = date, y = est, color = Region)) +
+  geom_path() +
+  geom_point() +
+  theme_minimal() +
+  scale_x_date(date_breaks = "5 years",
+               date_labels = "%Y") +
+  labs(title = "Black Sea Bass recruits",
+       subtitle = "WHAM output",
+       x = "",
+       y = "",
+       color = "") +
+  theme(legend.position = "bottom")
+recruit_plot
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r ssb_plot}
+
+ssb_plot <- ggplot(ssb_dat,
+                  aes(x = date, y = est, color = Region)) +
+  geom_path() +
+  geom_point() +
+  theme_minimal() +
+  scale_x_date(date_breaks = "5 years",
+               date_labels = "%Y") +
+  labs(title = "Black Sea Bass SSB",
+       subtitle = "WHAM output",
+       x = "",
+       y = "",
+       color = "") +
+  theme(legend.position = "bottom")
+ssb_plot
+```
+
+
+
+```{r recruit_bt}
+recruit_bt_dat <- bt_dat %>% 
+  select(date, Region, bt = mean) %>% 
+  left_join(recruit_dat %>% 
+              select(date, Region, recruits = est), by = join_by(date, Region)) %>% 
+  mutate(year = lubridate::year(date))
+
+recruit_bt_plot <- ggplot(recruit_bt_dat, aes(x = bt, y = recruits, color = Region, label = year)) +
+  # geom_path() + 
+  geom_point(show.legend = FALSE) +
+  geom_text(show.legend = FALSE, vjust = "bottom") +
+  theme_minimal() +
+  facet_wrap(~Region, ncol = 2) +
+  labs(title = "Black Sea Bass recruitment and bottom temperature",
+       x = "Bottom temperature (°C)",
+       y = "Black Sea Bass recruits",
+       color = "") +
+  # theme(legend.position = "bottom") +
+  NULL
+
+recruit_bt_plot
+
+```
+
+
+
+```{r ssb_recruit_bt}
+ssb_recruit_bt_dat <- bt_dat %>% 
+  select(date, Region, bt = mean) %>% 
+  left_join(recruit_dat %>% 
+              select(date, Region, recruits = est), by = join_by(date, Region)) %>% 
+  mutate(year = lubridate::year(date)) %>% 
+  left_join(ssb_dat %>% 
+              select(date, Region, ssb = est), by = join_by(date, Region)) 
+
+ssb_recruit_bt_plot <- ggplot(ssb_recruit_bt_dat, aes(x = ssb, y = recruits, size = bt, color = bt, label = year)) +
+  # geom_path() + 
+  geom_point(aes(alpha = bt), show.legend = TRUE) +
+  geom_text(show.legend = FALSE, vjust = "bottom", color = "black") +
+  theme_minimal() +
+  facet_wrap(~Region, ncol = 2) +
+  guides(size = "none", alpha = "none") + 
+  scale_color_viridis_c(option = "inferno", direction = -1) +
+  labs(title = "Black Sea Bass SSB, recruitment, and bottom temperature",
+       x = "Black Sea Bass SSB",
+       y = "Black Sea Bass recruits",
+       size = "",
+       color = "bottom temperature") +
+  theme(legend.position = "bottom") +
+  NULL
+
+ssb_recruit_bt_plot
+
+```
+
+
+
+
+## GAM Thresholds
+
+
+### recruitment
+1. recruits = s(year)
+2. recruits = s(year) if BT < th
+
+
+```{r gam_model}
+##North
+n_dat <- ssb_recruit_bt_dat %>%
+  filter(Region == "North") %>%
+  mutate(rec_spawner = recruits/ssb) %>%
+  as.data.frame()
+# n_1 <- mgcv::gam(log(recruits) ~ s(bt) + s(ssb) + s(year), data = n_dat)
+# gratia::draw(n_1)
+# gratia::appraise(n_1)
+# summary(n_1)
+# acf(resid(n_1))
+
+# source("https://raw.githubusercontent.com/duncanobrien/ews-assessments/main/Code/threshold_gam.R")
+# https://github.com/duncanobrien/ews-assessments/blob/main/Code/threshold_gam.R
+  # data, #data.frame
+  #           threshold.name, # colname of threshold variable to test within data
+  #           nthd, #number of steps between lower & upper bound
+  #           a = 0.2, #probability for lower bound quantile, 0:1
+  #           b = 0.8, #probability for upper bound quantile, 0:1
+
+# n_2 <- threshold.gam(log(recruits) ~ s(ssb) + s(year), nthd = 10, threshold.name = "bt", data = n_dat)
+# summary(n_2)
+# data = n_dat
+cont_formula_ts <- as.formula("recruits ~ s(year, bs='tp', k=3)")
+thresh_formula_ts <- as.formula("recruits ~ 1")
+
+dens_gam_ts <- compare_gam(data = n_dat, 
+                        cont_formula = formula(cont_formula_ts, method = "REML"),
+                        thresh_formula =  formula(thresh_formula_ts, method = "REML"),
+                        thresh.var = "year",
+                        thresh.range = c(0.15,0.85), by = 1, k=3) #quartile range for threshold within 15-85%. Prevents bias towards thresholds at ends of time series
+
+
+best_gam_ts <- predict_best_gam(object = dens_gam_ts) %>%
+  dplyr::rename("metric.val" = recruits) %>% 
+  dplyr::mutate(threshold = tidyr::replace_na(as.character(threshold),"pre"),
+                                                    start.date = dplyr::first(thresh.var),
+                                                    last.date = dplyr::last(thresh.var)) %>% 
+  pivot_longer(year, names_to = "var_metric", values_to = "var.value")
+
+
+cont_formula_ss <- as.formula("recruits ~ s(bt, bs='tp', k=3)")
+thresh_formula_ss <- as.formula("recruits ~ 1")
+dens_gam_ss <- compare_gam(data = n_dat,
+                        cont_formula = formula(cont_formula_ss, method = "REML"),
+                        thresh_formula =  formula(thresh_formula_ss, method = "REML"),
+                        thresh.var = "year", expl.var = "bt",
+                        thresh.range = c(0.2,0.75), by = 1, k=3)
+
+best_gam_ss <- predict_best_gam(object = dens_gam_ss) %>%
+  dplyr::rename("metric.val" = recruits) %>% 
+  dplyr::mutate(threshold = tidyr::replace_na(as.character(threshold),"pre"),
+                start.date = dplyr::first(thresh.var),
+                last.date = dplyr::last(thresh.var)) %>% 
+    pivot_longer(bt, names_to = "var_metric", values_to = "var.value")
+
+
+best_gam <- bind_rows(best_gam_ts, best_gam_ss) %>% 
+   mutate(var_metric = factor(ifelse(var_metric == "bt","Bottom Temperature","Year"),levels = c("Year","Bottom Temperature"), labels = c("Time series","State space")))
+
+ts_plot <- ggplot(data = subset(best_gam, var_metric == "Time series"), aes(x=var.value,y=metric.val)) + 
+  geom_point(aes(x=thresh.var, y = metric.val))+
+  geom_path(aes(x=thresh.var, y = metric.val)) +  
+  xlab("Year") + ylab("Scaled metric score") +
+  facet_wrap(~ var_metric, scales = "free_x") +
+  geom_line(data = filter(best_gam, threshold=="pre" & var_metric == "Time series"),aes(x=var.value,y=fit), col="blue",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="pre"& var_metric == "Time series"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#A1B4FE", col="#A1B4FE",alpha = 0.2) +
+  geom_line(data = filter(best_gam, threshold=="post"& var_metric == "Time series"),aes(x=var.value,y=fit), col="red",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="post"& var_metric == "Time series"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#FFA6B9", col="#FFA6B9",alpha = 0.2)+
+  geom_point(data = filter(best_gam, thresh.var == start.date & var_metric == "Time series"),aes(x=var.value, y = metric.val,col="Start date"))+
+  geom_point(data = filter(best_gam, thresh.var == last.date & var_metric == "Time series"),aes(x=var.value, y = metric.val,col="End date"))+
+  geom_point(data = filter(best_gam,transition == "trans" & var_metric == "Time series"),aes(x=var.value, y = metric.val,col="Transition\ndates"))+
+  ggrepel::geom_text_repel(data = filter(best_gam, transition == "trans" & var_metric == "Time series"), aes(x=var.value, y = metric.val,label=thresh.var),force =1.5,nudge_x=5,nudge_y=-0.75,segment.linetype=2,min.segment.length = 0.1)+
+  scale_colour_manual(values = c("blue","red","#FFE823"),breaks = c("Start date", "End date", "Transition\ndates"), name = NULL, guide = guide_legend(override.aes = list(size = 5))) +
+  theme_classic() +
+  scale_x_continuous(breaks = seq(1970,2010,20)) +
+  theme(legend.text=element_text(size=14),
+        strip.text.y = element_blank(),
+        strip.text.x = element_text(size=14),
+        axis.title = element_text(size=14),
+        legend.position = "top",
+        panel.border = element_rect(linewidth = 1,fill = "transparent"))
+                                        
+
+ss_plot <- ggplot(data = subset(best_gam,var_metric == "State space"), aes(x=var.value,y=metric.val)) + 
+  geom_point(aes(x=var.value, y = metric.val))+
+  geom_path(aes(x=var.value, y = metric.val)) +  
+  xlab("Environment score") + ylab("Scaled metric score") +
+  facet_wrap(~ var_metric, scales = "free_x") +
+  geom_line(data = filter(best_gam, threshold=="pre" & var_metric == "State space"),aes(x=var.value,y=fit), col="blue",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="pre"& var_metric == "State space"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#A1B4FE", col="#A1B4FE",alpha = 0.2)+
+  geom_line(data = filter(best_gam, threshold=="post"& var_metric == "State space"),aes(x=var.value,y=fit), col="red",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="post"& var_metric == "State space"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#FFA6B9", col="#FFA6B9",alpha = 0.2)+
+  geom_point(data = filter(best_gam, thresh.var == start.date & var_metric == "State space"),aes(x=var.value, y = metric.val,col="Start date"))+
+  geom_point(data = filter(best_gam, thresh.var == last.date & var_metric == "State space"),aes(x=var.value, y = metric.val,col="End date"))+
+  geom_point(data = filter(best_gam,transition == "trans" & var_metric == "State space"),aes(x=var.value, y = metric.val,col="Transition\ndates"))+
+  ggrepel::geom_text_repel(data = filter(best_gam,transition == "trans" & var_metric == "State space"), aes(x=var.value, y = metric.val,label=thresh.var),force =1,nudge_x=0.55,nudge_y=-0.35,segment.linetype=2,min.segment.length = 0.1)+
+  scale_colour_manual(values = c("blue","red","#FFE823"),breaks = c("Start date", "End date", "Transition\ndates"), name = NULL, guide = guide_legend(override.aes = list(size = 5))) +
+  theme_classic() +
+  theme(legend.text=element_text(size=14),
+        strip.text.y = element_blank(),
+        axis.title.y=element_blank(),
+        strip.text.x = element_text(size=14),
+        axis.title.x= element_text(size=14),
+        legend.position = "top",
+        panel.border = element_rect(linewidth = 1,fill = "transparent"))
+
+##South
+
+ts_plot + ss_plot
+
+```
+
+
+### Survival
+1. recruits/spawner = s(year)
+2. recruits/spawner = s(year) if BT < th
+
+
+```{r rec_spwn_gam_model}
+##North
+n_dat <- ssb_recruit_bt_dat %>%
+  filter(Region == "North") %>%
+  mutate(rec_spawner = recruits/ssb) %>% 
+  as.data.frame()
+# n_1 <- mgcv::gam(log(recruits) ~ s(bt) + s(ssb) + s(year), data = n_dat)
+# gratia::draw(n_1)
+# gratia::appraise(n_1)
+# summary(n_1)
+# acf(resid(n_1))
+
+# source("https://raw.githubusercontent.com/duncanobrien/ews-assessments/main/Code/threshold_gam.R")
+# https://github.com/duncanobrien/ews-assessments/blob/main/Code/threshold_gam.R
+  # data, #data.frame
+  #           threshold.name, # colname of threshold variable to test within data
+  #           nthd, #number of steps between lower & upper bound
+  #           a = 0.2, #probability for lower bound quantile, 0:1
+  #           b = 0.8, #probability for upper bound quantile, 0:1
+
+# n_2 <- threshold.gam(log(recruits) ~ s(ssb) + s(year), nthd = 10, threshold.name = "bt", data = n_dat)
+# summary(n_2)
+# data = n_dat
+cont_formula_ts <- as.formula("rec_spawner ~ s(year, bs='tp', k=3)")
+thresh_formula_ts <- as.formula("rec_spawner ~ 1")
+
+dens_gam_ts <- compare_gam(data = n_dat, 
+                        cont_formula = formula(cont_formula_ts, method = "REML"),
+                        thresh_formula =  formula(thresh_formula_ts, method = "REML"),
+                        thresh.var = "year",
+                        thresh.range = c(0.15,0.85), by = 1, k=3) #quartile range for threshold within 15-85%. Prevents bias towards thresholds at ends of time series
+
+
+best_gam_ts <- predict_best_gam(object = dens_gam_ts) %>%
+  dplyr::rename("metric.val" = rec_spawner) %>% 
+  dplyr::mutate(threshold = tidyr::replace_na(as.character(threshold),"pre"),
+                                                    start.date = dplyr::first(thresh.var),
+                                                    last.date = dplyr::last(thresh.var)) %>% 
+  pivot_longer(year, names_to = "var_metric", values_to = "var.value")
+
+
+cont_formula_ss <- as.formula("rec_spawner ~ s(bt, bs='tp', k=3)")
+thresh_formula_ss <- as.formula("rec_spawner ~ 1")
+dens_gam_ss <- compare_gam(data = n_dat,
+                        cont_formula = formula(cont_formula_ss, method = "REML"),
+                        thresh_formula =  formula(thresh_formula_ss, method = "REML"),
+                        thresh.var = "year", expl.var = "bt",
+                        thresh.range = c(0.2,0.75), by = 1, k=3)
+
+best_gam_ss <- predict_best_gam(object = dens_gam_ss) %>%
+  dplyr::rename("metric.val" = rec_spawner) %>% 
+  dplyr::mutate(threshold = tidyr::replace_na(as.character(threshold),"pre"),
+                start.date = dplyr::first(thresh.var),
+                last.date = dplyr::last(thresh.var)) %>% 
+    pivot_longer(bt, names_to = "var_metric", values_to = "var.value")
+
+
+best_gam <- bind_rows(best_gam_ts, best_gam_ss) %>% 
+   mutate(var_metric = factor(ifelse(var_metric == "bt","Bottom Temperature","Year"),levels = c("Year","Bottom Temperature"), labels = c("Time series","State space")))
+
+ts_plot <- ggplot(data = subset(best_gam, var_metric == "Time series"), aes(x=var.value,y=metric.val)) + 
+  geom_point(aes(x=thresh.var, y = metric.val))+
+  geom_path(aes(x=thresh.var, y = metric.val)) +  
+  xlab("Year") + ylab("Scaled metric score") +
+  facet_wrap(~ var_metric, scales = "free_x") +
+  geom_line(data = filter(best_gam, threshold=="pre" & var_metric == "Time series"),aes(x=var.value,y=fit), col="blue",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="pre"& var_metric == "Time series"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#A1B4FE", col="#A1B4FE",alpha = 0.2) +
+  geom_line(data = filter(best_gam, threshold=="post"& var_metric == "Time series"),aes(x=var.value,y=fit), col="red",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="post"& var_metric == "Time series"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#FFA6B9", col="#FFA6B9",alpha = 0.2)+
+  geom_point(data = filter(best_gam, thresh.var == start.date & var_metric == "Time series"),aes(x=var.value, y = metric.val,col="Start date"))+
+  geom_point(data = filter(best_gam, thresh.var == last.date & var_metric == "Time series"),aes(x=var.value, y = metric.val,col="End date"))+
+  geom_point(data = filter(best_gam,transition == "trans" & var_metric == "Time series"),aes(x=var.value, y = metric.val,col="Transition\ndates"))+
+  ggrepel::geom_text_repel(data = filter(best_gam, transition == "trans" & var_metric == "Time series"), aes(x=var.value, y = metric.val,label=thresh.var),force =1.5,nudge_x=5,nudge_y=-0.75,segment.linetype=2,min.segment.length = 0.1)+
+  scale_colour_manual(values = c("blue","red","#FFE823"),breaks = c("Start date", "End date", "Transition\ndates"), name = NULL, guide = guide_legend(override.aes = list(size = 5))) +
+  theme_classic() +
+  scale_x_continuous(breaks = seq(1970,2010,20)) +
+  theme(legend.text=element_text(size=14),
+        strip.text.y = element_blank(),
+        strip.text.x = element_text(size=14),
+        axis.title = element_text(size=14),
+        legend.position = "top",
+        panel.border = element_rect(linewidth = 1,fill = "transparent"))
+                                        
+
+ss_plot <- ggplot(data = subset(best_gam,var_metric == "State space"), aes(x=var.value,y=metric.val)) + 
+  geom_point(aes(x=var.value, y = metric.val))+
+  geom_path(aes(x=var.value, y = metric.val)) +  
+  xlab("Environment score") + ylab("Scaled metric score") +
+  facet_wrap(~ var_metric, scales = "free_x") +
+  geom_line(data = filter(best_gam, threshold=="pre" & var_metric == "State space"),aes(x=var.value,y=fit), col="blue",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="pre"& var_metric == "State space"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#A1B4FE", col="#A1B4FE",alpha = 0.2)+
+  geom_line(data = filter(best_gam, threshold=="post"& var_metric == "State space"),aes(x=var.value,y=fit), col="red",linewidth=0.8, linetype = "solid")+
+  geom_ribbon(data = filter(best_gam, threshold=="post"& var_metric == "State space"),aes(ymin = fit - (1.96 * ci),ymax = fit + (1.96 * ci)  ), fill = "#FFA6B9", col="#FFA6B9",alpha = 0.2)+
+  geom_point(data = filter(best_gam, thresh.var == start.date & var_metric == "State space"),aes(x=var.value, y = metric.val,col="Start date"))+
+  geom_point(data = filter(best_gam, thresh.var == last.date & var_metric == "State space"),aes(x=var.value, y = metric.val,col="End date"))+
+  geom_point(data = filter(best_gam,transition == "trans" & var_metric == "State space"),aes(x=var.value, y = metric.val,col="Transition\ndates"))+
+  ggrepel::geom_text_repel(data = filter(best_gam,transition == "trans" & var_metric == "State space"), aes(x=var.value, y = metric.val,label=thresh.var),force =1,nudge_x=0.55,nudge_y=-0.35,segment.linetype=2,min.segment.length = 0.1)+
+  scale_colour_manual(values = c("blue","red","#FFE823"),breaks = c("Start date", "End date", "Transition\ndates"), name = NULL, guide = guide_legend(override.aes = list(size = 5))) +
+  theme_classic() +
+  theme(legend.text=element_text(size=14),
+        strip.text.y = element_blank(),
+        axis.title.y=element_blank(),
+        strip.text.x = element_text(size=14),
+        axis.title.x= element_text(size=14),
+        legend.position = "top",
+        panel.border = element_rect(linewidth = 1,fill = "transparent"))
+
+##South
+
+ts_plot + ss_plot
+
+```
+
