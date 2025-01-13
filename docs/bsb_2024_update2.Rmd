@@ -52,14 +52,15 @@ for(i in files){
 ### get time info and add to tibble ----
 tunit <- ncmeta::nc_atts(i, "time") %>%
   dplyr::filter(name == "units") %>%
-  tidyr::unnest(cols = c(value))
+  tidyr::unnest(cols = c(value)) 
+
 
 this_dat2 <- this_dat %>%
   dplyr::mutate(month = RNetCDF::utcal.nc(tunit$value, .data$time)[,"month"],
                 year = RNetCDF::utcal.nc(tunit$value, .data$time)[,"year"]) %>%
   # filter to feb and march
   dplyr::filter(month %in% 2:3) %>%
-  dplyr::rename(value = bottomT)
+ dplyr::rename(value = bottomT)
 
 data2 <- rbind(data2, this_dat2)
 # time col gets weird in join depending on if the files were formatted the same
@@ -154,12 +155,12 @@ for(i in 1:9){
 
 ## Compare to past data
 ```{r, echo = FALSE}
-dat <- read.csv(here::here("data/bsb_bt_temp_nmab_1959-2022.csv"))
-sdat <- read.csv(here::here("data/bsb_bt_temp_smab_1959-2022.csv"))
+dat <- read.csv(here::here("data/bsb_bt_temp-nmab_1959-2022.csv"))
+sdat <- read.csv(here::here("data/bsb_bt_temp-smab_1959-2022.csv"))
 
 dat2 <- dat %>%
   dplyr::bind_rows(sdat) %>%
-  dplyr::mutate(type = "2023 data") %>%
+  dplyr::mutate(type = "2023 data") 
   dplyr::bind_rows(results %>%
                      dplyr::mutate(type = "2024 data"))
 
