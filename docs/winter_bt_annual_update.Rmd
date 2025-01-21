@@ -1,0 +1,145 @@
+---
+title: "Black Sea Bass Winter BT Update (2025)"
+author: "Stephanie Owen"
+date: "2025-01-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+`%>%` <- magrittr::`%>%`
+
+library(tidyverse)
+library(tidync)
+library(sf)
+```
+
+## Data
+
+### 1989 - 2019
+Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS.This data can eventually be pulled directly from ERDDAP, but in the current testing stage it needs to be manually downloaded. CSV file (bottomT_pre2019.csv) can be found in the network drive under "\\nefscdata\SOE_ESP_Data\bottom_temp"
+
+```{r}
+bottomT_pre2019 <- read.csv(here::here("docs/bottomT_pre2019.csv"))
+```
+
+### Recent GLORYS data from 2020-2024
+Recent years of GLORYS data are added from a separate data pull. CSV file of 2020-2024 (Feb-Mar) data can be found in the network drive under "\\nefscdata\SOE_ESP_Data\bottom_temp"
+
+```{r}
+bottomT_20_24 <- read.csv(here::here("docs/bottomT_20_24.csv"))
+```
+
+### Bind 2020-2024 and 1989-2019 datasets
+
+```{r}
+bt_89_24 <- rbind(bottomT_pre2019, bottomT_20_24)
+```
+
+
+### Add new year data
+New years of GLORYS bottom temperature must be downloaded from GLORYS directly. Subsetting data downloads to only Feburary and March of the most recent year will help speed up the uploading process into R. New year data may be placed in a folder in data-raw/XXXX_update for code below to read in.
+
+```{r}
+files <- list.files(path = here::here("data-raw/2025_update"), 
+                    pattern = "^glo",
+                    full.names = TRUE)
+
+for(i in files){
+  this_dat <- tidync(i) %>%
+  hyper_tibble(force = TRUE)
+
+### get time info and add to tibble ----
+tunit <- ncmeta::nc_atts(i, "time") %>%
+  dplyr::filter(name == "units") %>%
+  tidyr::unnest(cols = c(value)) 
+
+this_dat2 <- this_dat %>%
+  dplyr::mutate(month = lubridate::month(time),
+                year = lubridate::year(time)) %>%
+  na.omit()
+  # filter to feb and march
+  dplyr::filter(month %in% 2:3) %>%
+ dplyr::rename(value = bottomT)
+}
+```
+
+### Bind with 1989-2024 data
+
+```{r}
+combined <- rbind(bt_89_24, this_dat2)
+
+#save to use in future years so only have to add most recent year data
+write.csv(combined, "bottomT_89_25.csv", row.names = F)
+```
+
+### Read in BSB shapefile
+
+```{r}
+shape_bsb <- read_sf(here::here('data-raw/bsb_shape.shp')) %>%
+  st_transform(4140)
+```
+
+## Analysis for most recent data year
+
+```{r}
+# calculate monthly mean
+data3 <- combined %>%
+  group_by(longitude, latitude, year, month) %>%
+  summarise(bt_temp = mean(value, na.rm = TRUE))
+
+## cut to area of interest ----
+# this could possibly be done quicker with raster::mask
+
+# Extract the grid and create a spatial object for each grid cell (center of the grid cell)
+glorys_grid <- unique(data3[c("longitude","latitude")]) %>%
+  as.data.frame() %>%
+  bind_cols(geometry = st_as_sf(.,coords = c("longitude", "latitude"), crs = st_crs(shape_bsb)),.)
+
+# SPATIAL JOIN - identify cells whose the centers is included or intersect the BSB area
+cell_intersects <- st_join(shape_bsb, glorys_grid, join = st_intersects) %>%
+  as.data.frame()
+
+# select grid cells within the BSB areas and calculate the winter mean for each area
+data_bt_bsb <- inner_join(data3, cell_intersects, by = c("longitude","latitude")) %>%
+  filter(month %in% c(2, 3)) %>%
+  group_by(Region, year) %>%
+  summarise(mean = mean(bt_temp, na.rm = TRUE),
+            count = n(),
+            sd = sd(bt_temp, na.rm = TRUE),
+            se = sd/sqrt(count))
+
+
+# select grid cells within the BSB areas and calculate the winter mean for entire area
+data_bt_bsb_all <- inner_join(data3, cell_intersects, by = c("longitude","latitude")) %>%
+  # filter(month %in% c(2, 3)) %>%
+  group_by(year) %>%
+  summarise(mean = mean(bt_temp, na.rm = TRUE),
+            count = n(),
+            sd = sd(bt_temp, na.rm = TRUE),
+            se = sd/sqrt(count))
+
+## create results tibble ----
+results <- rbind(data_bt_bsb,
+                 data_bt_bsb_all %>%
+                   dplyr::mutate(Region = "All"))
+write.csv(results,
+          here::here("data", paste0("bt_update_", Sys.Date(), ".csv")))
+```
+
+## Plot time series with new year
+```{r}
+results %>%
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                               y = mean,
+                               color = Region,
+                               )) +
+  ggplot2::geom_point() +
+  ggplot2::geom_path() + 
+  ggplot2::theme_bw() +
+  ggplot2::xlim(c(1989, 2024)) +
+  ggplot2::labs(title = "Mean Winter (Feb - Mar) Bottom Temperature", 
+                x = "Year",
+                y = "Mean Bottom Temperature (°C)")
