@@ -41,7 +41,7 @@ data2 <- na.omit(data2)
 
 Read in 1993-2019 BT from code above
 ```{r}
-bottomT_pre2019 <- read.csv(here::here("docs/bottomT_pre2019.csv"))
+bottomT_pre2019 <- read.csv(here::here("data/bottomT_pre2019.csv"))
 ```
 
 ### Recent GLORYS data from 2020-2024
@@ -49,7 +49,7 @@ Recent years of GLORYS data are added from a separate data pull.
 
 
 ```{r}
-files <- list.files(path = here::here("data-raw/2025_update"), 
+files <- list.files(path = here::here("data-raw/2024_update"), 
                     pattern = "^glo",
                     full.names = TRUE)
 ```
@@ -82,7 +82,17 @@ this_dat2 <- this_dat2 %>%
 
 Read in 2020-2024 BT and combine to 1993-2019 dataset
 ```{r}
-bottomT_20_24 <- read.csv(here::here("docs/bottomT_20_24.csv"))
+bottomT_20_21<- read.csv(here::here("data/bottomT_2020_2021.csv"))
+
+bottomT_22_23<- read.csv(here::here("data/bottomT_2022_2023.csv"))
+bottomT_22_23 <- bottomT_22_23 %>%
+  dplyr::rename(value = bottomT)
+
+bottomT_24<- read.csv(here::here("data/bottomT_2024.csv"))
+bottomT_24 <- bottomT_24 %>%
+  dplyr::rename(value = bottomT)
+
+bottomT_20_24 <- rbind(bottomT_20_21, bottomT_22_23, bottomT_24)
 
 combined <- rbind(bottomT_pre2019, bottomT_20_24)
 
@@ -201,3 +211,4 @@ dat2 %>%
   ggplot2::xlim(c(1989, 2023)) +
   ggplot2::labs(title = "Mean bottom temperature in Feb & March")
 ```
+

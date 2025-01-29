@@ -22,14 +22,14 @@ library(sf)
 Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS.This data can eventually be pulled directly from ERDDAP, but in the current testing stage it needs to be manually downloaded. CSV file (bottomT_pre2019.csv) can be found in the network drive under "\\nefscdata\SOE_ESP_Data\bottom_temp"
 
 ```{r}
-bottomT_pre2019 <- read.csv(here::here("docs/bottomT_pre2019.csv"))
+bottomT_pre2019 <- read.csv(here::here("data/bottomT_pre2019.csv"))
 ```
 
 ### Recent GLORYS data from 2020-2024
 Recent years of GLORYS data are added from a separate data pull. CSV file of 2020-2024 (Feb-Mar) data can be found in the network drive under "\\nefscdata\SOE_ESP_Data\bottom_temp"
 
 ```{r}
-bottomT_20_24 <- read.csv(here::here("docs/bottomT_20_24.csv"))
+bottomT_20_24 <- read.csv(here::here("data/bottomT_20_24.csv"))
 ```
 
 ### Bind 2020-2024 and 1989-2019 datasets
