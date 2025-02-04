@@ -140,6 +140,10 @@ results %>%
   ggplot2::geom_path() + 
   ggplot2::theme_bw() +
   ggplot2::xlim(c(1989, 2024)) +
+  ggplot2::theme(axis.title = element_text(size = 16),
+                 axis.text = element_text(size = 14),
+                 legend.title = element_text(size = 16),
+                 legend.text = element_text(size = 14)) +
   ggplot2::labs(title = "Mean Winter (Feb - Mar) Bottom Temperature", 
                 x = "Year",
                 y = "Mean Bottom Temperature (°C)")
