@@ -39,7 +39,8 @@ data_bt_bsb <- inner_join(data3, cell_intersects, by = c("longitude","latitude")
 data_bt_bsb_all <- inner_join(data3, cell_intersects, by = c("longitude","latitude")) %>%
   # filter(month %in% c(2, 3)) %>%
   group_by(year, month, day) %>%
-  summarise(mean = mean(bt_temp, na.rm = TRUE))
+  summarise(mean = mean(bt_temp, na.rm = TRUE)) |>
+  dplyr::ungroup()
 
 ## create results tibble ----
 results <- rbind(data_bt_bsb,
@@ -52,12 +53,13 @@ write.csv(results, here::here("data", "bt_daily_mean.csv"))
 
 days_below_8c <- data_bt_bsb %>%
   dplyr::filter(mean < 8) %>%
-  dplyr::summarise(days_below_8 = dplyr::n()) %>%
   dplyr::group_by(year, Region) %>%
-  dplyr::summarise(total_days = sum(days_below_8)) %>%
-  dplyr::group_by(year, Region) %>%
-  dplyr::mutate(mean = mean(days_below_8c$total_days, na.rm = TRUE),
-                sd = stats::sd(days_below_8c$total_days, na.rm = TRUE))
+  dplyr::summarise(total_days = dplyr::n()) %>%
+  dplyr::ungroup() |>
+  dplyr::group_by(Region) |>
+  dplyr::mutate(mean = mean(total_days, na.rm = TRUE),
+                sd = stats::sd(total_days, na.rm = TRUE)) |>
+  dplyr::ungroup()
 
 
 ###plot
