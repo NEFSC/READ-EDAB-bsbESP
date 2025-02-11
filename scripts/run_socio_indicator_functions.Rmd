@@ -1,0 +1,87 @@
+---
+title: "Run Commercial + Recreational Indicator Functions"
+author: "Stephanie Owen"
+date: "2025-02-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+`%>%` <- magrittr::`%>%`
+```
+
+## Recreational Trips = 'create_rec_trips'
+
+Pull in directed trip files and run rec trips function
+```{r cars}
+path = (here::here('data-raw/mrip_directed_trips'))
+
+files <- list.files(path = path, pattern = glob2rx('mrip*.csv'),
+                       full.names = TRUE)
+
+rec_trips <- create_rec_trips(files = files)
+```
+
+Filter to N stock only and sum
+```{r}
+rec_trips2 <- rec_trips %>%
+  dplyr::filter(STATE %in% c('MAINE',  'CONNECTICUT',
+                                 'MASSACHUSETTS',
+                                 'NEW HAMPSHIRE',
+                                 'NEW JERSEY',
+                                 'NEW YORK',
+                                 'RHODE ISLAND',
+                                 'MARYLAND',
+                                 'DELAWARE',
+                                 'NORTH CAROLINA')) %>% # northern stock only (Northern MAB))
+  dplyr::group_by(YEAR) %>%
+  dplyr::summarise(DATA_VALUE = sum(as.numeric(DATA_VALUE), na.rm = TRUE)) %>%
+  dplyr::mutate(CATEGORY = "Recreational",
+         INDICATOR_TYPE = "Socioeconomic",
+         INDICATOR_NAME = "total_recreational_trips_n")
+```
+
+## Recreational Effort = 'create_prop_sp_trips'
+
+Pull in effort file and run effort function - this calculatess all recreational effort to get the proportion of recreational effort for BSB only
+```{r}
+mrip_effort <- read.csv(here::here('data-raw/mrip_effort_series.csv'),
+                        skip = 44, # was 24 is now 44
+                        na.strings = ".")
+
+prop_sp_trips <- create_prop_sp_trips(total = mrip_effort, sp = rec_trips)
+```
+
+## Total Recreational Catch = 'create_total_rec_catch'
+
+Read in MRIP catch data and run total rec catch function
+```{r}
+mrip_catch <- read.csv(here::here('data-raw/mrip_BLACK_SEA_BASS_catch_series.csv'),
+                                  skip = 46, # of rows you want to ignore
+                                  na.strings = ".")
+
+total_rec_catch <- create_total_rec_catch(mrip_catch)
+```
+
+## Total Recreational Landings = 'create_total_rec_landings'
+
+Read in MRIP harvest data and run total rec landings function
+```{r}
+mrip_landing <- read.csv(here::here('data-raw/mrip_BLACK_SEA_BASS_harvest.csv'),
+                         skip = 46, # of rows you want to ignore
+                         na.strings = ".")
+
+total_rec_landings <- create_total_rec_landings(mrip_landing)
+```
+
+## Format Commercial Data for Plotting
+
+```{r}
+dat <- read.csv(here::here('data-raw/SOCIEOECONOMIC_COMMERCIAL_INDICATORS_BLACK_SEABASS_FINAL.csv'))
+
+landings <- dat[1:28, ] %>% #filter landings only rows
+  dplyr::mutate(DATA_VALUE = (DATA_VALUE)/1000000) #divide to reduce # of zeros on y axis label
+
+vessels <- dat[29:56, ] #filter vessels only rows
+```
+
