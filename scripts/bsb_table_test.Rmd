@@ -1,0 +1,18 @@
+---
+title: "BSB table"
+author: "Abigail Tyrell"
+date: "2025-02-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+here::i_am("scripts/bsb_table_test.Rmd")
+```
+
+## Indicator summary table
+
+|Indicator|Status in 2024|Implications|Time series|
+|----:|:---|-------|:----:|
+|Winter bottom temperature (north)   |Cold  |Test     |![](`r here::here("images", "winter bottom temp North_2025-02-10.png")`)    |
+

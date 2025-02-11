@@ -8,8 +8,6 @@ plt_bsb <- function(data) {
     ggplot2::ggplot(ggplot2::aes(x = YEAR,
                                  y = DATA_VALUE
     )) +
-    ggplot2::geom_point() +
-    ggplot2::geom_path() +
     ggplot2::geom_hline(ggplot2::aes(
       yintercept = .data$mean + .data$sd
     ),
@@ -28,6 +26,8 @@ plt_bsb <- function(data) {
     color = "darkgreen",
     linetype = "dotted"
     ) +
+    ggplot2::geom_point() +
+    ggplot2::geom_path() +
     ggplot2::xlim(c(1989, 2024)) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::theme_classic(base_size = 16) +
@@ -92,7 +92,8 @@ all_indicators <- dplyr::bind_rows(
 ## plot ----
 for(i in unique(all_indicators$INDICATOR_NAME)) {
   this_dat <- all_indicators |>
-    dplyr::filter(INDICATOR_NAME == i)
+    dplyr::filter(INDICATOR_NAME == i) |>
+    dplyr::arrange(YEAR)
 
   fname <- here::here("images", paste0(i, "_", Sys.Date(), ".png"))
   if(max(this_dat$DATA_VALUE, na.rm = TRUE) > 10^6) {
@@ -109,3 +110,55 @@ for(i in unique(all_indicators$INDICATOR_NAME)) {
          height = 2)
 
 }
+
+## condition ----
+AnnualRelCond2023_Fall <- readr::read_csv("https://raw.githubusercontent.com/NOAA-EDAB/foodweb-risk/main/condition/AnnualRelCond2023_Fall.csv")
+
+survEPUcond <- AnnualRelCond2023_Fall |>
+  dplyr::select(Time = YEAR,
+                Var = Species,
+                EPU,
+                Value = MeanCond,
+                nCond) |>
+  dplyr::group_by(#EPU,
+                  Var) |>
+  dplyr::mutate(scaleCond = scale(Value,scale =T,center=T))
+
+xs <- quantile(survEPUcond$scaleCond, seq(0,1, length.out = 6), na.rm = TRUE)
+
+survEPUcond <- survEPUcond |>
+  dplyr::mutate(category = cut(scaleCond,
+                               breaks = xs,
+                               labels = c( "Poor Condition",
+                                           "Below Average",
+                                           "Neutral",
+                                           "Above Average",
+                                           "Good Condition"),
+                               include.lowest = TRUE))
+
+survEPUcond |>
+  dplyr::filter(Var == "Black sea bass") |>
+  dplyr::ungroup() |>
+  dplyr::arrange(Time) |>
+  dplyr::group_by(EPU) |>
+  dplyr::mutate(mean = mean(Value, na.rm = TRUE),
+                sd = sd(Value, na.rm = TRUE)) |>
+  ggplot2::ggplot(ggplot2::aes(x = Time,
+                                y = Value,
+                               # y = scaleCond[,1],
+                               color = category,
+                               shape = EPU
+  )) +
+  ggplot2::geom_path(color = "black", lty = 2, alpha = 0.5) +
+  ggplot2::geom_point(cex = 3) +
+  ggplot2::xlim(c(1989, 2024)) +
+  # ggplot2::facet_wrap(~EPU, ncol = 1) +
+  # ggplot2::scale_y_continuous(labels = scales::comma) +
+  ggplot2::theme_classic(base_size = 16) +
+  ggplot2::theme(strip.text = ggplot2::element_text(size = 16),
+                 axis.title = ggplot2::element_blank(),
+                 aspect.ratio = 0.4,
+                 legend.direction = "vertical",
+                 legend.box = "horizontal") +
+  viridis::scale_color_viridis(discrete = TRUE)
+
