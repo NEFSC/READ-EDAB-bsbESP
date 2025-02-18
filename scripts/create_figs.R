@@ -51,7 +51,7 @@ plt_bsb <- function(data) {
 
 ## data ----
 rec_indicators <- read.csv(here::here("data-raw/rec_indicators_2025.csv"))
-com_indicators <- readxl::read_excel(here::here("data-raw/commercial_data/SOCIEOECONOMIC_COMMERCIAL_INDICATORS_BLACK_SEABASS_FINAL.xls"))
+com_indicators <- readxl::read_excel(here::here("data-raw/commercial_data/SOCIEOECONOMIC_COMMERCIAL_INDICATORS_FINAL.xls"))
 
 bottomT <- read.csv(here::here("data/bt_update_2025-01-31.csv"))
 temp_indicator <- bottomT |>
