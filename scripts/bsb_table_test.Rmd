@@ -12,6 +12,17 @@ here::i_am("scripts/bsb_table_test.Rmd")
 
 ## Indicator summary table
 
+```{r}
+data <- readxl::read_excel(here::here("data-raw/test_table.xlsx")) |>
+  janitor::clean_names() |>
+  dplyr::mutate(figure = paste0('![](', here::here("images", time_series), ')'))
+```
+
+
+```{r, results = "asis"}
+knitr::kable(data)
+```
+
 |Indicator|Status in 2024|Implications|Time series|
 |----:|:---|-------|:----:|
 |Winter bottom temperature (north)   |Cold  |Test     |![](`r here::here("images", "winter bottom temp North_2025-02-10.png")`)    |

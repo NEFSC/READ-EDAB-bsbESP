@@ -28,18 +28,27 @@ plt_bsb <- function(data) {
     ) +
     ggplot2::geom_point() +
     ggplot2::geom_path() +
-    ggplot2::xlim(c(1989, 2024)) +
+    # ggplot2::xlim(c(1989, 2024)) +
+    ggplot2::scale_x_continuous(breaks = c(1990, 2000, 2010, 2020, 2023),
+                                limits = c(1989, 2024)) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::theme_classic(base_size = 16) +
     ggplot2::theme(strip.text = ggplot2::element_text(size = 16),
                    axis.title = ggplot2::element_blank(),
+                   axis.text.x = ggplot2::element_text(angle = 30,
+                                                       hjust = 1),
                    aspect.ratio = 1/4)
 
   return(plt)
 }
 
-plt_bsb(total_rec_landings |>
-          dplyr::mutate(DATA_VALUE = DATA_VALUE/10^6))
+# plt_bsb(total_rec_landings |>
+#           dplyr::mutate(DATA_VALUE = DATA_VALUE/10^6))
+#
+# plt_bsb(com_indicators |>
+#           dplyr::arrange(YEAR) |>
+#           dplyr::filter(INDICATOR_NAME == "N_Commercial_Vessels_Landing_BLACK_SEABASS"))
+
 ## data ----
 rec_indicators <- read.csv(here::here("data-raw/rec_indicators_2025.csv"))
 com_indicators <- readxl::read_excel(here::here("data-raw/commercial_data/SOCIEOECONOMIC_COMMERCIAL_INDICATORS_BLACK_SEABASS_FINAL.xls"))
@@ -105,9 +114,30 @@ for(i in unique(all_indicators$INDICATOR_NAME)) {
 
   print(fname)
   fig <- plt_bsb(this_dat)
-  ggsave(fname,
-         width = 7,
-         height = 2)
+
+  if(stringr::str_detect(i, "North")) {
+    fig <- fig +
+      ggplot2::labs(title = "North") +
+      ggplot2::theme(plot.title.position = "plot")
+
+    ggsave(fname,
+           width = 7,
+           height = 2)
+
+  } else if(stringr::str_detect(i, "South")) {
+    fig <- fig +
+      ggplot2::labs(title = "South") +
+      ggplot2::theme(plot.title.position = "plot")
+
+    ggsave(fname,
+           width = 7,
+           height = 2)
+
+  } else {
+    ggsave(fname,
+           width = 6,
+           height = 2)
+  }
 
 }
 

@@ -1,0 +1,58 @@
+ï»¿Marine Recreational Information Program Query Results
+
+Your Query Parameters:
+
+·Query: MRIP EFFORT DIRECTED TRIP
+
+·Year: 2017 - 2017
+
+·Summary:ANNUAL
+
+·Fishing Year: CALENDAR YEAR (JANUARY 1 - DECEMBER 31)
+
+·Geographic Area: UNITED STATES BY STATE
+
+·Species: BLACK SEA BASS
+
+·Fishing Mode: ALL MODES COMBINED
+
+·Fishing Area: ALL AREAS COMBINED
+
+·Species Options: PRIMARY TARGET
+
+MRIP does not support the use of estimates with a percent standard error above 50 and in those instances, recommends considering higher levels of aggregation (e.g., across states, geographic regions, or fishing modes).
+
+Results from 1981-2017 contain estimates resulting from the full application of both the Access Point Angler Intercept Survey (APAIS) and Fishing Effort Survey (FES) calibration.
+
+As of 2018 wave 1, all estimates of shore and private/rental boat fishing effort are now based on the FES.
+
+MRIP estimates for Louisiana are not available after 2013. State produced estimates are available through the MRIP National Query. For more information on state run surveys and estimates, please click <a href='http://www.wlf.louisiana.gov/lacreel' target='_blank'>here</a>.
+
+Estimates for Hawaii (prior to 2023) and Puerto Rico (prior to 2014) are based on Marine Recreational Fisheries Statistics Survey methodology and have not been calibrated.
+
+Beginning in 2023, estimates for Hawaii are produced using certified MRIP survey designs and weighted estimation methods.
+
+Review the <a href='https://www.fisheries.noaa.gov/recreational-fishing-data/recreational-fishing-data-glossary#type-of-fishing-(mode)' target='_blank'>glossary</a> for a description of how the for-hire survey methods have changed over time.
+
+As part of the government's guidelines for statistical programs, the Office of Management and Budget requires federal agencies to establish their own criteria for statistical precision (Standard 4.1.5 in OMB Standards and Guidelines for Statistical Surveys)
+
+Upper and lower confidence limits are calculated using a standard 95% confidence interval. The lower 95% confidence interval is truncated at 0 to match graph output.
+
+<a href='https://www.fisheries.noaa.gov/recreational-fishing-data/recreational-fishing-data-glossary#percent-standard-error-(pse)' target='_blank'><b>PSE</b></a>, or percent standard error, is automatically included in all outputs. The higher an estimate's Percent Standard Error, or PSE, the larger the margin of error around the estimate, which means there is more uncertainty in the estimate.
+
+Estimates with a percent standard error exceeding 50 are not statistically different from zero using a standard 95% confidence interval.  Note this significance comparison is not suggesting these estimates all equal zero, but is rather intended to illustrate their high uncertainty.
+
+"Estimate Status","Year","Fishing Year","State","Estimation Methodology","Cumulative Through","PSE","Does Directed Trips Meet MRIP Standard","Is Directed Trips Significantly Different From 0","Directed Trips","Directed Trips Lower 95% Confidence Limit","Directed Trips Upper 95% Confidence Limit"
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","CONNECTICUT","MRIP (2017 - 2017)","ANNUAL",15.4,"YES","YES",171369,119643,223095
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","DELAWARE","MRIP (2017 - 2017)","ANNUAL",25.3,"YES","YES",16838,8488,25187
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","FLORIDA","MRIP (2017 - 2017)","ANNUAL",32.5,"CAUTION","YES",73370,26634,120107
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","GEORGIA","MRIP (2017 - 2017)","ANNUAL",70.3,"NO","NO",14037,0,33379
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","MARYLAND","MRIP (2017 - 2017)","ANNUAL",35.5,"CAUTION","YES",35330,10748,59913
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","MASSACHUSETTS","MRIP (2017 - 2017)","ANNUAL",24.2,"YES","YES",138896,73015,204777
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","NEW JERSEY","MRIP (2017 - 2017)","ANNUAL",22,"YES","YES",202370,115108,289633
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","NEW YORK","MRIP (2017 - 2017)","ANNUAL",26,"YES","YES",467094,229063,705126
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","NORTH CAROLINA","MRIP (2017 - 2017)","ANNUAL",37.1,"CAUTION","YES",80116,21859,138373
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","RHODE ISLAND","MRIP (2017 - 2017)","ANNUAL",22.4,"YES","YES",41176,23098,59253
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","SOUTH CAROLINA","MRIP (2017 - 2017)","ANNUAL",62,"NO","NO",30208,0,66916
+"FINAL",2017,"Calendar Year (Jan 1 - Dec 31)","VIRGINIA","MRIP (2017 - 2017)","ANNUAL",69.3,"NO","NO",16371,0,38607
+

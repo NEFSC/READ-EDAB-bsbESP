@@ -81,22 +81,23 @@ create_rec_trips <- function(files, return = TRUE) {
 
 create_prop_sp_trips <- function(total = mrip_effort,
                                  sp = rec_trips,
+                                 states = c('MAINE',
+                                            'CONNECTICUT',
+                                            'MASSACHUSETTS',
+                                            'NEW HAMPSHIRE',
+                                            'NEW JERSEY',
+                                            'NEW YORK',
+                                            'RHODE ISLAND',
+                                            'MARYLAND',
+                                            'DELAWARE',
+                                            'NORTH CAROLINA'
+                                 ),
                                  return = TRUE){
   total_trips <- total %>%
     # dplyr::filter(sub_reg %in% 4:6) %>% # atlantic coast only
     # need to add in an ifelse for the category that was dl (sub_reg, state, etc)
-    dplyr::filter(State %in%
-                    c('MAINE',
-                      'CONNECTICUT',
-                      'MASSACHUSETTS',
-                      'NEW HAMPSHIRE',
-                      'NEW JERSEY',
-                      'NEW YORK',
-                      'RHODE ISLAND',
-                      'MARYLAND',
-                      'DELAWARE',
-                      'NORTH CAROLINA'
-                    )) %>% # northern stock only (Northern MAB)
+    dplyr::filter(State %in% states
+                    ) %>% # northern stock only (Northern MAB)
     dplyr::group_by(Year) %>%
     dplyr::summarise(total_trips = sum(as.numeric(Angler.Trips), na.rm = TRUE)) %>% # replaced estrips w/angler.trips
     dplyr::mutate(YEAR = as.numeric(Year)) %>%
