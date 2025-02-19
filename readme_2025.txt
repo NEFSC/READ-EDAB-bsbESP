@@ -6,7 +6,7 @@ Commercial indicator time series were provided by Samantha Werner. Data are in `
 
 # Recreational fisheries data
 
-Data was downloaded from MRIP (add link here) and saved in `data/mrip_data`. Data were processed with `scripts/run_mrip_indicator_functions.R`, which references functions in `scripts/create_rec_indicators_update.R`.
+Data was downloaded from MRIP (add link here) and saved in `data/mrip_data`. Data were processed with `scripts/run_mrip_indicator_functions.R`, which references functions in `scripts/socio_indicator_functions.R`.
 
 # Environmental data
 
@@ -15,4 +15,4 @@ Bottom temperature data was processed at `docs/winter_bt_annual_update.Rmd`. Bot
 
 # Plots
 
-Commercial and recreational fisheries datat were plotted with `scripts/create_figs.R`. Environmental data was plotted with `scripts/plot_bt_swv.Rmd`. Plots are saved in `images`.
+Commercial and recreational fisheries datat were plotted with `scripts/create_figs.R`. Environmental data was plotted with `scripts/bt_swv_facet_plots.R`. Plots are saved in `images`.
