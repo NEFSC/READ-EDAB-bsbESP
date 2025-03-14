@@ -1,0 +1,33 @@
+---
+title: "report card test"
+format: pdf
+---
+
+## ESP Report Card Test
+
+:::: {layout="[ [0.6, 0.4], [0.4, 0.6] ]"}
+
+::: {#first}
+This is column 1
+:::
+
+::: {#second}
+This is column 2
+:::
+
+::: {#third}
+This is column 3
+:::
+
+::: {#fourth}
+This is column 4
+:::
+
+::::
+
+---
+```{r}
+# write code to make summary table here
+```
+
+---

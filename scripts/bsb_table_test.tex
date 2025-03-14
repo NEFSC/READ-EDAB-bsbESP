@@ -1,0 +1,104 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={BSB table},
+  pdfauthor={Abigail Tyrell},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{BSB table}
+\author{Abigail Tyrell}
+\date{2025-02-10}
+
+\begin{document}
+\maketitle
+
+\hypertarget{indicator-summary-table}{%
+\subsection{Indicator summary table}\label{indicator-summary-table}}
+
+\begin{longtable}[t]{lll>{\raggedright\arraybackslash}p{30em}}
+\toprule
+indicator\_units & status\_in\_2024 & implications & figure\\
+\midrule
+Mean winter (Feb-Mar) bottom temperature (<U+00B0>C) & North: Below threshold South: Near long-term average & Cold winter temperatures may increase the mortality of young-of-the-year fish, resulting in smaller year classes. Additionally, cold temperatures can cause northern fish to move into the southern subregion, leading to potential misallocation of catch between the northern and southern stock subunits. 2024 temperature in the northern subunit (north of Hudson Canyon) was colder than black sea bass's lower threshold of 8C. Bottom temperature data comes from GLORYS, a modeled product. & ![](/home/atyrell/SOE\_ESP\_Data/bsb/images/bt\_facet.png)\\
+Shelf water volume (km3) & N/A (no data for 2024) & Shelf water volume is a proxy for suitable winter habitat; higher shelf water volume indicates less suitable habitat, potentially leading to northern fish migrating into the southern subregion. The shelf water volume dataset is created from in situ data, and there has been no winter sampling since 2021, highlighting the need for additional indicators to inform stock subunit mixing. & ![](/home/atyrell/SOE\_ESP\_Data/bsb/images/swv\_facet.png)\\
+MRIP recreational trips (millions of annual trips) & Above long-term average & Recent trip numbers are near an all-time high, but may have decreased from 2023 (2024 data is preliminary and does not include November and December 2024). Catch (not shown) generally reflects trip patterns. High regulatory complexity is likely contributing to recreational fishing trends. & ![](/home/atyrell/SOE\_ESP\_Data/bsb/images/total\_recreational\_trips\_n\_millions\_2025-02-18.png)\\
+MRIP recreational landings (millions of lbs.) & Near long-term average & The recreational black sea bass fishery has a catch-and-release component, and management measures are being implemented to reduce recreational harvest. 2024 data is preliminary and does not include November and December 2024. & ![](/home/atyrell/SOE\_ESP\_Data/bsb/images/total\_recreational\_landings\_lbs\_millions\_2025-02-18.png)\\
+Commercial revenue per vessel (2023 USD) & Above long-term average & Commercial revenue per vessel has an overall increasing trend, suggesting potentially favorable returns in the fishery, despite decreases in both total landings and average price (\$/lb.; not shown). & ![](/home/atyrell/SOE\_ESP\_Data/bsb/images/AVGVESREVperYr\_BLACK\_SEABASS\_2023\_DOLlb\_2025-02-18.png)\\
+\addlinespace
+Number of commercial vessels (\#) & Below long-term average & The number of active vessels has been decreasing since 2017, which could impact revenue distributions and fleet composition.<U+00A0> & ![](/home/atyrell/SOE\_ESP\_Data/bsb/images/N\_Commercial\_Vessels\_Landing\_BLACK\_SEABASS\_2025-02-18.png)\\
+\bottomrule
+\end{longtable}
+
+\end{document}
