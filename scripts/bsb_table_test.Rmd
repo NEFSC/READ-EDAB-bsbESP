@@ -2,7 +2,8 @@
 title: "BSB table"
 author: "Abigail Tyrell"
 date: "2025-02-10"
-output: html_document
+output: 
+  officedown::rdocx_document
 ---
 
 ```{r setup, include=FALSE}
@@ -10,17 +11,17 @@ knitr::opts_chunk$set(echo = FALSE)
 here::i_am("scripts/bsb_table_test.Rmd")
 ```
 
-## Indicator summary table
+## Indicator summary table with kable
 
 ```{r}
 data <- readxl::read_excel(here::here("data/test_table.xlsx")) |>
   janitor::clean_names() |>
   dplyr::mutate(figure = paste0('![](', here::here("images", time_series), ')')) |>
-  dplyr::select(-time_series)
+  dplyr::select(-c(w, h, time_series))
 ```
 
 
-```{r, results = "asis"}
+```{r, results = "asis", eval = FALSE}
 knitr::kable(data) |>
   kableExtra::column_spec(1, width = "1in") |>
   kableExtra::column_spec(2, width = "1in") |>
@@ -29,4 +30,46 @@ knitr::kable(data) |>
   kableExtra::kable_styling(bootstrap_options = c("bordered"))
 ```
 
+## Indicator summary table with flextable
 
+```{r}
+data <- readxl::read_excel(here::here("data/test_table.xlsx")) |>
+  janitor::clean_names() |>
+  dplyr::mutate(figure =  here::here("images", time_series)) |>
+  dplyr::select(-time_series)
+```
+
+
+```{r}
+
+small_dat <- data |>
+  dplyr::mutate(figure = NA) |>
+  dplyr::select(-c(w, h))
+
+flextable::set_flextable_defaults(font.family = "Arial",
+                                  font.size = 10)
+
+tbl <- flextable::flextable(small_dat) 
+tbl <- flextable::width(tbl, j = 1:4, width = c(0.75, 0.75, 3.25, 3.25))
+tbl <- flextable::theme_box(tbl)
+
+for(i in 1:6){
+  tbl <- flextable::compose(tbl,
+                          i = i,
+                          j = 4,
+                          value = flextable::as_paragraph(
+                            flextable::as_image(src = data$figure[i],
+                                                width = data$w[i],
+                                                height = data$h[i],
+                                                unit = "in",
+                                                guess_size = FALSE)))
+}
+
+tbl
+
+# flextable::save_as_image(tbl, path = here::here("images/flextable_test.png"))
+# needs magick installed to work
+
+# flextable::save_as_pptx(tbl, path = here::here("docs/flextable_test.pptx"))
+# officer::ph_with(ppt, value = tbl)
+```
