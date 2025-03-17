@@ -1,0 +1,110 @@
+---
+title: "Black Sea Bass (Centropristis striata) Ecosystem & Socioeconomic Profile Report Card"
+format: 
+  pdf:
+    margin-left: "0.5in"
+    margin-right: "0.5in"
+    margin-top: "0.5in"
+    margin-bottom: "0.5in"
+    fontsize: "10pt"
+    linestretch: 1
+    indent: true
+---
+\vspace{-3cm}
+## Spring 2025
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+``` 
+
+```{css}
+/* not sure why this isn't working */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    text-align: center;
+} 
+
+p {
+  margin: 0;
+  text-align: left;
+}
+```
+
+Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
+
+:::: {layout="[0.4, 0.05, 0.55]"}
+
+::: {}
+![](`r here::here("images/bsb_map.png")`)
+:::
+
+::: {}
+.
+:::
+
+::: {style="text-align: left"}
+## 2024 in Review
+
+### Fishing Community Observations
+- Steady or increasing availability 
+- Expanding distributions and changes in migration timing
+- Local regulatory complexity affects fishing opportunities
+\vspace{-0.4cm}
+
+### Commercial Fishery
+- Number of active vessels declined in 2024, but total landings increased from 2023 
+- Total revenue decreased slightly along with average prices ($/lb)
+- Average revenue per vessel increased, following an upward trend over the past three years for vessels that remain in the fishery
+\vspace{-0.4cm}
+
+### Recreational Fishery
+- Number of targeted trips, catch, and landings all down from 2023
+- But number of trips still above the historic average 
+- Not clear if catch per angler has continued to increase in 2024
+\vspace{-0.4cm}
+
+### Ecosystem
+- Cold winter in the north but near average in the south
+- Poor or below average fish condition in recent years
+:::
+
+::::
+
+## Key Points from the Mid-Atlantic Risk Assessment
+
+:::: {layout="[0.6, 0.4]"}
+
+::: {style="text-align: left"}
+According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf), Black Sea Bass scored high and/or moderately high risk in the following elements:
+
+- Moderate-high to high risk to the stock due to:
+  - Very high exposure to changes in climate 
+  - Observed and potential changes in distribution; northward shift into the Gulf of Maine
+  - Dependence on threatened estuarine habitat
+  - Decline in the biomass of benthic invertebrate prey 
+  - Decline in black sea bass body condition in the Mid Atlantic Bight
+- High risk to the recreational fishery due to:
+  - Catch exceeding harvest limits in several years
+  - High regulatory complexity; frequent changes and varying interstate regulations; regulatory changes in allocations
+- Moderate-high risk to the commercial fishery due to:
+  - Commercial revenue in wind development areas 
+  - High discards & discard mortality
+
+:::
+
+::: {}
+![](`r here::here("images/condition.jpg")`)
+![](`r here::here("images/chart.png")`)
+:::
+
+::::
+
+{{< pagebreak >}}
+
+```{r}
+# write code to make summary table here
+```
+
+
+
