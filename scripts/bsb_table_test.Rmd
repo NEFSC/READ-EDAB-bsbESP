@@ -1,7 +1,7 @@
 ---
 title: "BSB table"
 author: "Abigail Tyrell"
-date: "2025-02-10"
+date: "`r Sys.Date()`"
 output: 
   officedown::rdocx_document
 ---
