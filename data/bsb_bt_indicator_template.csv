@@ -10,7 +10,7 @@
 #INDICATOR_NAME - Name of the indicator - text string (unique to the indicator).,,,,,,,,,,,,,,
 """BSB_WINTER_BOTTOM_TEMP """,,,,,,,,,,,,,,
 "#DESCRIPTION - Brief description of the indicator. Please make sure this description includes information on the spatial distribution of the indicator and how the data for the indicator are collected. The spatial resolution can be a cell size dimension (e.g., 5 km resolution for gridded data) or area of sampling for a survey. The data collection method can be brief (e.g., survey name and gear type, satellite sensor and version, stock assessment model output, fishery observer data, community reports, etc.) and can include a reference to methods detailed elswhere. This is a text string. ",,,,,,,,,,,,,,
-"""Winter (Feb-Mar) bottom temperature across black sea bass North and South stock regions. Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS. 2020-2024 data are pulled directly from GLORYS. The GLORYS12V1 product is the CMEMS global ocean eddy-resolving (1/12° horizontal resolution, 50 vertical levels) reanalysis. """,,,,,,,,,,,,,,
+"""Winter (Feb-Mar) bottom temperature across black sea bass North and South stock regions. Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS. 2020-2024 data are pulled directly from GLORYS. The GLORYS12V1 product is the CMEMS global ocean eddy-resolving (1/12? horizontal resolution, 50 vertical levels) reanalysis. """,,,,,,,,,,,,,,
 #STATUS_TRENDS - Information on the current status of the indicator in the context of historical trends. This is a text string.,,,,,,,,,,,,,,
 """Bottom temperatures in 2024 are decreasing relative to recent years, but still within 1 sd of the mean.""",,,,,,,,,,,,,,
 #FACTORS - Information on the potential causes for observed trends and current status (focus on most recent year). This is a text string.,,,,,,,,,,,,,,
@@ -18,7 +18,58 @@
 #IMPLICATIONS - Information that briefly answers these questions: What are the implications or impacts of the observed trends on the ecosystem or ecosystem components? What do the trends mean? Why are they important? How can this information be used to inform management decisions? This is a text string.   ,,,,,,,,,,,,,,
 """Cold winter temperatures may increase the mortality of young-of-the-year fish, resulting in smaller year classes. Additionally, cold temperatures can cause northern fish to move into the southern subregion, leading to potential misallocation of catch between the northern and southern stock subunits. 2024 temperature in the northern subunit (north of Hudson Canyon) was colder than black sea bass's lower threshold of 8C.""",,,,,,,,,,,,,,
 #REFERENCES - Include any full references that are associated with the indicator. This may include data references such as from an ERDDAP webpage or literature cited (plus the DOI where possible). This is a text string.,,,,,,,,,,,,,,
-"""du Pontavice, H., Miller, T. J., Stock, B. C., Chen, Z., & Saba, V. S. (2022). Ocean model-based covariates improve a marine fish stock assessment when observations are limited. ICES Journal of Marine Science, 79(4), 1259–1273. Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Angélique, M., Marie, D., Clément, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12° Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876""",,,,,,,,,,,,,,
+"""du Pontavice, H., Miller, T. J., Stock, B. C., Chen, Z., & Saba, V. S. (2022). Ocean model-based covariates improve a marine fish stock assessment when observations are limited. ICES Journal of Marine Science, 79(4), 1259?1273. Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Ang?lique, M., Marie, D., Cl?ment, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12? Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876""",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+#INDICATOR_DATA ----------------------------------------------------------------------------------------------,,,,,,,,,,,,,,
+#YEAR - List of years for the indicator contribution. This is a integer value. ,,,,,,,,,,,,,,
+1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003
+2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018
+2019,2020,2021,2022,2023,2024,1989,1990,1991,1992,1993,1994,1995,1996,1997
+1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012
+2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,1989,1990,1991
+1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006
+2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021
+2022,2023,2024,,,,,,,,,,,,
+#REGION/SEASON - List of spatial or temporal scales applicable to indicator. This is a character value. ,,,,,,,,,,,,,,
+North,North,North,North,North,North,North,North,North,North,North,North,North,North,North
+North,North,North,North,North,North,North,North,North,North,North,North,North,North,North
+North,North,North,North,North,North,South,South,South,South,South,South,South,South,South
+South,South,South,South,South,South,South,South,South,South,South,South,South,South,South
+South,South,South,South,South,South,South,South,South,South,South,South,All,All,All
+All,All,All,All,All,All,All,All,All,All,All,All,All,All,All
+All,All,All,All,All,All,All,All,All,All,All,All,All,All,All
+All,All,All,,,,,,,,,,,,
+#INDICATOR_VALUE - List of data values for the indicator contribution (must match the YEAR list length). This is a numeric value. ,,,,,,,,,,,,,,
+6.466071599,8.030730354,7.431869325,6.959844148,5.603562279,6.334015543,7.507860203,5.650695927,8.16297909,6.056565706,8.228132326,7.633274639,6.99106858,8.59571283,5.682907932
+5.037443167,5.563462461,8.393419188,7.507122983,7.254213194,8.473333793,6.466629039,6.226767369,10.46342684,7.393318551,7.02180694,7.815166975,8.44315318,7.900301056,7.199159834
+7.347171588,8.829726404,8.555891207,8.683112546,8.700444988,6.849140135,7.329214458,8.69411038,8.283171164,8.758996791,6.388640911,6.484265114,8.109674754,6.156468867,8.472656134
+7.325320848,8.228338618,7.97342443,7.220091714,9.822156956,6.772058303,6.163938307,6.290130475,8.969505335,8.017453972,9.264487558,7.594322035,6.384801077,7.263455981,10.00272128
+8.00246964,7.741538069,6.793568179,9.317559702,8.593801584,7.747986678,7.450281135,9.153901528,8.342668414,9.330675756,9.385808975,8.274111585,6.973840839,8.420983217,7.932672736
+8.018248746,6.065407935,6.422404284,7.861895359,5.948231774,8.345155743,6.802948333,8.228253683,7.833377784,7.125798192,9.317204754,6.323632756,5.700137152,5.990946349,8.732318852
+7.807340236,8.43681637,7.956229205,6.418491327,6.836630017,10.19240321,7.751669643,7.445210001,7.214181357,8.957548602,8.308273192,7.522023409,7.40782882,9.027738386,8.4256509
+9.078655773,9.119077608,7.719538264,,,,,,,,,,,,
+=======
+#Ecosystem and Socioeconomic Profile (ESP) indicator template for Northeast ESPs,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+#This template is required for updating ESP indicator information. There are two required sections to check or update (see below): Indicator Review and Indicator Data.  ,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+"#INSTRUCTIONS: Please fill in the text (surrounded by "" "") or data as values in the line after each field marked with a # and capitalized name. Help text is provided following the capitalized field name.  ",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+#INDICATOR_REVIEW ----------------------------------------------------------------------------------------,,,,,,,,,,,,,,
+#SUBMISSION_YEAR - Current year of contribution submission. This is a integer value.,,,,,,,,,,,,,,
+2025,,,,,,,,,,,,,,
+#INDICATOR_NAME - Name of the indicator - text string (unique to the indicator).,,,,,,,,,,,,,,
+"""BSB_WINTER_BOTTOM_TEMP """,,,,,,,,,,,,,,
+"#DESCRIPTION - Brief description of the indicator. Please make sure this description includes information on the spatial distribution of the indicator and how the data for the indicator are collected. The spatial resolution can be a cell size dimension (e.g., 5 km resolution for gridded data) or area of sampling for a survey. The data collection method can be brief (e.g., survey name and gear type, satellite sensor and version, stock assessment model output, fishery observer data, community reports, etc.) and can include a reference to methods detailed elswhere. This is a text string. ",,,,,,,,,,,,,,
+"""Winter (Feb-Mar) bottom temperature across black sea bass North and South stock regions. Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS. 2020-2024 data are pulled directly from GLORYS. The GLORYS12V1 product is the CMEMS global ocean eddy-resolving (1/12? horizontal resolution, 50 vertical levels) reanalysis. """,,,,,,,,,,,,,,
+#STATUS_TRENDS - Information on the current status of the indicator in the context of historical trends. This is a text string.,,,,,,,,,,,,,,
+"""Bottom temperatures in 2024 are decreasing relative to recent years, but still within 1 sd of the mean.""",,,,,,,,,,,,,,
+#FACTORS - Information on the potential causes for observed trends and current status (focus on most recent year). This is a text string.,,,,,,,,,,,,,,
+"""Cold winter temperatures in the Northwest Atlantic (north of Hudson Canyon).""",,,,,,,,,,,,,,
+#IMPLICATIONS - Information that briefly answers these questions: What are the implications or impacts of the observed trends on the ecosystem or ecosystem components? What do the trends mean? Why are they important? How can this information be used to inform management decisions? This is a text string.   ,,,,,,,,,,,,,,
+"""Cold winter temperatures may increase the mortality of young-of-the-year fish, resulting in smaller year classes. Additionally, cold temperatures can cause northern fish to move into the southern subregion, leading to potential misallocation of catch between the northern and southern stock subunits. 2024 temperature in the northern subunit (north of Hudson Canyon) was colder than black sea bass's lower threshold of 8C.""",,,,,,,,,,,,,,
+#REFERENCES - Include any full references that are associated with the indicator. This may include data references such as from an ERDDAP webpage or literature cited (plus the DOI where possible). This is a text string.,,,,,,,,,,,,,,
+"""du Pontavice, H., Miller, T. J., Stock, B. C., Chen, Z., & Saba, V. S. (2022). Ocean model-based covariates improve a marine fish stock assessment when observations are limited. ICES Journal of Marine Science, 79(4), 1259?1273. Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Ang?lique, M., Marie, D., Cl?ment, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12? Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876""",,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,
 #INDICATOR_DATA ----------------------------------------------------------------------------------------------,,,,,,,,,,,,,,
 #YEAR - List of years for the indicator contribution. This is a integer value. ,,,,,,,,,,,,,,
