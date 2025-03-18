@@ -1,36 +1,14 @@
 ---
-title: "BSB table"
-author: "Abigail Tyrell"
-date: "`r Sys.Date()`"
+title: ""
+geometry: margin=0.5in
 output: 
   officedown::rdocx_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-here::i_am("scripts/bsb_table_test.Rmd")
+here::i_am("docs/bsb_table_test.Rmd")
 ```
-
-## Indicator summary table with kable
-
-```{r}
-data <- readxl::read_excel(here::here("data/test_table.xlsx")) |>
-  janitor::clean_names() |>
-  dplyr::mutate(figure = paste0('![](', here::here("images", time_series), ')')) |>
-  dplyr::select(-c(w, h, time_series))
-```
-
-
-```{r, results = "asis", eval = FALSE}
-knitr::kable(data) |>
-  kableExtra::column_spec(1, width = "1in") |>
-  kableExtra::column_spec(2, width = "1in") |>
-  kableExtra::column_spec(3, width = "3in") |>
-  kableExtra::column_spec(4, width = "3in") |>
-  kableExtra::kable_styling(bootstrap_options = c("bordered"))
-```
-
-## Indicator summary table with flextable
 
 ```{r}
 data <- readxl::read_excel(here::here("data/test_table.xlsx")) |>
@@ -41,19 +19,25 @@ data <- readxl::read_excel(here::here("data/test_table.xlsx")) |>
 
 
 ```{r}
-
 small_dat <- data |>
   dplyr::mutate(figure = NA) |>
-  dplyr::select(-c(w, h))
+  dplyr::select(-c(w, h)) |>
+  dplyr::rename(time_series = figure)
 
+colnames(small_dat) <- colnames(small_dat) |>
+  stringr::str_replace_all("_", " ") |>
+  stringr::str_to_title()
+```
+
+```{r}
 flextable::set_flextable_defaults(font.family = "Arial",
                                   font.size = 10)
 
 tbl <- flextable::flextable(small_dat) 
-tbl <- flextable::width(tbl, j = 1:4, width = c(0.75, 0.75, 3.25, 3.25))
+tbl <- flextable::width(tbl, j = 1:4, width = c(0.9, 0.75, 3.15, 3.2))
 tbl <- flextable::theme_box(tbl)
 
-for(i in 1:6){
+for(i in 1:nrow(small_dat)){
   tbl <- flextable::compose(tbl,
                           i = i,
                           j = 4,
@@ -64,6 +48,9 @@ for(i in 1:6){
                                                 unit = "in",
                                                 guess_size = FALSE)))
 }
+
+# not sure why only one header cell isn't left justified
+tbl <- flextable::align(tbl, i = 1, j = 4, align = "left", part = "header")
 
 tbl
 
