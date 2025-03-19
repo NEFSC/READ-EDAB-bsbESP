@@ -3,6 +3,7 @@ title: ""
 geometry: margin=0.5in
 output: 
   officedown::rdocx_document
+  
 ---
 
 ```{r setup, include=FALSE}

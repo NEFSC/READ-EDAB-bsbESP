@@ -1,61 +1,18 @@
 ---
-title: "Black Sea Bass (Centropristis striata)\nEcosystem & Socioeconomic Profile Report Card"
-format: 
-  pdf:
-    margin-left: "0.5in"
-    margin-right: "0.5in"
-    margin-top: "0in"
-    margin-bottom: "0.5in"
-    fontsize: "10pt"
-    linestretch: 1
-    indent: true
+title: "Black Sea Bass (Centropristis striata) Ecosystem & Socioeconomic Profile Report Card"
+geometry: margin=0.5in
+output: pdf_document
 ---
+## Spring 2025
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
 ``` 
 
-```{css}
-/* not sure why this isn't working */
-<style>
-h2 {
-    margin: 0em;
-    text-align: center;
-}
-
-h3 {
-    margin: 0em;
-    text-align: center;
-}
-
-p {
-  margin: 0em;
-  text-align: left;
-}
-
-body {
-  margin: 0 auto;
-}
-</style>
-```
-
-```{=html}
-<style>
-.flushleft {
-  text-align: left;
-}
-</style>
-```
-
-\vspace{-3cm}
-
-
-## Spring 2025
-
-
 Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
 
-:::: {layout="[ [0.4, 0.05, 0.55], [1], [0.55, 0.05, 0.4]] "}
+:::: {layout="[0.4, 0.05, 0.55]"}
 
 ::: {}
 ![](`r here::here("images/bsb_map.png")`)
@@ -91,14 +48,13 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 - Poor or below average fish condition in recent years
 :::
 
-::: {}
-\vspace{0.5cm}
+::::
+
 ## Key Points from the Mid-Atlantic Risk Assessment
-:::
+
+:::: {layout="[0.6, 0.4]"}
 
 ::: {}
-\vspace{-3cm}
-
 According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf), Black Sea Bass scored high and/or moderately high risk in the following elements:
 
 - Moderate-high to high risk to the stock due to:
@@ -114,10 +70,6 @@ According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1
   - Commercial revenue in wind development areas 
   - High discards & discard mortality
 
-:::
-
-::: {}
-.
 :::
 
 ::: {}

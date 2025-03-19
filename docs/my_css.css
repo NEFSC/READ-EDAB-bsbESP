@@ -1,0 +1,22 @@
+
+ \begin{document}
+
+/* not sure why this isn't working */
+h2 {
+    margin: 0em;
+    text-align: center;
+}
+
+h3 {
+    margin: 0em;
+    text-align: center;
+}
+
+p {
+  margin: 0em;
+  text-align: left;
+}
+
+body {
+  margin: 0 auto;
+}
