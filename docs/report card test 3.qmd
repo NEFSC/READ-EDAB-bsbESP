@@ -15,59 +15,33 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ``` 
 
-```{css}
-/* not sure why this isn't working */
-<style>
-h2 {
-    margin: 0em;
-    text-align: center;
-}
+\vspace{-2.5cm}
 
-h3 {
-    margin: 0em;
-    text-align: center;
-}
+\centering
+\large \textbf{Spring 2024}
+\vspace{0.25cm}
 
-p {
-  margin: 0em;
-  text-align: left;
-}
-
-body {
-  margin: 0 auto;
-}
-</style>
-```
-
-```{=html}
-<style>
-.flushleft {
-  text-align: left;
-}
-</style>
-```
-
-\vspace{-3cm}
-
-
-## Spring 2025
-
-
+\raggedright
+\normalsize
 Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
 
-:::: {layout="[ [0.4, 0.05, 0.55], [1], [0.55, 0.05, 0.4]] "}
+:::: {layout="[ [0.4, 0.025, 0.575], [1], [0.575, 0.025, 0.4]] "}
 
 ::: {}
 ![](`r here::here("images/bsb_map.png")`)
 :::
 
 ::: {}
-.
+\hfill
 :::
 
 ::: {}
-## 2024 in Review
+\centering
+\large \textbf{2024 in Review}
+\vspace{-0.25cm}
 
+\raggedright
+\normalsize
 ### Fishing Community Observations
 - Steady or increasing availability 
 - Expanding distributions and changes in migration timing
@@ -93,14 +67,20 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 
 ::: {}
 \vspace{0.5cm}
-## Key Points from the Mid-Atlantic Risk Assessment
+\centering
+\large \textbf{Key Points from the Mid-Atlantic Risk Assessment}
+\vspace{0.25cm}
 :::
 
 ::: {}
 \vspace{-3cm}
-
+\raggedright
+\normalsize
 According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf), Black Sea Bass scored high and/or moderately high risk in the following elements:
 
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{1pt}
+\setlength{\parsep}{1pt}
 - Moderate-high to high risk to the stock due to:
   - Very high exposure to changes in climate 
   - Observed and potential changes in distribution; northward shift into the Gulf of Maine
@@ -117,7 +97,7 @@ According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1
 :::
 
 ::: {}
-.
+\hfill
 :::
 
 ::: {}
