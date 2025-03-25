@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ``` 
 
 \vspace{-2.5cm}
+\setlength{\parskip}{0pt}
 
 \centering
 \large \textbf{Spring 2024}
