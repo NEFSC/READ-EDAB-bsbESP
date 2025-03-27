@@ -1,5 +1,5 @@
 ---
-title: "Black Sea Bass (Centropristis striata)\nEcosystem & Socioeconomic Profile Report Card"
+title: "Black Sea Bass (\\protect\\textit{Centropristis striata}) \\protect\\newline Ecosystem & Socioeconomic Profile Report Card"
 format: 
   pdf:
     margin-left: "0.5in"
@@ -25,14 +25,15 @@ knitr::opts_chunk$set(echo = FALSE)
 # here::i_am("inst/esp_template/06_docs/report card pg 1.qmd")
 ```
 
-<!-- \backgroundsetup{            -->
-<!--  scale=1, -->
-<!--  angle=0, -->
-<!--  opacity=0,   -->
-<!--  contents={\includegraphics[width=\paperwidth,height=\paperheight]{background_pg1.jpg}} -->
-<!--  } -->
-\vspace{-2.5cm}
+\backgroundsetup{
+  scale=1,
+  angle=0,
+  opacity=0,
+  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}}
+ }
+\BgThispage
 
+\vspace{-2.5cm}
 \section{Spring 2024}
 
 Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
@@ -107,6 +108,16 @@ According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1
 :::
 
 ::::
+\newpage
+
+\backgroundsetup{
+  scale=1,
+  angle=0,
+  opacity=0,
+  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}}
+ }
+\BgThispage
+<!-- not sure why this background isn't working -->
 
 ```{r}
 data <- readxl::read_excel(params$tbl_file) |>

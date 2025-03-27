@@ -68,7 +68,7 @@
 \def\fps@figure{htbp}
 \makeatother
 
-\usepackage[pages=some]{background}
+% \usepackage{background}
 
 \RedeclareSectionCommand[font=\centering\large]{section}
 \RedeclareSectionCommand[
@@ -156,7 +156,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Black Sea Bass () Ecosystem \& Socioeconomic Profile Report Card},
+  pdftitle={Black Sea Bass (Centropristis striata) Ecosystem \& Socioeconomic Profile Report Card},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -164,25 +164,18 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Black Sea Bass (\protect\textit{Centropristis striata})
-\protect\newline Ecosystem \& Socioeconomic Profile Report Card}
+\title{Black Sea Bass (Centropristis striata) Ecosystem \& Socioeconomic
+Profile Report Card}
 \author{}
 \date{}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, sharp corners, interior hidden, breakable, enhanced, boxrule=0pt, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden, sharp corners, enhanced, breakable, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \setstretch{1}
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}}
- }
-\BgThispage
-
 \vspace{-2.5cm}
+
 \section{Spring 2024}
 
 Black sea bass is an important Mid-Atlantic stock with high commercial
@@ -368,16 +361,6 @@ moderately high risk in the following elements:
 \end{minipage}%
 
 \end{figure}
-
-\newpage
-
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}}
- }
-\BgThispage
 
 \newgeometry{top=0.25in, left=0.25in, right=0.25in, bottom=0.25in}
 
