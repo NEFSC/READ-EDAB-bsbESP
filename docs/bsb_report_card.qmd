@@ -17,7 +17,7 @@ params:
   img1: !expr here::here("images/bsb_map.png")
   img2: !expr here::here("images/condition.jpg")
   img3: !expr here::here("images/chart.png")
-  tbl_file: !expr here::here("data/test_table.xlsx")
+  tbl_file: !expr here::here("docs/bsb_indicator_table.xlsx")
   img_dir: !expr here::here("images")
 ---
 ```{r setup, include=FALSE}
@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = FALSE)
 \BgThispage
 
 \vspace{-2.5cm}
-\section{Spring 2024}
+\section{Spring 2025soun}
 
 Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
 
@@ -57,7 +57,7 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 - Local regulatory complexity affects fishing opportunities
 
 \subsection{Commercial Fishery}
-- Number of active vessels declined in 2024, but total landings increased from 2023 
+- Number of active vessels declined in 2024, but total landed pounds increased from 2023 
 - Total revenue decreased slightly along with average prices ($/lb)
 - Average revenue per vessel increased, following an upward trend over the past three years for vessels that remain in the fishery
 
@@ -165,6 +165,7 @@ for(i in 1:nrow(small_dat)){
 
 tbl <- flextable::align(tbl, i = 1, j = 1:4, align = "center", part = "header")
 tbl <- flextable::align(tbl, i = 1:nrow(small_dat), j = 4, align = "center")
+tbl <- flextable::bg(tbl, i = 1:nrow(small_dat), j = 1:4, bg = "white")
 # TODO: this height adjustment isn't working
 tbl <- flextable::height_all(tbl, part = "body", height = 2)
 tbl <- flextable::hrule(tbl, i = 1:nrow(small_dat), rule = "atleast", part = "body")
@@ -174,6 +175,8 @@ tbl <- flextable::hrule(tbl, i = 1:nrow(small_dat), rule = "atleast", part = "bo
 \newgeometry{top=0.25in, left=0.25in, right=0.25in, bottom=0.25in}
 ```{r} 
 tbl
+
+# flextable::save_as_image(tbl, here::here("images/indicator_table.png"))
 ```
 
 \centering
