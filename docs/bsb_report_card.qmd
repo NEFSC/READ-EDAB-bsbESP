@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = FALSE)
 \BgThispage
 
 \vspace{-2.5cm}
-\section{Spring 2025soun}
+\section{Spring 2025}
 
 Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
 
