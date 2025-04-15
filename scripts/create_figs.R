@@ -29,7 +29,7 @@ plt_bsb <- function(data) {
     ggplot2::geom_point() +
     ggplot2::geom_path() +
     # ggplot2::xlim(c(1989, 2024)) +
-    ggplot2::scale_x_continuous(breaks = c(1990, 2000, 2010, 2020, 2023),
+    ggplot2::scale_x_continuous(breaks = c(1990, 2000, 2010, 2020, 2024),
                                 limits = c(1989, 2024)) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::theme_classic(base_size = 16) +
@@ -92,10 +92,14 @@ swv <- rbind(n_swv,
   dplyr::select(INDICATOR_NAME, YEAR, DATA_VALUE)
 
 all_indicators <- dplyr::bind_rows(
-  rec_indicators,
-  com_indicators,
-  swv,
-  temp_indicator
+  rec_trips2,
+  prop_sp_trips,
+  total_rec_catch,
+  total_rec_landings
+  # rec_indicators,
+  #com_indicators,
+  #swv,
+  #temp_indicator
 )
 
 ## plot ----
@@ -120,23 +124,23 @@ for(i in unique(all_indicators$INDICATOR_NAME)) {
       ggplot2::labs(title = "North") +
       ggplot2::theme(plot.title.position = "plot")
 
-    ggsave(fname,
-           width = 7,
-           height = 2)
+    ggplot2::ggsave(fname,
+                    width = 7,
+                    height = 2)
 
   } else if(stringr::str_detect(i, "South")) {
     fig <- fig +
       ggplot2::labs(title = "South") +
       ggplot2::theme(plot.title.position = "plot")
 
-    ggsave(fname,
-           width = 7,
-           height = 2)
+    ggplot2::ggsave(fname,
+                    width = 7,
+                    height = 2)
 
   } else {
-    ggsave(fname,
-           width = 6,
-           height = 2)
+    ggplot2::ggsave(fname,
+                    width = 6,
+                    height = 2)
   }
 
 }
@@ -151,7 +155,7 @@ survEPUcond <- AnnualRelCond2023_Fall |>
                 Value = MeanCond,
                 nCond) |>
   dplyr::group_by(#EPU,
-                  Var) |>
+    Var) |>
   dplyr::mutate(scaleCond = scale(Value,scale =T,center=T))
 
 xs <- quantile(survEPUcond$scaleCond, seq(0,1, length.out = 6), na.rm = TRUE)
@@ -174,7 +178,7 @@ survEPUcond |>
   dplyr::mutate(mean = mean(Value, na.rm = TRUE),
                 sd = sd(Value, na.rm = TRUE)) |>
   ggplot2::ggplot(ggplot2::aes(x = Time,
-                                y = Value,
+                               y = Value,
                                # y = scaleCond[,1],
                                color = category,
                                shape = EPU

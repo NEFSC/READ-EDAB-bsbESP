@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Pull in directed trip files and run rec trips function
 ```{r cars}
-path = (here::here('data-raw/mrip_directed_trips'))
+path = (here::here('data/mrip_data/mrip_directed_trips'))
 
 files <- list.files(path = path, pattern = glob2rx('mrip*.csv'),
                        full.names = TRUE)
@@ -45,7 +45,7 @@ rec_trips2 <- rec_trips %>%
 
 Pull in effort file and run effort function - this calculatess all recreational effort to get the proportion of recreational effort for BSB only
 ```{r}
-mrip_effort <- read.csv(here::here('data-raw/mrip_effort_series.csv'),
+mrip_effort <- read.csv(here::here('data/mrip_data/mrip_effort_series_update040325.csv'),
                         skip = 44, # was 24 is now 44
                         na.strings = ".")
 
@@ -56,7 +56,7 @@ prop_sp_trips <- create_prop_sp_trips(total = mrip_effort, sp = rec_trips)
 
 Read in MRIP catch data and run total rec catch function
 ```{r}
-mrip_catch <- read.csv(here::here('data-raw/mrip_BLACK_SEA_BASS_catch_series.csv'),
+mrip_catch <- read.csv(here::here('data/mrip_data/mrip_BLACK_SEA_BASS_catch_series_update040325.csv'),
                                   skip = 46, # of rows you want to ignore
                                   na.strings = ".")
 
@@ -67,7 +67,7 @@ total_rec_catch <- create_total_rec_catch(mrip_catch)
 
 Read in MRIP harvest data and run total rec landings function
 ```{r}
-mrip_landing <- read.csv(here::here('data-raw/mrip_BLACK_SEA_BASS_harvest.csv'),
+mrip_landing <- read.csv(here::here('data/mrip_data/mrip_BLACK_SEA_BASS_harvest_update040325.csv'),
                          skip = 46, # of rows you want to ignore
                          na.strings = ".")
 

@@ -10,7 +10,7 @@ Your Query Parameters:
 
 ·Fishing Year: CALENDAR YEAR (JANUARY 1 - DECEMBER 31)
 
-·Geographic Area: UNITED STATES BY STATE
+·Geographic Area: ATLANTIC COAST BY STATE
 
 ·Species: BLACK SEA BASS
 
@@ -43,16 +43,16 @@ Upper and lower confidence limits are calculated using a standard 95% confidence
 Estimates with a percent standard error exceeding 50 are not statistically different from zero using a standard 95% confidence interval.  Note this significance comparison is not suggesting these estimates all equal zero, but is rather intended to illustrate their high uncertainty.
 
 "Estimate Status","Year","Fishing Year","State","Estimation Methodology","Cumulative Through","PSE","Does Directed Trips Meet MRIP Standard","Is Directed Trips Significantly Different From 0","Directed Trips","Directed Trips Lower 95% Confidence Limit","Directed Trips Upper 95% Confidence Limit"
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","CONNECTICUT","MRIP (2024 - 2024)","WAVE 5",23.5,"YES","YES",129368,69781,188955
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","DELAWARE","MRIP (2024 - 2024)","WAVE 5",28.3,"YES","YES",37998,16921,59075
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","FLORIDA","MRIP (2024 - 2024)","WAVE 5",45.9,"CAUTION","YES",31159,3127,59190
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","GEORGIA","MRIP (2024 - 2024)","WAVE 5",50.7,"NO","NO",6093,38,12148
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","MARYLAND","MRIP (2024 - 2024)","WAVE 5",28.3,"YES","YES",42617,18978,66256
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","MASSACHUSETTS","MRIP (2024 - 2024)","WAVE 5",29.4,"YES","YES",255228,108156,402301
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","NEW JERSEY","MRIP (2024 - 2024)","WAVE 5",14,"YES","YES",278212,201871,354554
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","NEW YORK","MRIP (2024 - 2024)","WAVE 5",16.6,"YES","YES",261122,176163,346080
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","NORTH CAROLINA","MRIP (2024 - 2024)","WAVE 5",42.9,"CAUTION","YES",19129,3045,35213
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","RHODE ISLAND","MRIP (2024 - 2024)","WAVE 5",17.7,"YES","YES",215382,140662,290103
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","SOUTH CAROLINA","MRIP (2024 - 2024)","WAVE 5",45.3,"CAUTION","YES",11513,1291,21736
-"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","VIRGINIA","MRIP (2024 - 2024)","WAVE 5",53,"NO","NO",13765,0,28063
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","CONNECTICUT","MRIP (2024 - 2024)","ANNUAL",22.9,"YES","YES",133742,73713,193770
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","DELAWARE","MRIP (2024 - 2024)","ANNUAL",27.3,"YES","YES",40238,18708,61769
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","FLORIDA","MRIP (2024 - 2024)","ANNUAL",65.5,"NO","NO",8605,0,19653
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","GEORGIA","MRIP (2024 - 2024)","ANNUAL",66.3,"NO","NO",16571,0,38104
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","MARYLAND","MRIP (2024 - 2024)","ANNUAL",26.7,"YES","YES",45992,21924,70061
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","MASSACHUSETTS","MRIP (2024 - 2024)","ANNUAL",27.9,"YES","YES",272008,123263,420753
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","NEW JERSEY","MRIP (2024 - 2024)","ANNUAL",13.4,"YES","YES",321416,236999,405833
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","NEW YORK","MRIP (2024 - 2024)","ANNUAL",16,"YES","YES",309739,212605,406873
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","NORTH CAROLINA","MRIP (2024 - 2024)","ANNUAL",35.4,"CAUTION","YES",27547,8434,46660
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","RHODE ISLAND","MRIP (2024 - 2024)","ANNUAL",17.9,"YES","YES",210240,136479,284000
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","SOUTH CAROLINA","MRIP (2024 - 2024)","ANNUAL",45.3,"CAUTION","YES",11513,1291,21736
+"PRELIMINARY",2024,"Calendar Year (Jan 1 - Dec 31)","VIRGINIA","MRIP (2024 - 2024)","ANNUAL",57.6,"NO","NO",17421,0,37089
 

@@ -1,6 +1,9 @@
-#Ecosystem and Socioeconomic Profile (ESP) indicator template for Northeast ESPs
-#This template is required for updating ESP indicator information. There are two required sections to check or update (see below): Indicator Review and Indicator Data.
-#INSTRUCTIONS: Please fill in the text (surrounded by " ") or data as values in the line after each field marked with a # and capitalized name. Help text is provided following the capitalized field name.
+#Ecosystem and Socioeconomic Profile (ESP) indicator template for Northeast ESPs 
+
+#This template is required for updating ESP indicator information. There are two required sections to check or update (see below): Indicator Review and Indicator Data. 
+
+#INSTRUCTIONS: Please fill in the text (surrounded by " ") or data as values in the line after each field marked with a # and capitalized name. Help text is provided following the capitalized field name. 
+
 #INDICATOR_REVIEW ----------------------------------------------------------------------------------------
 #SUBMISSION_YEAR - Current year of contribution submission. This is a integer value.
 2025
@@ -16,58 +19,11 @@ Cold winter temperatures in the Northwest Atlantic (north of Hudson Canyon).
 Cold winter temperatures may increase the mortality of young-of-the-year fish, resulting in smaller year classes. Additionally, cold temperatures can cause northern fish to move into the southern subregion, leading to potential misallocation of catch between the northern and southern stock subunits. 2024 temperature in the northern subunit (north of Hudson Canyon) was colder than black sea bass's lower threshold of 8C.
 #REFERENCES - Include any full references that are associated with the indicator. This may include data references such as from an ERDDAP webpage or literature cited (plus the DOI where possible). This is a text string.
 du Pontavice, H., Miller, T. J., Stock, B. C., Chen, Z., & Saba, V. S. (2022). Ocean model-based covariates improve a marine fish stock assessment when observations are limited. ICES Journal of Marine Science, 79(4), 1259?1273. Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Ang?lique, M., Marie, D., Cl?ment, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12? Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876
-#INDICATOR_DATA ----------------------------------------------------------------------------------------------
+
+ #INDICATOR_DATA ----------------------------------------------------------------------------------------------
 #YEAR - List of years for the indicator contribution. This is a integer value.
-2000
-2001
-2002
-2003
-2004
-2005
-2006
-2007
-2008
-2009
-2010
-2011
-2012
-2013
-2014
-2015
-2016
-2017
-2018
-2019
-2020
-2021
-2022
-2023
-2024
+2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024
 #REGION/SEASON - List of spatial or temporal scales applicable to indicator. This is a character value.
 NORTH
 #INDICATOR_VALUE - List of data values for the indicator contribution (must match the YEAR list length). This is a numeric value.
--1.433821
--0.1950554
-0.8073535
--0.7476751
-0.7286067
--0.3945542
--0.5774018
--0.009100341
--0.09393406
--0.0403548
-1.018274
-1.124552
--1.317283
--1.781621
--0.3512138
--1.888355
--0.6683315
-0.4645458
-1.29816
-0.6835623
--0.8282475
-0.7199294
-0.4639554
-0.7801468
-1.046601
+-0.371737645744594 -0.171895121452393 -0.190279580481179 0.358868066898062 1.12156037933337 0.8967928887849 -0.927137039369113 0.233143623584751 -0.602877695894831 -0.71864859346844 -0.469106609615871 0.331334233270953 0.204078079695362 -0.292922017156061 -1.35569067716286 0.87694033777713 0.173514770098402 0.312911279849584 -1.071806086816 -1.0176328115112 -1.92776010797228 -0.0244442708993808 1.34173091176707 1.14388675536754 0.0318389156433604
