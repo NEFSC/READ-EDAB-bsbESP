@@ -34,11 +34,11 @@ format_indicator <- function(filename,
     references,
     "\n #INDICATOR_DATA ----------------------------------------------------------------------------------------------",
     "#YEAR - List of years for the indicator contribution. This is a integer value.",
-    paste(years, collapse = " "),
+    paste(years, collapse = "\t"),
     "#REGION/SEASON - List of spatial or temporal scales applicable to indicator. This is a character value.",
     region,
     "#INDICATOR_VALUE - List of data values for the indicator contribution (must match the YEAR list length). This is a numeric value.",
-    paste(indicator_value, collapse = " "),
+    paste(indicator_value, collapse = "\t"),
 
     file = filename,
     sep = "\n"
