@@ -3,14 +3,14 @@
 
 library(dplyr)
 
-n_swv <- readxl::read_excel(here::here("data-raw/ShelfWaterVolume_BSB_Update.xlsx"),
+n_swv <- readxl::read_excel(here::here("data/ShelfWaterVolume_BSB_Update_2025.xlsx"),
                             sheet = "N. MAB") %>%
   janitor::clean_names() %>%
   dplyr::select(year,
                 val = sh_w_vol) %>%
   dplyr::mutate(region = "North")
 
-s_swv <- readxl::read_excel(here::here("data-raw/ShelfWaterVolume_BSB_Update.xlsx"),
+s_swv <- readxl::read_excel(here::here("data/ShelfWaterVolume_BSB_Update_2025.xlsx"),
                             sheet = "S. MAB") %>%
   janitor::clean_names() %>%
   dplyr::select(year,
