@@ -57,9 +57,9 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 - Local regulatory complexity affects fishing opportunities
 
 \subsection{Commercial Fishery}
-- Number of active vessels declined in 2024, but total landed pounds increased from 2023 
+- Number of active vessels declined in 2024, but total landed pounds increased from 2023 and have been following an overall increasing trend over the last decade
 - Total revenue decreased slightly along with average prices ($/lb)
-- Average revenue per vessel increased, following an upward trend over the past three years for vessels that remain in the fishery
+- Average revenue per vessel increased, following an upward trend over the past three years for vessels that remain in the fishery as the number of active vessels continues to decline
 
 \subsection{Recreational Fishery}
 - Number of targeted trips, catch, and landings all down from 2023
@@ -181,4 +181,9 @@ tbl
 
 \centering
 Please contact [nefsc.esp.leads@noaa.gov](nefsc.esp.leads@noaa.gov) with any questions or comments.
+
+\vspace{0.5cm}
+\raggedright
+Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office.
+All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF). 
 :::
