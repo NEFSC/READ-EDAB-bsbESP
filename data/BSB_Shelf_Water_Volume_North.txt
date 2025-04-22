@@ -1,0 +1,29 @@
+#Ecosystem and Socioeconomic Profile (ESP) indicator template for Northeast ESPs 
+
+#This template is required for updating ESP indicator information. There are two required sections to check or update (see below): Indicator Review and Indicator Data. 
+
+#INSTRUCTIONS: Please fill in the text (surrounded by " ") or data as values in the line after each field marked with a # and capitalized name. Help text is provided following the capitalized field name. 
+
+#INDICATOR_REVIEW ----------------------------------------------------------------------------------------
+#SUBMISSION_YEAR - Current year of contribution submission. This is a integer value.
+2025
+#INDICATOR_NAME - Name of the indicator - text string (unique to the indicator).
+BSB_Shelf_Water_Volume_North
+#DESCRIPTION - Brief description of the indicator. Please make sure this description includes information on the spatial distribution of the indicator and how the data for the indicator are collected. The spatial resolution can be a cell size dimension (e.g., 5 km resolution for gridded data) or area of sampling for a survey. The data collection method can be brief (e.g., survey name and gear type, satellite sensor and version, stock assessment model output, fishery observer data, community reports, etc.) and can include a reference to methods detailed elswhere. This is a text string.
+Shelf water volume (km^3) for the NoBSB_Shelf_Water_Volume_Northrthern stock subunit. Shelf water volume is a measure of the volume of water inshore of the shelf-slope front, a narrow transition region between masses of cool, low salinity shelf water and warm, high salinity slope water. This in-situ data was derived from CTD data from NEFSC surveys and is maintained by Paula Fratantoni.
+#STATUS_TRENDS - Information on the current status of the indicator in the context of historical trends. This is a text string.
+There has been no winter sampling since 2021, no trend for 2024.
+#FACTORS - Information on the potential causes for observed trends and current status (focus on most recent year). This is a text string.
+There has been no winter sampling since 2021, no trend for 2024.
+#IMPLICATIONS - Information that briefly answers these questions: What are the implications or impacts of the observed trends on the ecosystem or ecosystem components? What do the trends mean? Why are they important? How can this information be used to inform management decisions? This is a text string.
+Shelf water volume is a proxy for suitable winter habitat; higher shelf water volume indicates less suitable habitat, potentially leading to northern fish migrating into the southern subregion.
+#REFERENCES - Include any full references that are associated with the indicator. This may include data references such as from an ERDDAP webpage or literature cited (plus the DOI where possible). This is a text string.
+Fratantoni PS, Holzworth-Davis T, Taylor MH. 2015. Description of oceanographic conditions on the Northeast US Continental Shelf during 2014. US Dept Commer, Northeast Fisheries Science Center. Ref Doc. 15-21; 41 p. Available at: http://www.nefsc.noaa.gov/publications/doi:10.7289/V5SQ8XD2
+
+ #INDICATOR_DATA ----------------------------------------------------------------------------------------------
+#YEAR - List of years for the indicator contribution. This is a integer value.
+1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022
+#REGION/SEASON - List of spatial or temporal scales applicable to indicator. This is a character value.
+NORTH
+#INDICATOR_VALUE - List of data values for the indicator contribution (must match the YEAR list length). This is a numeric value.
+1983.868 2079.261 2037.1235 1991.737 2072.695 2141.625 2124.608 1099.378 1423.68 2107.618 1946.41 2223.9085 2266.058 2420.38133333333 2043.3105 1375.741 2465.096 2232.9615 2549.4375 2137.5705 1748.075 2199.34233333333 2146.892 2240.295 2332.774 2321.986 2107.918 2033.889 2255.90033333333 2204.3645 2112.291 2342.405 2025.028 1892.0525 2070.508 2058.938 2211.974 2034.662
