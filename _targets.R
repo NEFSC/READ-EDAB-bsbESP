@@ -20,23 +20,33 @@ tar_option_set(
 tar_source("scripts/fig_functions.R")
 tar_source("scripts/clean_data.R")
 
+syear <- 2025
+
 # Replace the target list below with your own:
 list(
 
   ## files ----
   targets::tar_target(table_data,
                       here::here("docs/bsb_indicator_table.xlsx"),
-                      format = "file"),
+                      format = "file"
+                      ),
+
+  targets::tar_target(meta_key,
+                      here::here("docs/indicator_metadata_template.xlsx"),
+                      format = "file"
+                      ),
 
   ### image file paths ----
   targets::tar_target(map_img,
                       here::here("images/bsb_map.png"),
-                      format = "file"),
+                      format = "file"
+                      ),
 
   # add the code to create this as its own target
   targets::tar_target(condition_img,
                       here::here("images/condition.jpg"),
-                      format = "file"),
+                      format = "file"
+                      ),
 #
 #   targets::tar_target(risk_img,
 #                       here::here("images/chart.png"),
@@ -45,51 +55,79 @@ list(
   ### files to create indicators ----
   targets::tar_target(comm_indicators,
                       here::here("data/commercial_data/SOCIEOECONOMIC_COMMERCIAL_INDICATORS_FINAL.xls"),
-                      format = "file"),
+                      format = "file"
+                      ),
 
   #### mrip data
   targets::tar_target(mrip_trips,
                       list.files(path = here::here('data/mrip_data/mrip_directed_trips'),
                                  pattern = glob2rx('mrip*.csv'),
                                  full.names = TRUE),
-                      format = "file"),
+                      format = "file"
+                      ),
 
   targets::tar_target(mrip_landing,
                       here::here('data/mrip_data/mrip_BLACK_SEA_BASS_harvest_update040325.csv'),
-                      format = "file"),
+                      format = "file"
+                      ),
 
 
   #### environmental data
   targets::tar_target(swv_data,
                       here::here("data/ShelfWaterVolume_BSB_update_2025.xlsx"),
-                      format = "file"),
+                      format = "file"
+                      ),
 
 targets::tar_target(swv_cleaned,
-                      clean_swv_data(swv_data)),
+                      clean_swv_data(swv_data)
+                    ),
 
-  targets::tar_target(bt_data,
+  targets::tar_target(bt_file,
                       here::here("data/bt_update_2025-01-31.csv"),
-                      format = "file"),
+                      format = "file"
+                      ),
+
+targets::tar_target(bt_data,
+                    read.csv(bt_file)
+                    ),
 
   ### watch AKFIN web service ? not sure this is working
   targets::tar_target(all_data,
-                      AKesp::get_esp_data("Black Sea Bass")),
-
+                      AKesp::get_esp_data("Black Sea Bass")
+                      ),
 
   ## indicator creation ----
   targets::tar_target(rec_trips,
-                      NEesp2::create_rec_trips(files = mrip_trips)),
+                      NEesp2::create_rec_trips(files = mrip_trips)
+                      ),
 
   targets::tar_target(total_rec_landings,
                       NEesp2::create_total_rec_landings(mrip_landing |>
                                                           read.csv(skip = 46, # of rows you want to ignore
                                                                    na.strings = ".") |>
                                                           janitor::clean_names(case = "all_caps")
-                                                        )),
+                                                        )
+                      ),
 
 # TODO: create add in bottom temp creation target
 
 ## format indicators for web service ----
+
+targets::tar_target(meta_data,
+                    readxl::read_excel(meta_key)),
+
+targets::tar_target(bt_north_web,
+                    format_from_template(ind_name = "BSB_Winter_Bottom_Temperature_North",
+                                         key = meta_data,
+                                         submission_year = syear,
+                                         years = bt_data |>
+                                           dplyr::filter(Region == "North") |>
+                                           purrr::pluck("year"),
+                                         indicator_value = bt_data |>
+                                           dplyr::filter(Region == "North") |>
+                                           purrr::pluck("mean"),
+                                         )
+                    ),
 
   ## plot creation ----
 
@@ -97,36 +135,41 @@ targets::tar_target(swv_cleaned,
                       NEesp2::plot_risk(risk_elements = tibble::tibble(
                         stock = c(2, 2, 0, 4),
                         commercial = c(0, 2, 4, 1),
-                        recreational = c(3, 1, 1, 1)))),
+                        recreational = c(3, 1, 1, 1)))
+                      ),
 
   targets::tar_target(rec_trips_plt,
                       plot_indicator(all_data,
-                                     ind_name = "BSB_mrip_trips")),
+                                     ind_name = "BSB_mrip_trips")
+                      ),
 
   targets::tar_target(rec_landings_plt,
                       plot_indicator(all_data,
-                                     ind_name = "BSB_mrip_landings")),
+                                     ind_name = "BSB_mrip_landings")
+                      ),
 
   targets::tar_target(com_rev_plt,
                       plot_indicator(all_data,
-                                     ind_name = "BSB_Commercial_Revenue_Per_Vessel")),
+                                     ind_name = "BSB_Commercial_Revenue_Per_Vessel")
+                      ),
 
   targets::tar_target(com_vessel_plt,
                       plot_indicator(all_data,
-                                     ind_name = "BSB_Commercial_Vessels")),
+                                     ind_name = "BSB_Commercial_Vessels")
+                      ),
 
   targets::tar_target(swv_plt,
                       plot_indicator(all_data,
                                      ind_name = "Shelf_Water_Volume",
-                                     new_breaks = c(seq(1990,2010, by = 10), 2019, 2021)
-                      )),
+                                     new_breaks = c(seq(1990,2010, by = 10), 2019, 2021))
+                      ),
 
 targets::tar_target(bt_plt,
                     plot_indicator(all_data |>
                                      dplyr::filter(INDICATOR_NAME != "BSB_Winter_Bottom_Temperature_All"),
                                    ind_name = "BSB_Winter_Bottom_Temperature",
-                                   new_breaks = c(seq(1990,2020, by = 10), 2024)
-                    )),
+                                   new_breaks = c(seq(1990,2020, by = 10), 2024))
+                    ),
 
   # add image file paths to table
   targets::tar_target(tbl_info,
@@ -136,7 +179,8 @@ targets::tar_target(bt_plt,
                                                    rec_trips_plt,
                                                    rec_landings_plt,
                                                    com_rev_plt,
-                                                   com_vessel_plt))),
+                                                   com_vessel_plt))
+                      ),
 
   ## render report ----
   tarchetypes::tar_render(rpt_card,
@@ -146,7 +190,8 @@ targets::tar_target(bt_plt,
                                         img1 = map_img,
                                         img2 = condition_img,
                                         img3 = risk_plt,
-                                        img_dir = here::here("images")))
+                                        img_dir = here::here("images"))
+                          )
 # tar_render issue seems to be associated with quarto or possibly pandoc?
 # the .tex compiles in overleaf
 # does not render direct from .qmd any more

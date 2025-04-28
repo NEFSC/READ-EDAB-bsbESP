@@ -45,14 +45,37 @@ format_indicator <- function(filename,
   )
 }
 
-format_indicator(filename = here::here('data/test_data_template.txt'),
-                 submission_year = 2025,
-                 indicator_name = "TEST_INDICATOR",
-                 description = "Winter (Feb-Mar) bottom temperature across black sea bass North and South stock regions. Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS. 2020-2024 data are pulled directly from GLORYS. The GLORYS12V1 product is the CMEMS global ocean eddy-resolving (1/12? horizontal resolution, 50 vertical levels) reanalysis.",
-                 status = "Bottom temperatures in 2024 are decreasing relative to recent years, but still within 1 sd of the mean.",
-                 factors = "Cold winter temperatures in the Northwest Atlantic (north of Hudson Canyon).",
-                 implications = "Cold winter temperatures may increase the mortality of young-of-the-year fish, resulting in smaller year classes. Additionally, cold temperatures can cause northern fish to move into the southern subregion, leading to potential misallocation of catch between the northern and southern stock subunits. 2024 temperature in the northern subunit (north of Hudson Canyon) was colder than black sea bass's lower threshold of 8C.",
-                 references = "du Pontavice, H., Miller, T. J., Stock, B. C., Chen, Z., & Saba, V. S. (2022). Ocean model-based covariates improve a marine fish stock assessment when observations are limited. ICES Journal of Marine Science, 79(4), 1259?1273. Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Ang?lique, M., Marie, D., Cl?ment, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12? Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876",
-                 years = 2000:2024,
-                 region = "NORTH",
-                 indicator_value = rnorm(25))
+# format_indicator(filename = here::here('data/test_data_template.txt'),
+#                  submission_year = 2025,
+#                  indicator_name = "TEST_INDICATOR",
+#                  description = "Winter (Feb-Mar) bottom temperature across black sea bass North and South stock regions. Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS. 2020-2024 data are pulled directly from GLORYS. The GLORYS12V1 product is the CMEMS global ocean eddy-resolving (1/12? horizontal resolution, 50 vertical levels) reanalysis.",
+#                  status = "Bottom temperatures in 2024 are decreasing relative to recent years, but still within 1 sd of the mean.",
+#                  factors = "Cold winter temperatures in the Northwest Atlantic (north of Hudson Canyon).",
+#                  implications = "Cold winter temperatures may increase the mortality of young-of-the-year fish, resulting in smaller year classes. Additionally, cold temperatures can cause northern fish to move into the southern subregion, leading to potential misallocation of catch between the northern and southern stock subunits. 2024 temperature in the northern subunit (north of Hudson Canyon) was colder than black sea bass's lower threshold of 8C.",
+#                  references = "du Pontavice, H., Miller, T. J., Stock, B. C., Chen, Z., & Saba, V. S. (2022). Ocean model-based covariates improve a marine fish stock assessment when observations are limited. ICES Journal of Marine Science, 79(4), 1259?1273. Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Ang?lique, M., Marie, D., Cl?ment, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12? Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876",
+#                  years = 2000:2024,
+#                  region = "NORTH",
+#                  indicator_value = rnorm(25))
+
+format_from_template <- function(key,
+                                 ind_name,
+                                 ...) {
+  this_dat <- key |>
+    dplyr::filter(indicator_name == ind_name)
+
+  format_indicator(filename = here::here(this_dat$filename),
+                   # submission_year = 2025,
+                   indicator_name = ind_name,
+                   description = this_dat$description,
+                   status = this_dat$status,
+                   factors = this_dat$factors,
+                   implications = this_dat$implications,
+                   references = references,
+                   # years = bt_data|> dplyr::filter(Region == "North") |> purrr::pluck("year"),
+                   region = this_dat$region,
+                   # indicator_value = bt_data|> dplyr::filter(Region == "North") |> purrr::pluck("mean")
+                   ...
+                   )
+
+
+}
