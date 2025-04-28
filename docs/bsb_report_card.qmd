@@ -17,115 +17,150 @@ params:
   img1: !expr here::here("images/bsb_map.png")
   img2: !expr here::here("images/condition.jpg")
   img3: !expr here::here("images/chart.png")
-  tbl_file: !expr here::here("docs/bsb_indicator_table.xlsx")
+  tbl_file: !expr here::here("docs/bsb_indicator_table.xlsx") |> readxl::read_excel()
   img_dir: !expr here::here("images")
+latex_engine: xelatex
 ---
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 # here::i_am("inst/esp_template/06_docs/report card pg 1.qmd")
 ```
 
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}}
- }
-\BgThispage
+<!-- \backgroundsetup{ -->
 
+<!--   scale=1, -->
+
+<!--   angle=0, -->
+
+<!--   opacity=0, -->
+
+<!--   contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}} -->
+
+<!--  } -->
+
+<!-- \BgThispage -->
+
+```{=tex}
 \vspace{-2.5cm}
 \section{Spring 2025}
-
+```
 Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
 
-:::: {layout="[ [0.4, 0.025, 0.575], [1], [0.575, 0.025, 0.4]] "}
+::: {layout="[ [0.4, 0.025, 0.575], [1], [0.575, 0.025, 0.4]] "}
+<div>
 
-::: {}
-![](`r params$img1`)
-:::
+![](%60r%20params$img1%60)
 
-::: {}
+</div>
+
+<div>
+
 \hfill
-:::
 
-::: {}
+</div>
+
+<div>
+
 \section{2024 in Review}
 
 \subsection{Fishing Community Observations}
-- Steady or increasing availability 
-- Expanding distributions and changes in migration timing
-- Local regulatory complexity affects fishing opportunities
+
+-   Steady or increasing availability
+-   Expanding distributions and changes in migration timing
+-   Local regulatory complexity affects fishing opportunities
 
 \subsection{Commercial Fishery}
-- Number of active vessels declined in 2024, but total landed pounds increased from 2023 and have been following an overall increasing trend over the last decade
-- Total revenue decreased slightly along with average prices ($/lb)
-- Average revenue per vessel increased, following an upward trend over the past three years for vessels that remain in the fishery as the number of active vessels continues to decline
+
+-   Number of active vessels declined in 2024, but total landed pounds increased from 2023 and have been following an overall increasing trend over the last decade
+-   Total revenue decreased slightly along with average prices (\$/lb)
+-   Average revenue per vessel increased, following an upward trend over the past three years for vessels that remain in the fishery as the number of active vessels continues to decline
 
 \subsection{Recreational Fishery}
-- Number of targeted trips, catch, and landings all down from 2023
-- But number of trips still above the historic average 
-- Not clear if catch per angler has continued to increase in 2024
+
+-   Number of targeted trips, catch, and landings all down from 2023
+-   But number of trips still above the historic average
+-   Not clear if catch per angler has continued to increase in 2024
 
 \subsection{Ecosystem}
-- Cold winter in the north but near average in the south
-- Poor or below average fish condition in recent years
-:::
 
-::: {}
+-   Cold winter in the north but near average in the south
+-   Poor or below average fish condition in recent years
+
+</div>
+
+<div>
+
+```{=tex}
 \vspace{0.5cm}
 \section{Key Points from the Mid-Atlantic Risk Assessment}
-:::
+```
 
-::: {}
+</div>
+
+<div>
+
 \vspace{-3cm}
 
 \raggedright
+
 <!-- maybe this is being centered because it's the only section without a header? -->
+
 According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf), Black Sea Bass scored high and/or moderately high risk in the following elements:
 
-- Moderate-high to high risk to the stock due to:
-  - Very high exposure to changes in climate 
-  - Observed and potential changes in distribution; northward shift into the Gulf of Maine
-  - Dependence on threatened estuarine habitat
-  - Decline in the biomass of benthic invertebrate prey 
-  - Decline in black sea bass body condition in the Mid Atlantic Bight
-- High risk to the recreational fishery due to:
-  - Catch exceeding harvest limits in several years
-  - High regulatory complexity; frequent changes and varying interstate regulations; regulatory changes in allocations
-- Moderate-high risk to the commercial fishery due to:
-  - Commercial revenue in wind development areas 
-  - High discards & discard mortality
+-   Moderate-high to high risk to the stock due to:
+    -   Very high exposure to changes in climate
+    -   Observed and potential changes in distribution; northward shift into the Gulf of Maine
+    -   Dependence on threatened estuarine habitat
+    -   Decline in the biomass of benthic invertebrate prey
+    -   Decline in black sea bass body condition in the Mid Atlantic Bight
+-   High risk to the recreational fishery due to:
+    -   Catch exceeding harvest limits in several years
+    -   High regulatory complexity; frequent changes and varying interstate regulations; regulatory changes in allocations
+-   Moderate-high risk to the commercial fishery due to:
+    -   Commercial revenue in wind development areas
+    -   High discards & discard mortality
 
-:::
+</div>
 
-::: {}
+<div>
+
 \hfill
+
+</div>
+
+<div>
+
+![](%60r%20params$img2%60) ![](%60r%20params$img3%60)
+
+</div>
 :::
 
-::: {}
-![](`r params$img2`)
-![](`r params$img3`)
-:::
-
-::::
 \newpage
 
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}}
- }
-\BgThispage
+<!-- \backgroundsetup{ -->
+
+<!--   scale=1, -->
+
+<!--   angle=0, -->
+
+<!--   opacity=0, -->
+
+<!--   contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}} -->
+
+<!--  } -->
+
+<!-- \BgThispage -->
+
 <!-- not sure why this background isn't working -->
 
 ```{r}
-data <- readxl::read_excel(params$tbl_file) |>
+# data <- readxl::read_excel(params$tbl_file) |>
+data <- params$tbl_file |>
   janitor::clean_names() |>
   dplyr::mutate(figure =  paste0(params$img_dir, "/", time_series)) |>
   dplyr::select(-time_series)
 ```
-
 
 ```{r}
 small_dat <- data |>
@@ -149,7 +184,6 @@ tbl <- flextable::width(tbl, j = 1:4,
 tbl <- flextable::theme_box(tbl)
 ```
 
-
 ```{r}
 for(i in 1:nrow(small_dat)){
   tbl <- flextable::compose(tbl,
@@ -171,19 +205,24 @@ tbl <- flextable::height_all(tbl, part = "body", height = 2)
 tbl <- flextable::hrule(tbl, i = 1:nrow(small_dat), rule = "atleast", part = "body")
 ```
 
-::: {}
+<div>
+
 \newgeometry{top=0.25in, left=0.25in, right=0.25in, bottom=0.25in}
-```{r} 
+
+```{r}
 tbl
 
 # flextable::save_as_image(tbl, here::here("images/indicator_table.png"))
 ```
 
 \centering
-Please contact [nefsc.esp.leads@noaa.gov](nefsc.esp.leads@noaa.gov) with any questions or comments.
 
+Please contact [nefsc.esp.leads\@noaa.gov](nefsc.esp.leads@noaa.gov) with any questions or comments.
+
+```{=tex}
 \vspace{0.5cm}
 \raggedright
-Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office.
-All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF). 
-:::
+```
+Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).
+
+</div>

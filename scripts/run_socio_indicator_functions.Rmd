@@ -16,7 +16,8 @@ Pull in directed trip files and run rec trips function
 ```{r cars}
 path = (here::here('data/mrip_data/mrip_directed_trips'))
 
-files <- list.files(path = path, pattern = glob2rx('mrip*.csv'),
+files <- list.files(path = path, 
+                    pattern = glob2rx('mrip*.csv'),
                        full.names = TRUE)
 
 rec_trips <- create_rec_trips(files = files)

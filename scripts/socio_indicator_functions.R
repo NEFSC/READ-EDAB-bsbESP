@@ -35,7 +35,7 @@ create_comm_indicators <- function(data = here::here("data-raw/SOCIEOECONOMIC_CO
 #'
 #' @export
 
-create_rec_trips <- function(files, return = TRUE) {
+create_rec_trips <- function(files) {
   rec_directed_trips <- c()
   for (i in files) {
     this_dat <- read.csv(i,
@@ -57,7 +57,7 @@ create_rec_trips <- function(files, return = TRUE) {
 
   #usethis::use_data(rec_trips, overwrite = TRUE)
 
-  if(return) return(rec_trips)
+  return(rec_trips)
 
 }
 
@@ -133,7 +133,7 @@ create_prop_sp_trips <- function(total = mrip_effort,
 #' @export
 #'
 
-create_total_rec_catch <- function(data = mrip_catch, return = TRUE){
+create_total_rec_catch <- function(data = mrip_catch){
   total_rec_catch <- data %>%
     dplyr::rename(tot_cat = Total.Catch..A.B1.B2.) %>%
     dplyr::filter(State %in%
@@ -158,7 +158,7 @@ create_total_rec_catch <- function(data = mrip_catch, return = TRUE){
     dplyr::mutate(YEAR = as.numeric(YEAR))
 
   # usethis::use_data(total_rec_catch, overwrite = TRUE)
-  if(return) return(total_rec_catch)
+  return(total_rec_catch)
 }
 
 
