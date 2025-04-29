@@ -1,6 +1,6 @@
 
 
-format_indicator <- function(filename,
+format_indicator <- function(out_dir,
                              submission_year,
                              indicator_name,
                              description,
@@ -10,8 +10,10 @@ format_indicator <- function(filename,
                              references,
                              years,
                              region,
-                             indicator_value
+                             indicator_value,
+                             ... # getting an error that there are unused arguments -- hacky fix
                              ) {
+  filename <- paste0(out_dir, "/", indicator_name, ".txt")
 
   cat(
     "#Ecosystem and Socioeconomic Profile (ESP) indicator template for Northeast ESPs \n",
@@ -59,23 +61,36 @@ format_indicator <- function(filename,
 
 format_from_template <- function(key,
                                  ind_name,
+                                 # dir_out,
                                  ...) {
   this_dat <- key |>
     dplyr::filter(indicator_name == ind_name)
 
-  format_indicator(filename = here::here(this_dat$filename),
-                   # submission_year = 2025,
-                   indicator_name = ind_name,
+  # print(this_dat)
+
+  format_indicator(indicator_name = ind_name,
                    description = this_dat$description,
                    status = this_dat$status,
                    factors = this_dat$factors,
                    implications = this_dat$implications,
-                   references = references,
-                   # years = bt_data|> dplyr::filter(Region == "North") |> purrr::pluck("year"),
+                   references = this_dat$references,
                    region = this_dat$region,
-                   # indicator_value = bt_data|> dplyr::filter(Region == "North") |> purrr::pluck("mean")
                    ...
                    )
 
 
 }
+
+# format_indicator(out_dir = here::here('data'),
+#                  submission_year = 2025,
+#                  indicator_name = "BSB_Winter_Bottom_Temperature_South",
+#                  description = this_dat$description,
+#                  status = this_dat$status,
+#                  factors = this_dat$factors,
+#                  implications = this_dat$implications,
+#                  references = this_dat$references,
+#                  years = bt_data|> dplyr::filter(Region == "South") |> purrr::pluck("year"),
+#                  region = this_dat$region,
+#                  indicator_value = bt_data|> dplyr::filter(Region == "South") |> purrr::pluck("mean")
+#                  # ...
+# )

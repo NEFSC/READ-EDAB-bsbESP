@@ -8,22 +8,22 @@
 #SUBMISSION_YEAR - Current year of contribution submission. This is a integer value.
 2025
 #INDICATOR_NAME - Name of the indicator - text string (unique to the indicator).
-BSB_Shelf_Water_Volume_North
+BSB_Winter_Bottom_Temperature_North
 #DESCRIPTION - Brief description of the indicator. Please make sure this description includes information on the spatial distribution of the indicator and how the data for the indicator are collected. The spatial resolution can be a cell size dimension (e.g., 5 km resolution for gridded data) or area of sampling for a survey. The data collection method can be brief (e.g., survey name and gear type, satellite sensor and version, stock assessment model output, fishery observer data, community reports, etc.) and can include a reference to methods detailed elswhere. This is a text string.
-Shelf water volume (km^3) for the NoBSB_Shelf_Water_Volume_Northrthern stock subunit. Shelf water volume is a measure of the volume of water inshore of the shelf-slope front, a narrow transition region between masses of cool, low salinity shelf water and warm, high salinity slope water. This in-situ data was derived from CTD data from NEFSC surveys and is maintained by Paula Fratantoni.
+Winter (Feb-Mar) bottom temperature in the black sea bass North and South stock regions combined. Hubert's data product is a composite before 1993, and from 1993-2019 it is the same as GLORYS. 2020-2024 data are pulled directly from GLORYS. The GLORYS12V1 product is the CMEMS global ocean eddy-resolving (1/12? horizontal resolution, 50 vertical levels) reanalysis.
 #STATUS_TRENDS - Information on the current status of the indicator in the context of historical trends. This is a text string.
-There has been no winter sampling since 2021, no trend for 2024.
+Bottom temperatures in 2024 are decreasing relative to recent years, but still within 1 sd of the mean.
 #FACTORS - Information on the potential causes for observed trends and current status (focus on most recent year). This is a text string.
-There has been no winter sampling since 2021, no trend for 2024.
+Cold winter temperatures in the Northwest Atlantic (north of Hudson Canyon).
 #IMPLICATIONS - Information that briefly answers these questions: What are the implications or impacts of the observed trends on the ecosystem or ecosystem components? What do the trends mean? Why are they important? How can this information be used to inform management decisions? This is a text string.
-Shelf water volume is a proxy for suitable winter habitat; higher shelf water volume indicates less suitable habitat, potentially leading to northern fish migrating into the southern subregion.
+Cold winter temperatures may increase the mortality of young-of-the-year fish, resulting in smaller year classes. Additionally, cold temperatures can cause northern fish to move into the southern subregion, leading to potential misallocation of catch between the northern and southern stock subunits. 2024 temperature in the northern subunit (north of Hudson Canyon) was colder than black sea bass's lower threshold of 8C.
 #REFERENCES - Include any full references that are associated with the indicator. This may include data references such as from an ERDDAP webpage or literature cited (plus the DOI where possible). This is a text string.
-Fratantoni PS, Holzworth-Davis T, Taylor MH. 2015. Description of oceanographic conditions on the Northeast US Continental Shelf during 2014. US Dept Commer, Northeast Fisheries Science Center. Ref Doc. 15-21; 41 p. Available at: http://www.nefsc.noaa.gov/publications/doi:10.7289/V5SQ8XD2
+du Pontavice, H., Miller, T. J., Stock, B. C., Chen, Z., & Saba, V. S. (2022). Ocean model-based covariates improve a marine fish stock assessment when observations are limited. ICES Journal of Marine Science, 79(4), 1259?1273. Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Ang?lique, M., Marie, D., Cl?ment, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12? Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876
 
  #INDICATOR_DATA ----------------------------------------------------------------------------------------------
 #YEAR - List of years for the indicator contribution. This is a integer value.
-1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2017 2019 2022
+1989	1990	1991	1992	1993	1994	1995	1996	1997	1998	1999	2000	2001	2002	2003	2004	2005	2006	2007	2008	2009	2010	2011	2012	2013	2014	2015	2016	2017	2018	2019	2020	2021	2022	2023	2024
 #REGION/SEASON - List of spatial or temporal scales applicable to indicator. This is a character value.
 NORTH
 #INDICATOR_VALUE - List of data values for the indicator contribution (must match the YEAR list length). This is a numeric value.
-1983.868 2079.261 2037.1235 1991.737 2072.695 2141.625 2124.608 1099.378 1423.68 2107.618 1946.41 2223.9085 2266.058 2420.38133333333 2043.3105 1375.741 2465.096 2232.9615 2549.4375 2137.5705 1748.075 2199.34233333333 2146.892 2240.295 2332.774 2321.986 2107.918 2033.889 2255.90033333333 2204.3645 2112.291 2342.405 2025.028 1892.0525 2070.508 2058.938 2211.974 2034.662
+6.46607159851282	8.03073035417858	7.43186932540617	6.95984414819183	5.60356227929799	6.33401554312498	7.50786020289532	5.65069592732801	8.16297908997738	6.05656570637046	8.22813232637955	7.63327463926869	6.99106858036345	8.59571283014901	5.68290793246914	5.03744316681958	5.56346246052886	8.39341918753574	7.50712298324027	7.25421319447602	8.47333379336044	6.46662903892243	6.22676736948771	10.4634268367631	7.39331855138291	7.0218069396675	7.8151669752178	8.44315318000333	7.90030105588188	7.19915983350642	7.34717158765431	8.82972640370228	8.55589120678163	8.68311254577037	8.70044498762274	6.84914013549318

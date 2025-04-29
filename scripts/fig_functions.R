@@ -1,50 +1,59 @@
-plt_bsb <- function(data) {
-  plt <- data |>
-    dplyr::group_by(INDICATOR_NAME) |>
-    dplyr::mutate(mean = mean(DATA_VALUE, na.rm = TRUE),
-                  sd = sd(DATA_VALUE, na.rm = TRUE)) |>
-    ggplot2::ggplot(ggplot2::aes(x = YEAR,
-                                 y = DATA_VALUE
-    )) +
-    ggplot2::geom_hline(ggplot2::aes(
-      yintercept = .data$mean + .data$sd
-    ),
-    color = "darkgreen",
-    linetype = "solid"
-    ) +
-    ggplot2::geom_hline(ggplot2::aes(
-      yintercept = .data$mean - .data$sd
-    ),
-    color = "darkgreen",
-    linetype = "solid"
-    ) +
-    ggplot2::geom_hline(ggplot2::aes(
-      yintercept = .data$mean
-    ),
-    color = "darkgreen",
-    linetype = "dotted"
-    ) +
-    ggplot2::geom_point() +
-    ggplot2::geom_path() +
-    ggplot2::xlim(c(1989, 2024)) +
-    ggplot2::scale_x_continuous(breaks = c(1990, 2000, 2010, 2020, 2024)#,
-                                # limits = c(1989, 2024)
-                                ) +
-    ggplot2::scale_y_continuous(labels = scales::comma) +
-    ggplot2::theme_classic(base_size = 16) +
-    ggplot2::theme(strip.text = ggplot2::element_text(size = 16),
-                   axis.title = ggplot2::element_blank(),
-                   axis.text.x = ggplot2::element_text(angle = 30,
-                                                       hjust = 1),
-                   aspect.ratio = 1/4)
+# plt_bsb <- function(data) {
+#   plt <- data |>
+#     dplyr::group_by(INDICATOR_NAME) |>
+#     dplyr::mutate(mean = mean(DATA_VALUE, na.rm = TRUE),
+#                   sd = sd(DATA_VALUE, na.rm = TRUE)) |>
+#     ggplot2::ggplot(ggplot2::aes(x = YEAR,
+#                                  y = DATA_VALUE
+#     )) +
+#     ggplot2::geom_hline(ggplot2::aes(
+#       yintercept = .data$mean + .data$sd
+#     ),
+#     color = "darkgreen",
+#     linetype = "solid"
+#     ) +
+#     ggplot2::geom_hline(ggplot2::aes(
+#       yintercept = .data$mean - .data$sd
+#     ),
+#     color = "darkgreen",
+#     linetype = "solid"
+#     ) +
+#     ggplot2::geom_hline(ggplot2::aes(
+#       yintercept = .data$mean
+#     ),
+#     color = "darkgreen",
+#     linetype = "dotted"
+#     ) +
+#     ggplot2::geom_point() +
+#     ggplot2::geom_path() +
+#     ggplot2::xlim(c(1989, 2024)) +
+#     ggplot2::scale_x_continuous(breaks = c(1990, 2000, 2010, 2020, 2024)#,
+#                                 # limits = c(1989, 2024)
+#                                 ) +
+#     ggplot2::scale_y_continuous(labels = scales::comma) +
+#     ggplot2::theme_classic(base_size = 16) +
+#     ggplot2::theme(strip.text = ggplot2::element_text(size = 16),
+#                    axis.title = ggplot2::element_blank(),
+#                    axis.text.x = ggplot2::element_text(angle = 30,
+#                                                        hjust = 1),
+#                    aspect.ratio = 1/4)
+#
+#   return(plt)
+# }
 
-  return(plt)
-}
+# plt_bsb <- function(data) {
+#   plt <- data |>
+#     NEesp2::plt_indicator() +
+#     ggplot2::xlim(c(1989, 2024)) +
+#     ggplot2::scale_x_continuous(breaks = c(1990, 2000, 2010, 2020, 2024)#,
+#                                 # limits = c(1989, 2024)
+#     )
+#
+#   return(plt)
+# }
 
-plot_indicator <- function(data,
+plt_bsb <- function(data,
                            ind_name, # indicator name to filter by, will also be part of the file name
-                           # facet = FALSE,
-                           # facet_by,
                            new_breaks = NA
                            ) {
 
@@ -70,7 +79,9 @@ plot_indicator <- function(data,
     }
 
     # print(fname)
-    fig <- plt_bsb(this_dat)
+    fig <- NEesp2::plt_indicator(this_dat,
+                                 include_trends = FALSE) +
+      ggplot2::xlim(c(1989, 2024))
 
     if(facet) {
       fig <- fig +
@@ -80,6 +91,9 @@ plot_indicator <- function(data,
     if(!is.na(new_breaks[1])) {
       fig <- fig +
         ggplot2::scale_x_continuous(breaks = new_breaks)
+    } else {
+      fig <- fig +
+        ggplot2::scale_x_continuous(breaks = c(1990, 2000, 2010, 2020, 2024))
     }
 
     if(facet) {
