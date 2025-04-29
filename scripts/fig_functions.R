@@ -54,7 +54,8 @@
 
 plt_bsb <- function(data,
                            ind_name, # indicator name to filter by, will also be part of the file name
-                           new_breaks = NA
+                           new_breaks = NA,
+                    img_dir
                            ) {
 
   this_dat <- data |>
@@ -70,12 +71,13 @@ plt_bsb <- function(data,
   }
 
   short_name <- paste0(ind_name, "_", Sys.Date(), ".png")
-    fname <- here::here("images", short_name)
-    if(max(this_dat$DATA_VALUE, na.rm = TRUE) > 10^6) {
+    fname <- paste(img_dir, short_name, sep = "/")
+
+     if(max(this_dat$DATA_VALUE, na.rm = TRUE) > 10^6) {
       this_dat <- this_dat |>
         dplyr::mutate(DATA_VALUE = ifelse(!is.na(DATA_VALUE), DATA_VALUE/10^6, DATA_VALUE),
                       INDICATOR_NAME = paste(INDICATOR_NAME, "millions"))
-      fname <-  here::here("images", paste0(ind_name, "_millions_", Sys.Date(), ".png"))
+      fname <- paste(image_dir, paste0(ind_name, "_millions_", Sys.Date(), ".png"), sep = "/")
     }
 
     # print(fname)
@@ -109,18 +111,18 @@ plt_bsb <- function(data,
       return(short_name)
 }
 
-add_fig_paths <- function(path,
-                          list_files) {
-  # print(paste(list_files, collapse = "','"))
-
-  # output <- data |>
-  #   dplyr::mutate(time_series = list_files)
-
-  output <- readxl::read_excel(path) |>
-    dplyr::mutate(time_series = list_files)
-
-  # data$time_series <- list_files
-  # return(data)
-
-  return(output)
-}
+# add_fig_paths <- function(path,
+#                           list_files) {
+#   # print(paste(list_files, collapse = "','"))
+#
+#   # output <- data |>
+#   #   dplyr::mutate(time_series = list_files)
+#
+#   output <- readxl::read_excel(path) |>
+#     dplyr::mutate(time_series = list_files)
+#
+#   # data$time_series <- list_files
+#   # return(data)
+#
+#   return(output)
+# }

@@ -19,9 +19,11 @@ tar_option_set(
 # tar_source("scripts/socio_indicator_functions.R")
 tar_source("scripts/fig_functions.R")
 tar_source("scripts/clean_data.R")
-tar_source("scripts/format_indicator.R")
+# tar_source("scripts/format_indicator.R")
 
 syear <- 2025
+image_dir <- here::here("images")
+txt_dir <- here::here("data")
 
 # Replace the target list below with your own:
 list(
@@ -122,9 +124,9 @@ targets::tar_target(meta_data,
                     readxl::read_excel(meta_key)),
 
 targets::tar_target(bt_north_web,
-                    format_from_template(ind_name = "BSB_Winter_Bottom_Temperature_North",
+                    NEesp2::format_from_template(ind_name = "BSB_Winter_Bottom_Temperature_North",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = bt_data |>
                                            dplyr::filter(Region == "North") |>
@@ -136,9 +138,9 @@ targets::tar_target(bt_north_web,
                     ),
 
 targets::tar_target(bt_south_web,
-                    format_from_template(ind_name = "BSB_Winter_Bottom_Temperature_South",
+                    NEesp2::format_from_template(ind_name = "BSB_Winter_Bottom_Temperature_South",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = bt_data |>
                                            dplyr::filter(Region == "South") |>
@@ -150,9 +152,9 @@ targets::tar_target(bt_south_web,
 ),
 
 targets::tar_target(swv_north_web,
-                    format_from_template(ind_name = "BSB_Shelf_Water_Volume_North",
+                    NEesp2::format_from_template(ind_name = "BSB_Shelf_Water_Volume_North",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = swv_cleaned |>
                                            dplyr::filter(name == "North") |>
@@ -164,9 +166,9 @@ targets::tar_target(swv_north_web,
 ),
 
 targets::tar_target(swv_south_web,
-                    format_from_template(ind_name = "BSB_Shelf_Water_Volume_South",
+                    NEesp2::format_from_template(ind_name = "BSB_Shelf_Water_Volume_South",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = swv_cleaned |>
                                            dplyr::filter(name == "South") |>
@@ -178,9 +180,9 @@ targets::tar_target(swv_south_web,
 ),
 
 targets::tar_target(mrip_trips_web,
-                    format_from_template(ind_name = "BSB_mrip_trips",
+                    NEesp2::format_from_template(ind_name = "BSB_mrip_trips",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = rec_trips |>
                                            purrr::pluck("YEAR"),
@@ -190,9 +192,9 @@ targets::tar_target(mrip_trips_web,
 ),
 
 targets::tar_target(mrip_land_web,
-                    format_from_template(ind_name = "BSB_mrip_landings",
+                    NEesp2::format_from_template(ind_name = "BSB_mrip_landings",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = total_rec_landings |>
                                            purrr::pluck("YEAR"),
@@ -202,9 +204,9 @@ targets::tar_target(mrip_land_web,
 ),
 
 targets::tar_target(com_rev_vessel_web,
-                    format_from_template(ind_name = "BSB_Commercial_Revenue_Per_Vessel",
+                    NEesp2::format_from_template(ind_name = "BSB_Commercial_Revenue_Per_Vessel",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = comm_data |>
                                            dplyr::filter(INDICATOR_NAME == 'AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb') |>
@@ -215,9 +217,9 @@ targets::tar_target(com_rev_vessel_web,
                     )
 ),
 targets::tar_target(com_vessel_web,
-                    format_from_template(ind_name = "BSB_Commercial_Vessels",
+                    NEesp2::format_from_template(ind_name = "BSB_Commercial_Vessels",
                                          key = meta_data,
-                                         out_dir = here::here("data"),
+                                         out_dir = txt_dir,
                                          submission_year = syear,
                                          years = comm_data |>
                                            dplyr::filter(INDICATOR_NAME == 'N_Commercial_Vessels_Landing_BLACK_SEABASS') |>
@@ -227,8 +229,6 @@ targets::tar_target(com_vessel_web,
                                            purrr::pluck("DATA_VALUE"),
                     )
 ),
-
-
 
   ## plot creation ----
 
@@ -241,35 +241,41 @@ targets::tar_target(com_vessel_web,
 
   targets::tar_target(rec_trips_plt,
                       plt_bsb(all_data,
-                                     ind_name = "BSB_mrip_trips")
+                                     ind_name = "BSB_mrip_trips",
+                              img_dir = image_dir)
                       ),
 
   targets::tar_target(rec_landings_plt,
                       plt_bsb(all_data,
-                                     ind_name = "BSB_mrip_landings")
+                                     ind_name = "BSB_mrip_landings"),
+                      img_dir = image_dir
                       ),
 
   targets::tar_target(com_rev_plt,
                       plt_bsb(all_data,
-                                     ind_name = "BSB_Commercial_Revenue_Per_Vessel")
+                                     ind_name = "BSB_Commercial_Revenue_Per_Vessel"),
+                      img_dir = image_dir
                       ),
 
   targets::tar_target(com_vessel_plt,
                       plt_bsb(all_data,
-                                     ind_name = "BSB_Commercial_Vessels")
+                                     ind_name = "BSB_Commercial_Vessels"),
+                      img_dir = image_dir
                       ),
 
   targets::tar_target(swv_plt,
                       plt_bsb(all_data,
                                      ind_name = "Shelf_Water_Volume",
-                                     new_breaks = c(seq(1990,2010, by = 10), 2019, 2021))
+                                     new_breaks = c(seq(1990,2010, by = 10), 2019, 2021)),
+                      img_dir = image_dir
                       ),
 
 targets::tar_target(bt_plt,
                     plt_bsb(all_data |>
                                      dplyr::filter(INDICATOR_NAME != "BSB_Winter_Bottom_Temperature_All"),
                                    ind_name = "BSB_Winter_Bottom_Temperature",
-                                   new_breaks = c(seq(1990,2020, by = 10), 2024))
+                                   new_breaks = c(seq(1990,2020, by = 10), 2024)),
+                    img_dir = image_dir
                     ),
 
   # add image file paths to table
@@ -281,18 +287,18 @@ targets::tar_target(bt_plt,
                                                    rec_landings_plt,
                                                    com_rev_plt,
                                                    com_vessel_plt))
-                      ),
+                      )#,
 
   ## render report ----
-  tarchetypes::tar_render(rpt_card,
-                          here::here("docs/bsb_report_card.qmd"),
-                          output_file = here::here("docs/targets_test.pdf"),
-                          params = list(tbl_file = tbl_info,
-                                        img1 = map_img,
-                                        img2 = condition_img,
-                                        img3 = risk_plt,
-                                        img_dir = here::here("images"))
-                          )
+  # tarchetypes::tar_render(rpt_card,
+  #                         here::here("docs/bsb_report_card.qmd"),
+  #                         output_file = here::here("docs/targets_test.pdf"),
+  #                         params = list(tbl_file = tbl_info,
+  #                                       img1 = map_img,
+  #                                       img2 = condition_img,
+  #                                       img3 = risk_plt,
+  #                                       img_dir = here::here("images"))
+  #                         )
 # tar_render issue seems to be associated with quarto or possibly pandoc?
 # the .tex compiles in overleaf
 # does not render direct from .qmd any more
@@ -302,3 +308,5 @@ targets::tar_target(bt_plt,
 
 # targets::tar_visnetwork()
 # targets::tar_make()
+
+# targets::tar_load_everything()
