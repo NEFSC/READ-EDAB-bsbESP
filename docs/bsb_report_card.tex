@@ -10,7 +10,6 @@
   numbers=noendperiod]{scrartcl}
 
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{setspace}
 \usepackage{iftex}
 \ifPDFTeX
@@ -21,6 +20,10 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -99,10 +102,6 @@
 \usepackage{wrapfig}
 \KOMAoption{captions}{tableheading}
 \makeatletter
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -138,21 +137,16 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
-\makeatother
-\makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
-\makeatother
-\makeatletter
-\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
-\makeatother
-\makeatletter
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
+
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -165,15 +159,22 @@
   pdfcreator={LaTeX via pandoc}}
 
 \title{Black Sea Bass (\protect\textit{Centropristis striata})
-\protect\newline Ecosystem \& Socioeconomic Profile Report Card}
+\linebreak Ecosystem \& Socioeconomic Profile Report Card}
 \author{}
 \date{}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \setstretch{1}
+\backgroundsetup{
+  scale=1,
+  angle=0,
+  opacity=0,
+  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}}
+ }
+\BgThispage
+
 \vspace{-2.5cm}
 \section{Spring 2025}
 
@@ -186,33 +187,16 @@ temperature and smaller year classes.
 
 \begin{figure}
 
-\begin{minipage}[t]{0.40\linewidth}
-
-{\centering 
-
-\raisebox{-\height}{
-
-\includegraphics{`r params$img1`.pdf}
-
-}
-
-}
-
-\end{minipage}%
+\begin{minipage}{0.40\linewidth}
+\includegraphics{C:/Users/abigail.tyrell/Documents/code/bsb/images/bsb_map.png}\end{minipage}%
 %
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
+\begin{minipage}{0.03\linewidth}
 
 \hfill
 
-}
-
 \end{minipage}%
 %
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
+\begin{minipage}{0.57\linewidth}
 
 \section{2024 in Review}
 
@@ -266,26 +250,16 @@ temperature and smaller year classes.
   Poor or below average fish condition in recent years
 \end{itemize}
 
-}
-
 \end{minipage}%
 \newline
-\begin{minipage}[t]{\linewidth}
-
-{\centering 
+\begin{minipage}{\linewidth}
 
 \vspace{0.5cm}
 \section{Key Points from the Mid-Atlantic Risk Assessment}
 
-}
-
 \end{minipage}%
 \newline
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-
-\vspace{-3cm}
+\begin{minipage}{0.57\linewidth}
 
 \raggedright
 
@@ -336,32 +310,19 @@ moderately high risk in the following elements:
   \end{itemize}
 \end{itemize}
 
-}
-
 \end{minipage}%
 %
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
+\begin{minipage}{0.03\linewidth}
 
 \hfill
 
-}
-
 \end{minipage}%
 %
-\begin{minipage}[t]{0.40\linewidth}
+\begin{minipage}{0.40\linewidth}
+\includegraphics{C:/Users/abigail.tyrell/Documents/code/bsb/images/condition.jpg}
+\includegraphics{C:/Users/abigail.tyrell/Documents/code/bsb/images/chart.png}\end{minipage}%
 
-{\centering 
-
-\includegraphics{`r params$img2`.pdf}
-\includegraphics{`r params$img3`.pdf}
-
-}
-
-\end{minipage}%
-
-\end{figure}
+\end{figure}%
 
 \newpage
 
@@ -379,13 +340,13 @@ moderately high risk in the following elements:
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-\begin{longtable}[c]{|p{0.90in}|p{0.75in}|p{3.00in}|p{3.00in}}
+\begin{longtable*}[c]{|p{0.90in}|p{0.75in}|p{3.00in}|p{3.00in}}
 
 
 
 \hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Indicator\ Units}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Status\ In\ 2024}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Implications}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Time\ Series}}}}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Indicator\ Units}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Status\ In\ 2024}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Implications}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Time\ Series}}}}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -393,7 +354,7 @@ moderately high risk in the following elements:
 
 \hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Indicator\ Units}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Status\ In\ 2024}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Implications}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{\textbf{Time\ Series}}}}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Indicator\ Units}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Status\ In\ 2024}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Implications}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Time\ Series}}}}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -401,7 +362,7 @@ moderately high risk in the following elements:
 
 
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Mean\ winter\ (Feb-Mar)\ bottom\ temperature\ (°C)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{North:\ Below\ threshold\ South:\ Near\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Cold\ winter\ temperatures\ may\ increase\ the\ mortality\ of\ young-of-the-year\ fish,\ resulting\ in\ smaller\ year\ classes.\ 2024\ temperature\ in\ the\ northern\ subunit\ (north\ of\ Hudson\ Canyon)\ was\ colder\ than\ black\ sea\ bass's\ lower\ threshold\ of\ 8C.\ Bottom\ temperature\ data\ comes\ from\ GLORYS,\ a\ modeled\ product.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1.5in]{bsb_report_card_files/figure-pdf/unnamed-chunk-5-1.png}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Mean\ winter\ (Feb-Mar)\ bottom\ temperature\ (°C)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{North:\ Below\ threshold\ South:\ Near\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Cold\ winter\ temperatures\ may\ increase\ the\ mortality\ of\ young-of-the-year\ fish,\ resulting\ in\ smaller\ year\ classes.\ 2024\ temperature\ in\ the\ northern\ subunit\ (north\ of\ Hudson\ Canyon)\ was\ colder\ than\ black\ sea\ bass's\ lower\ threshold\ of\ 8C.\ Bottom\ temperature\ data\ comes\ from\ GLORYS,\ a\ modeled\ product.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1.5in]{bsb_report_card_files/figure-pdf/unnamed-chunk-6-1.png}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -409,7 +370,7 @@ moderately high risk in the following elements:
 
 
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Shelf\ water\ volume\ (km3)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{N/A\ (no\ data\ for\ 2024)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Shelf\ water\ volume\ is\ a\ proxy\ for\ suitable\ winter\ habitat;\ higher\ shelf\ water\ volume\ indicates\ less\ suitable\ habitat,\ potentially\ leading\ to\ northern\ fish\ migrating\ into\ the\ southern\ subregion.\ The\ shelf\ water\ volume\ dataset\ is\ created\ from\ in\ situ\ data,\ and\ there\ has\ been\ no\ winter\ sampling\ since\ 2021,\ highlighting\ the\ need\ for\ additional\ indicators\ to\ inform\ stock\ subunit\ mixing.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1.5in]{bsb_report_card_files/figure-pdf/unnamed-chunk-5-2.png}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Shelf\ water\ volume\ (km3)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{N/A\ (no\ data\ for\ 2024)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Shelf\ water\ volume\ is\ a\ proxy\ for\ suitable\ winter\ habitat;\ higher\ shelf\ water\ volume\ indicates\ less\ suitable\ habitat,\ potentially\ leading\ to\ northern\ fish\ migrating\ into\ the\ southern\ subregion.\ The\ shelf\ water\ volume\ dataset\ is\ created\ from\ in\ situ\ data,\ and\ there\ has\ been\ no\ winter\ sampling\ since\ 2021,\ highlighting\ the\ need\ for\ additional\ indicators\ to\ inform\ stock\ subunit\ mixing.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1.5in]{bsb_report_card_files/figure-pdf/unnamed-chunk-6-2.png}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -417,7 +378,7 @@ moderately high risk in the following elements:
 
 
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{MRIP\ recreational\ trips\ (millions\ of\ annual\ trips)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Above\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Recent\ trip\ numbers\ are\ near\ an\ all-time\ high,\ but\ have\ decreased\ from\ 2023.\ Catch\ (not\ shown)\ generally\ reflects\ trip\ patterns.\ High\ regulatory\ complexity\ is\ likely\ contributing\ to\ recreational\ fishing\ trends.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-5-3.png}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{MRIP\ recreational\ trips\ (millions\ of\ annual\ trips)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Above\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Recent\ trip\ numbers\ are\ near\ an\ all-time\ high,\ but\ have\ decreased\ from\ 2023.\ Catch\ (not\ shown)\ generally\ reflects\ trip\ patterns.\ High\ regulatory\ complexity\ is\ likely\ contributing\ to\ recreational\ fishing\ trends.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-6-3.png}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -425,7 +386,7 @@ moderately high risk in the following elements:
 
 
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{MRIP\ recreational\ landings\ (millions\ of\ lbs.)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Near\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{The\ recreational\ black\ sea\ bass\ fishery\ has\ a\ catch-and-release\ component,\ and\ management\ measures\ are\ being\ implemented\ to\ reduce\ recreational\ harvest.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-5-4.png}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{MRIP\ recreational\ landings\ (millions\ of\ lbs.)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Near\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{The\ recreational\ black\ sea\ bass\ fishery\ has\ a\ catch-and-release\ component,\ and\ management\ measures\ are\ being\ implemented\ to\ reduce\ recreational\ harvest.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-6-4.png}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -433,7 +394,7 @@ moderately high risk in the following elements:
 
 
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Commercial\ revenue\ per\ vessel\ (2024\ USD)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Above\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Commercial\ revenue\ per\ vessel\ follows\ an\ overall\ increasing\ trend\ most\ likely\ driven\ by\ the\ continued\ decline\ of\ active\ vessels\ and\ an\ overall\ increase\ in\ total\ commercial\ landed\ pounds\ over\ the\ past\ decade.\  }}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-5-5.png}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Commercial\ revenue\ per\ vessel\ (2024\ USD)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Above\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Commercial\ revenue\ per\ vessel\ follows\ an\ overall\ increasing\ trend\ most\ likely\ driven\ by\ the\ continued\ decline\ of\ active\ vessels\ and\ an\ overall\ increase\ in\ total\ commercial\ landed\ pounds\ over\ the\ past\ decade.\  }}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-6-5.png}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -441,7 +402,7 @@ moderately high risk in the following elements:
 
 
 
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Number\ of\ commercial\ vessels\ (\#)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{Below\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{DejaVu Sans}{The\ number\ of\ active\ vessels\ has\ been\ decreasing\ since\ 2017,\ which\ could\ impact\ revenue\ distributions\ and\ fleet\ composition. }}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-5-6.png}} \\
+\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Number\ of\ commercial\ vessels\ (\#)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Below\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{The\ number\ of\ active\ vessels\ has\ been\ decreasing\ since\ 2017,\ which\ could\ impact\ revenue\ distributions\ and\ fleet\ composition. }}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-6-6.png}} \\
 
 \noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
 
@@ -449,7 +410,7 @@ moderately high risk in the following elements:
 
 
 
-\end{longtable}
+\end{longtable*}
 
 
 

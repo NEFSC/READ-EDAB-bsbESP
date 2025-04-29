@@ -1,5 +1,5 @@
 ---
-title: "Black Sea Bass (\\protect\\textit{Centropristis striata}) \\protect\\newline Ecosystem & Socioeconomic Profile Report Card"
+title: "Black Sea Bass (\\protect\\textit{Centropristis striata}) \\linebreak Ecosystem & Socioeconomic Profile Report Card"
 format: 
   pdf:
     margin-left: "0.5in"
@@ -27,19 +27,13 @@ knitr::opts_chunk$set(echo = FALSE)
 # here::i_am("inst/esp_template/06_docs/report card pg 1.qmd")
 ```
 
-<!-- \backgroundsetup{ -->
-
-<!--   scale=1, -->
-
-<!--   angle=0, -->
-
-<!--   opacity=0, -->
-
-<!--   contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}} -->
-
-<!--  } -->
-
-<!-- \BgThispage -->
+\backgroundsetup{
+  scale=1,
+  angle=0,
+  opacity=0,
+  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}}
+ }
+\BgThispage
 
 ```{=tex}
 \vspace{-2.5cm}
@@ -50,7 +44,7 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 ::: {layout="[ [0.4, 0.025, 0.575], [1], [0.575, 0.025, 0.4]] "}
 <div>
 
-![](%60r%20params$img1%60)
+![](`r params$img1`)
 
 </div>
 
@@ -95,12 +89,10 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 \vspace{0.5cm}
 \section{Key Points from the Mid-Atlantic Risk Assessment}
 ```
-
+<!-- \vspace{0.15cm} -->
 </div>
 
 <div>
-
-\vspace{-3cm}
 
 \raggedright
 
@@ -131,7 +123,8 @@ According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1
 
 <div>
 
-![](%60r%20params$img2%60) ![](%60r%20params$img3%60)
+![](`r params$img2`) 
+![](`r params$img3`)
 
 </div>
 :::
@@ -139,17 +132,11 @@ According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1
 \newpage
 
 <!-- \backgroundsetup{ -->
-
 <!--   scale=1, -->
-
 <!--   angle=0, -->
-
 <!--   opacity=0, -->
-
 <!--   contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}} -->
-
 <!--  } -->
-
 <!-- \BgThispage -->
 
 <!-- not sure why this background isn't working -->
@@ -203,6 +190,11 @@ tbl <- flextable::bg(tbl, i = 1:nrow(small_dat), j = 1:4, bg = "white")
 # TODO: this height adjustment isn't working
 tbl <- flextable::height_all(tbl, part = "body", height = 2)
 tbl <- flextable::hrule(tbl, i = 1:nrow(small_dat), rule = "atleast", part = "body")
+```
+
+```{r}
+tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "body")
+tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "header")
 ```
 
 <div>
