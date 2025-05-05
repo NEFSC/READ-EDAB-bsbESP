@@ -1,7 +1,8 @@
 
 
-plt_bsb <- function(data) {
+plt_bsb <- function(data, ind_name) {
   plt <- data |>
+    dplyr::filter(INDICATOR_NAME == ind_name) |>
     dplyr::group_by(INDICATOR_NAME) |>
     dplyr::mutate(mean = mean(DATA_VALUE, na.rm = TRUE),
                   sd = sd(DATA_VALUE, na.rm = TRUE)) |>
@@ -41,6 +42,9 @@ plt_bsb <- function(data) {
 
   return(plt)
 }
+
+#Test plot with AKesp
+#plt_bsb(data = AKesp::get_esp_data("Black Sea Bass"), ind_name = 'BSB_Shelf_Water_Volume_North')
 
 # plt_bsb(total_rec_landings |>
 #           dplyr::mutate(DATA_VALUE = DATA_VALUE/10^6))
