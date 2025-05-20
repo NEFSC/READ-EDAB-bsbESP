@@ -1,0 +1,29 @@
+#Ecosystem and Socioeconomic Profile (ESP) indicator template for Northeast ESPs 
+
+#This template is required for updating ESP indicator information. There are two required sections to check or update (see below): Indicator Review and Indicator Data. 
+
+#INSTRUCTIONS: Please fill in the text (surrounded by " ") or data as values in the line after each field marked with a # and capitalized name. Help text is provided following the capitalized field name. 
+
+#INDICATOR_REVIEW ----------------------------------------------------------------------------------------
+#SUBMISSION_YEAR - Current year of contribution submission. This is a integer value.
+2025
+#INDICATOR_NAME - Name of the indicator - text string (unique to the indicator).
+BSB_Commercial_Vessels
+#DESCRIPTION - Brief description of the indicator. Please make sure this description includes information on the spatial distribution of the indicator and how the data for the indicator are collected. The spatial resolution can be a cell size dimension (e.g., 5 km resolution for gridded data) or area of sampling for a survey. The data collection method can be brief (e.g., survey name and gear type, satellite sensor and version, stock assessment model output, fishery observer data, community reports, etc.) and can include a reference to methods detailed elswhere. This is a text string.
+Number of commercial fishing vessels targeting black sea bass
+#STATUS_TRENDS - Information on the current status of the indicator in the context of historical trends. This is a text string.
+Number of commercial vessels has decreased slightly from 2023 and remains well below the long term average.
+#FACTORS - Information on the potential causes for observed trends and current status (focus on most recent year). This is a text string.
+A decrease in targeted black sea bass trips coincides with decreased catch and landings in 2024.
+#IMPLICATIONS - Information that briefly answers these questions: What are the implications or impacts of the observed trends on the ecosystem or ecosystem components? What do the trends mean? Why are they important? How can this information be used to inform management decisions? This is a text string.
+The number of active vessels has been decreasing since 2017, which could impact revenue distributions and fleet composition."
+#REFERENCES - Include any full references that are associated with the indicator. This may include data references such as from an ERDDAP webpage or literature cited (plus the DOI where possible). This is a text string.
+NA
+
+ #INDICATOR_DATA ----------------------------------------------------------------------------------------------
+#YEAR - List of years for the indicator contribution. This is a integer value.
+2014	2007	2001	2002	2010	2006	2019	2012	2021	2013	1998	1996	2004	2017	2015	2022	2005	1997	2000	2020	1999	2011	2009	2008	2024	2016	2018	2003	2023
+#REGION/SEASON - List of spatial or temporal scales applicable to indicator. This is a character value.
+ALL
+#INDICATOR_VALUE - List of data values for the indicator contribution (must match the YEAR list length). This is a numeric value.
+602	616	735	741	609	597	647	611	565	601	761	654	614	713	597	531	595	698	730	570	804	595	502	567	393	587	659	690	413
