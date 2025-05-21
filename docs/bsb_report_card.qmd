@@ -15,15 +15,16 @@ format:
 params:
   widths: !expr c(0.9, 0.75, 3, 3)
   img1: !expr here::here("images/bsb_map.png")
-  img2: !expr here::here("images/condition.jpg")
+  img2: !expr here::here("images/new_condition.png")
   img3: !expr here::here("images/risk_plot.png")
-  tbl_file: !expr here::here("docs/bsb_indicator_table.csv") |> read.csv()
+  tbl_file: !expr here::here("docs/bsb_indicator_table.csv")
   img_dir: !expr here::here("images")
 latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+devtools::load_all(here::here("../READ-EDAB-NEesp2"))
 # here::i_am("inst/esp_template/06_docs/report card pg 1.qmd")
 ```
 
@@ -40,13 +41,19 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
 
+<!-- \vspace{-0.5cm} -->
+
 ::: {layout="[ [0.4, 0.025, 0.575], [1], [0.575, 0.025, 0.4]] "}
 
+:::: {}
 ![](`r params$img1`)
+::::
 
-
+:::: {}
 \hfill
+::::
 
+:::: {}
 \section{2024 in Review}
 
 \subsection{Fishing Community Observations}
@@ -71,11 +78,15 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 
 -   Cold winter in the north but near average in the south
 -   Poor or below average fish condition in recent years
+::::
 
+:::: {}
 \vspace{0.5cm}
 \section{Key Points from the Mid-Atlantic Risk Assessment}
 <!-- \vspace{0.15cm} -->
+::::
 
+:::: {}
 \raggedright
 
 <!-- maybe this is being centered because it's the only section without a header? -->
@@ -103,15 +114,20 @@ risk_fig <- NEesp2::plot_risk(risk_elements = tibble::tibble(stock = c(4, 0, 2, 
                                                               commercial = c(1, 4, 2, 0)))
 ggplot2::ggsave(risk_fig, 
                 filename = here::here("images/risk_plot.png"),
-                width = 5.3,
-                height = 4,
+                width = 4,
+                height = 2.5,
                 dpi = 300)
 ```
+::::
 
+:::: {}
 \hfill
+::::
 
+:::: {}
 ![](`r params$img2`) 
 ![](`r params$img3`)
+::::
 
 :::
 
@@ -127,7 +143,7 @@ ggplot2::ggsave(risk_fig,
 
 <!-- not sure why this background isn't working -->
 
-```{r}
+```{r, eval = FALSE}
 # data <- readxl::read_excel(params$tbl_file) |>
 data <- params$tbl_file |>
   janitor::clean_names() |>
@@ -135,7 +151,7 @@ data <- params$tbl_file |>
   dplyr::select(-time_series)
 ```
 
-```{r}
+```{r, eval = FALSE}
 small_dat <- data |>
   dplyr::mutate(figure = NA) |>
   dplyr::select(-c(w, h)) |>
@@ -147,7 +163,7 @@ colnames(small_dat) <- colnames(small_dat) |>
 
 ```
 
-```{r}
+```{r, eval = FALSE}
 flextable::set_flextable_defaults(font.size = 10,
                                   padding.top = 6,
                                   padding.bottom = 6)
@@ -158,7 +174,7 @@ tbl <- flextable::width(tbl, j = 1:4,
 tbl <- flextable::theme_box(tbl)
 ```
 
-```{r}
+```{r, eval = FALSE}
 for(i in 1:nrow(small_dat)){
   tbl <- flextable::compose(tbl,
                           i = i,
@@ -179,7 +195,7 @@ tbl <- flextable::height_all(tbl, part = "body", height = 2)
 tbl <- flextable::hrule(tbl, i = 1:nrow(small_dat), rule = "atleast", part = "body")
 ```
 
-```{r}
+```{r, eval = FALSE}
 tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "body")
 tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "header")
 ```
@@ -187,11 +203,24 @@ tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "header")
 \newgeometry{top=0.25in, left=0.25in, right=0.25in, bottom=0.25in}
 
 ```{r}
+data <- NEesp2::format_tbl_data(file = params$tbl_file,
+                            term_year = params$terminal_year,
+                            dir = params$img_dir)
+```
+
+```{r}
+tbl <- NEesp2::rpt_card_table(data,
+                       widths = params$widths)
+tbl <- flextable::set_header_labels(tbl, `Time Series` = "Time Series*")
+```
+
+```{r}
 tbl
 
 # flextable::save_as_image(tbl, here::here("images/indicator_table.png"))
 ```
 
+`r knitr::knit_exit()`
 \* The y-axis units are included in the "Indicator" column of the table.
 
 \centering
