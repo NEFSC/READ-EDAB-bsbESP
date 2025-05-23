@@ -13,8 +13,8 @@ format:
     keep-tex: true
     papersize: letter
 params:
-  widths: !expr c(0.9, 0.75, 3, 3)
-  img1: !expr here::here("images/bsb_map.png")
+  widths: !expr c(0.9, 0.75, 2.5, 3)
+  img1: !expr here::here("images/bsb spatiotemporal conceptual model.png")
   img2: !expr here::here("images/new_condition.png")
   img3: !expr here::here("images/risk_plot.png")
   tbl_file: !expr here::here("docs/bsb_indicator_table.csv")
@@ -39,7 +39,7 @@ devtools::load_all(here::here("../READ-EDAB-NEesp2"))
 \vspace{-2.5cm}
 \section{Spring 2025}
 
-Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. There are two stock subunits, divided at the Hudson Canyon. Overfishing is not occurring and the stock is not overfished. The stock assessment model uses winter bottom temperature as a recruitment covariate to incorporate the observed link between cold temperature and smaller year classes.
+This is a short-form update to the full Ecosystem and Socioeconomic Profile (Tabandera et al., 2024) highlighting the recent status of environmental, ecological, and socioeconomic factors. Black sea bass is an important Mid-Atlantic stock with high commercial value and recreational engagement. Overfishing is not occurring and the stock is not overfished. Winter bottom temperature is used in the stock assessment model as a factor that influences recruitment  to incorporate the observed link between cold temperature and smaller year classes (NEFSC 2023).
 
 <!-- \vspace{-0.5cm} -->
 
@@ -56,33 +56,38 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 :::: {}
 \section{2024 in Review}
 
-\subsection{Fishing Community Observations}
+\subsection{Fishing Community Observations (MAFMC 2024a-c)}
 
 -   Steady or increasing availability
--   Expanding distributions and changes in migration timing
--   Local regulatory complexity affects fishing opportunities
+-   Restrictive and complex regulations limit fishing opportunities
+-   Concerns about high discards
 
+\vspace{-0.25cm}
 \subsection{Commercial Fishery}
 
--   Number of active vessels declined in 2024, but total landed pounds increased from 2023 and have been following an overall increasing trend over the last decade
+-   Number of active vessels declined in 2024, but total landed pounds increased from 2023 
 -   Total revenue decreased slightly along with average prices (\$/lb)
--   Average revenue per vessel increased, following an upward trend over the past three years for vessels that remain in the fishery as the number of active vessels continues to decline
+-   Average revenue per vessel increased
 
+\vspace{-0.25cm}
 \subsection{Recreational Fishery}
 
--   Number of targeted trips, catch, and landings all down from 2023
--   But number of trips still above the historic average
--   Not clear if catch per angler has continued to increase in 2024
+-   Number of targeted trips, catch, and landings all down from 2023 (MAFMC 2024a)
+-   However, number of trips is still above the historic average
+-   Recreational catch-per-angler index not yet updated for 2024
 
+\vspace{-0.25cm}
 \subsection{Ecosystem}
 
+-   The stock assessment models the stock as two subunits, divided at the Hudson Canyon (see right)
 -   Cold winter in the north but near average in the south
--   Poor or below average fish condition in recent years
+-   Poor or below average fish condition (i.e., weight at a given length) in recent years
 ::::
 
 :::: {}
-\vspace{0.5cm}
+\vspace{0.25cm}
 \section{Key Points from the Mid-Atlantic Risk Assessment}
+\vspace{0.05cm}
 <!-- \vspace{0.15cm} -->
 ::::
 
@@ -91,14 +96,14 @@ Black sea bass is an important Mid-Atlantic stock with high commercial value and
 
 <!-- maybe this is being centered because it's the only section without a header? -->
 
-According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf), Black Sea Bass scored high and/or moderately high risk in the following elements:
+According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf) (MAFMC 2024d), Black Sea Bass scored high and/or moderately high risk in the following elements (elements with low or low-moderate scores not described here):
 
 -   Moderate-high to high risk to the stock due to:
     -   Very high exposure to changes in climate
     -   Observed and potential changes in distribution; northward shift into the Gulf of Maine
     -   Dependence on threatened estuarine habitat
     -   Decline in the biomass of benthic invertebrate prey
-    -   Decline in black sea bass body condition in the Mid Atlantic Bight
+    -   Decline in black sea bass body condition
 -   High risk to the recreational fishery due to:
     -   Catch exceeding harvest limits in several years
     -   High regulatory complexity; frequent changes and varying interstate regulations; regulatory changes in allocations
@@ -143,64 +148,7 @@ ggplot2::ggsave(risk_fig,
 
 <!-- not sure why this background isn't working -->
 
-```{r, eval = FALSE}
-# data <- readxl::read_excel(params$tbl_file) |>
-data <- params$tbl_file |>
-  janitor::clean_names() |>
-  dplyr::mutate(figure =  paste0(params$img_dir, "/", time_series)) |>
-  dplyr::select(-time_series)
-```
-
-```{r, eval = FALSE}
-small_dat <- data |>
-  dplyr::mutate(figure = NA) |>
-  dplyr::select(-c(w, h)) |>
-  dplyr::rename(`time_series*` = figure)
-
-colnames(small_dat) <- colnames(small_dat) |>
-  stringr::str_replace_all("_", " ") |>
-  stringr::str_to_title()
-
-```
-
-```{r, eval = FALSE}
-flextable::set_flextable_defaults(font.size = 10,
-                                  padding.top = 6,
-                                  padding.bottom = 6)
-tbl <- flextable::flextable(small_dat) 
-tbl <- flextable::width(tbl, j = 1:4, 
-                        width = params$widths,
-                        unit = "in")
-tbl <- flextable::theme_box(tbl)
-```
-
-```{r, eval = FALSE}
-for(i in 1:nrow(small_dat)){
-  tbl <- flextable::compose(tbl,
-                          i = i,
-                          j = 4,
-                          value = flextable::as_paragraph(
-                            flextable::as_image(src = data$figure[i],
-                                                width = data$w[i],
-                                                height = data$h[i],
-                                                unit = "in",
-                                                guess_size = FALSE)))
-}
-
-tbl <- flextable::align(tbl, i = 1, j = 1:4, align = "center", part = "header")
-tbl <- flextable::align(tbl, i = 1:nrow(small_dat), j = 4, align = "center")
-tbl <- flextable::bg(tbl, i = 1:nrow(small_dat), j = 1:4, bg = "white")
-# TODO: this height adjustment isn't working
-tbl <- flextable::height_all(tbl, part = "body", height = 2)
-tbl <- flextable::hrule(tbl, i = 1:nrow(small_dat), rule = "atleast", part = "body")
-```
-
-```{r, eval = FALSE}
-tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "body")
-tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "header")
-```
-
-\newgeometry{top=0.25in, left=0.25in, right=0.25in, bottom=0.25in}
+<!-- \newgeometry{top=0.75in, left=0.75in, right=0.75in, bottom=0.75in} -->
 
 ```{r}
 data <- NEesp2::format_tbl_data(file = params$tbl_file,
@@ -212,6 +160,9 @@ data <- NEesp2::format_tbl_data(file = params$tbl_file,
 tbl <- NEesp2::rpt_card_table(data,
                        widths = params$widths)
 tbl <- flextable::set_header_labels(tbl, `Time Series` = "Time Series*")
+
+tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "body")
+tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "header")
 ```
 
 ```{r}
@@ -224,15 +175,33 @@ tbl
 # flextable::save_as_image(tbl, here::here("images/indicator_table.png"))
 ```
 \vspace{-0.4cm}
-\footnotesize \* The y-axis units are included in the "Indicator" column of the table. \newline\newline
+\footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).\newline\newline
 
 \centering\normalsize
 
-Please contact [nefsc.esp.leads\@noaa.gov](nefsc.esp.leads@noaa.gov) with any questions or comments.
+We welcome your observations! Please contact northeast.ecosystem.highlights@noaa.gov with any on-the-water insights or changes observed in the black sea bass fishery and nefsc.esp.leads@noaa.gov with questions or comments on the information presented in this report.
 
-\vspace{0.5cm}
+\newpage
+\newgeometry{top=1in, left=1in, right=1in, bottom=1in}
+
+\section{References}
+
 \raggedright
 
-Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).
+Fratantoni, P.S., Holzworth-Davis, T., & Taylor, M.H. (2015). Description of oceanographic conditions on the Northeast US Continental Shelf during 2014. US Dept Commer, Northeast Fisheries Science Center. Ref Doc. 15-21; 41 p. http://dx.doi.org/10.7289/V5SQ8XD2 \newline\newline
+
+Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Angélique, M., Marie, D., Clément, B., Mathieu, H., Olivier, L. G., Charly, R., Tony, C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann, D., & Pierre-Yves, L. T. (2021). The Copernicus Global 1/12° Oceanic and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876. https://doi.org/10.3389/feart.2021.698876 \newline\newline
+
+MAFMC. (2024a). Black Sea Bass Fishery Information Document. https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6683032fa306b9070227348b/1719862063436/2024_BSB-fishery-info-doc.pdf \newline\newline
+
+MAFMC. (2024b). Summer Flounder, Scup, and Black Sea Bass Fishery Performance Report. https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6697d5dde4c39b20168045b7/1721226717179/b_SFSBSB-FPR-Jul-2024.pdf \newline\newline
+
+MAFMC. (2024c). Summer Flounder, Scup, and Black Sea Bass Monitoring Committee (MC) November 19, 2024 Webinar Meeting Summary 2025 Recreational Management Measures. https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/674755f846e791454569703f/1732728312681/01_2025+SF+Rec+Measures.pdf \newline\newline
+
+MAFMC. (2024d). Mid-Atlantic EAFM Risk Assessment: 2024. https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf \newline\newline
+
+NEFSC. (2023). Report of the Black Sea Bass (Centropristis striata) Research Track Stock Assessment Working Group. https://d23h0vhsm26o6d.cloudfront.net/11a.-2023_BSB_UNIT_RTWG_Report_V2_12_2_2023.pdf \newline\newline
+
+Tabandera, R., Tyrell, A., McMahan, M., Perez, P., Hankowsky, K., & Large, S. (2024). Black sea bass ecosystem considerations and indicator development.  https://doi.org/10.25923/ez9g-af05
 
 

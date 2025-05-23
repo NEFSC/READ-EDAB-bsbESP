@@ -85,7 +85,9 @@ plt_bsb <- function(data,
                                  include_trends = FALSE) +
       ggplot2::xlim(c(1989, 2024)) +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30,
-                                                         hjust = 1))
+                                                         hjust = 1),
+                     plot.background = ggplot2::element_rect(fill = "transparent",
+                                                             color = "transparent"))
 
     if(facet) {
       fig <- fig +
