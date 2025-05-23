@@ -6,8 +6,9 @@
 # Load packages required to define the pipeline:
 library(targets)
 library(tarchetypes) # Load other packages as needed.
+# source(here::here("../READ-EDAB-NEesp2"))
 
-# remotes::install_github("NEFSC/READ-EDAB-NEesp2")
+# remotes::install_github("NEFSC/READ-EDAB-NEesp2", ref = "abby_dev")
 
 # Set target options:
 # tar_option_set(
@@ -58,7 +59,7 @@ list(
         swv_plt,
         bt_plt,
         rec_trips_plt,
-        rec_landings_plt,
+        # rec_landings_plt,
         com_rev_plt,
         com_vessel_plt
       )

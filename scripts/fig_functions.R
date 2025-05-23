@@ -83,7 +83,9 @@ plt_bsb <- function(data,
     # print(fname)
     fig <- NEesp2::plt_indicator(this_dat,
                                  include_trends = FALSE) +
-      ggplot2::xlim(c(1989, 2024))
+      ggplot2::xlim(c(1989, 2024)) +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30,
+                                                         hjust = 1))
 
     if(facet) {
       fig <- fig +

@@ -215,15 +215,18 @@ tbl <- flextable::set_header_labels(tbl, `Time Series` = "Time Series*")
 ```
 
 ```{r}
+# this doesn't seem to do anything
+tbl <- flextable::height_all(tbl, height = 2, part = "body", unit = "in")
+tbl <- flextable::hrule(tbl, rule = "atleast", part = "body")
+
 tbl
 
 # flextable::save_as_image(tbl, here::here("images/indicator_table.png"))
 ```
+\vspace{-0.4cm}
+\footnotesize \* The y-axis units are included in the "Indicator" column of the table. \newline\newline
 
-`r knitr::knit_exit()`
-\* The y-axis units are included in the "Indicator" column of the table.
-
-\centering
+\centering\normalsize
 
 Please contact [nefsc.esp.leads\@noaa.gov](nefsc.esp.leads@noaa.gov) with any questions or comments.
 
