@@ -1,17 +1,17 @@
 ## files ----
 list(
 targets::tar_target(table_data,
-                    here::here("docs/bsb_indicator_table.xlsx"),
+                    here::here("docs/bsb_indicator_table.csv"),
                     format = "file"
 ),
 targets::tar_target(meta_key,
-                    here::here("docs/indicator_metadata_template.xlsx"),
+                    here::here("docs/indicator_metadata_template.csv"),
                     format = "file"
 ),
 
 targets::tar_target(
   meta_data,
-  readxl::read_excel(meta_key)
+  read.csv(meta_key)
 ),
 
 ### image file paths ----
@@ -31,9 +31,13 @@ targets::tar_target(
 
 #### mrip data
 targets::tar_target(mrip_trips,
+                    # list.files(
+                    #   path = here::here("data/mrip_data/mrip_directed_trips"),
+                    #   pattern = glob2rx("mrip*.csv"),
+                    #   full.names = TRUE
+                    # ),
                     list.files(
-                      path = here::here("data/mrip_data/mrip_directed_trips"),
-                      pattern = glob2rx("mrip*.csv"),
+                      path = here::here("../READ-EDAB-MRIP/inputs/Black_sea_bass_trips"),
                       full.names = TRUE
                     ),
                     format = "file"
