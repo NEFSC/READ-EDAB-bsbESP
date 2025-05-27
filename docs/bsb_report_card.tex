@@ -10,10 +10,6 @@
   numbers=noendperiod]{scrartcl}
 
 \usepackage{amsmath,amssymb}
-<<<<<<< HEAD
-\usepackage{lmodern}
-=======
->>>>>>> a6c310b817680484812574c67577f67016d48692
 \usepackage{setspace}
 \usepackage{iftex}
 \ifPDFTeX
@@ -25,13 +21,10 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-<<<<<<< HEAD
-=======
 \usepackage{lmodern}
 \ifPDFTeX\else  
     % xetex/luatex font selection
 \fi
->>>>>>> a6c310b817680484812574c67577f67016d48692
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
@@ -77,6 +70,39 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \usepackage[pages=some]{background}
 
@@ -85,11 +111,7 @@
   runin=false,
   afterindent=false,
   font = \normalfont\textbf,
-<<<<<<< HEAD
-  beforeskip=1pt,
-=======
   beforeskip=0pt,
->>>>>>> a6c310b817680484812574c67577f67016d48692
   afterskip=0pt]{subsection}
 
 \setlength{\itemsep}{1pt}
@@ -113,13 +135,6 @@
 \usepackage{wrapfig}
 \KOMAoption{captions}{tableheading}
 \makeatletter
-<<<<<<< HEAD
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
-=======
->>>>>>> a6c310b817680484812574c67577f67016d48692
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -155,23 +170,6 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
-<<<<<<< HEAD
-\@ifpackageloaded{caption}{}{\usepackage{caption}}
-\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
-\makeatother
-\makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
-\makeatother
-\makeatletter
-\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
-\makeatother
-\makeatletter
-\makeatother
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-=======
 \makeatother
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -182,7 +180,6 @@
 \fi
 \usepackage{bookmark}
 
->>>>>>> a6c310b817680484812574c67577f67016d48692
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -201,10 +198,6 @@
 
 \begin{document}
 \maketitle
-<<<<<<< HEAD
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, frame hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable, interior hidden, sharp corners]}{\end{tcolorbox}}\fi
-=======
->>>>>>> a6c310b817680484812574c67577f67016d48692
 
 \setstretch{1}
 \backgroundsetup{
@@ -218,66 +211,8 @@
 \vspace{-2.5cm}
 \section{Spring 2025}
 
-<<<<<<< HEAD
-Black sea bass is an important Mid-Atlantic stock with high commercial
-value and recreational engagement. There are two stock subunits, divided
-at the Hudson Canyon. Overfishing is not occurring and the stock is not
-overfished. The stock assessment model uses winter bottom temperature as
-a recruitment covariate to incorporate the observed link between cold
-temperature and smaller year classes.
-
-\begin{figure}
-
-\begin{minipage}[t]{0.40\linewidth}
-
-{\centering 
-
-\raisebox{-\height}{
-
-\includegraphics{/home/atyrell/SOE_ESP_Data/bsb/images/bsb_map.png}
-
-}
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
-
-\hfill
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-
-\section{2024 in Review}
-
-}
-
-\end{minipage}%
-\newline
-\begin{minipage}[t]{\linewidth}
-
-{\centering 
-
-\subsection{Fishing Community Observations}
-
-}
-
-\end{minipage}%
-\newline
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-=======
 This is a short-form update to the full Ecosystem and Socioeconomic
-Profile (Tabandera et al., 2024) highlighting the recent status of
+Profile (Tabandera et al. 2024) highlighting the recent status of
 environmental, ecological, and socioeconomic factors. Black sea bass is
 an important Mid-Atlantic stock with high commercial value and
 recreational engagement. Overfishing is not occurring and the stock is
@@ -285,6 +220,8 @@ not overfished. Winter bottom temperature is used in the stock
 assessment model as a factor that influences recruitment to incorporate
 the observed link between cold temperature and smaller year classes
 (NEFSC 2023).
+
+\vspace{-0.25cm}
 
 \begin{figure}
 
@@ -300,83 +237,28 @@ the observed link between cold temperature and smaller year classes
 \begin{minipage}{0.57\linewidth}
 
 \section{2024 in Review}
+\vspace{-0.25cm}
 
-\subsection{Fishing Community Observations (MAFMC 2024a-c)}
->>>>>>> a6c310b817680484812574c67577f67016d48692
+\subsection{Fishing Community Observations}
 
 \begin{itemize}
 \tightlist
 \item
-  Steady or increasing availability
+  Steady or increasing availability; concerns about high discards
 \item
-<<<<<<< HEAD
-  Expanding distributions and changes in migration timing
-\item
-  Local regulatory complexity affects fishing opportunities
-\end{itemize}
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
-
-\subsection{Commercial Fishery}
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.40\linewidth}
-
-{\centering 
-
-=======
   Restrictive and complex regulations limit fishing opportunities
 \item
-  Concerns about high discards
+  For additional information, see MAFMC (2024a), MAFMC (2024c), and
+  MAFMC (2024d)
 \end{itemize}
 
 \vspace{-0.25cm}
 \subsection{Commercial Fishery}
 
->>>>>>> a6c310b817680484812574c67577f67016d48692
 \begin{itemize}
 \tightlist
 \item
   Number of active vessels declined in 2024, but total landed pounds
-<<<<<<< HEAD
-  increased from 2023 and have been following an overall increasing
-  trend over the last decade
-\item
-  Total revenue decreased slightly along with average prices (\$/lb)
-\item
-  Average revenue per vessel increased, following an upward trend over
-  the past three years for vessels that remain in the fishery as the
-  number of active vessels continues to decline
-\end{itemize}
-
-}
-
-\end{minipage}%
-\newline
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-
-\subsection{Recreational Fishery}
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
-
-=======
   increased from 2023
 \item
   Total revenue decreased slightly along with average prices (\$/lb)
@@ -387,102 +269,10 @@ the observed link between cold temperature and smaller year classes
 \vspace{-0.25cm}
 \subsection{Recreational Fishery}
 
->>>>>>> a6c310b817680484812574c67577f67016d48692
 \begin{itemize}
 \tightlist
 \item
   Number of targeted trips, catch, and landings all down from 2023
-<<<<<<< HEAD
-\item
-  But number of trips still above the historic average
-\item
-  Not clear if catch per angler has continued to increase in 2024
-\end{itemize}
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.40\linewidth}
-
-{\centering 
-
-\subsection{Ecosystem}
-
-}
-
-\end{minipage}%
-\newline
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-
-\begin{itemize}
-\tightlist
-\item
-  Cold winter in the north but near average in the south
-\item
-  Poor or below average fish condition in recent years
-\end{itemize}
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
-
-\vspace{0.5cm}
-\section{Key Points from the Mid-Atlantic Risk Assessment}
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.40\linewidth}
-
-{\centering 
-
-}
-
-\end{minipage}%
-\newline
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-
-\raggedright
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.40\linewidth}
-
-{\centering 
-
-According to the
-\href{https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf}{Mid-Atlantic
-2024 EAFM risk assessment update}, Black Sea Bass scored high and/or
-moderately high risk in the following elements:
-
-}
-
-\end{minipage}%
-\newline
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-=======
   (MAFMC 2024a)
 \item
   However, number of trips is still above the historic average
@@ -501,8 +291,8 @@ moderately high risk in the following elements:
 \item
   Cold winter in the north but near average in the south
 \item
-  Poor or below average fish condition (i.e., weight at a given length)
-  in recent years
+  Poor or below average fish condition (i.e., weight at a given length;
+  see below)
 \end{itemize}
 
 \end{minipage}%
@@ -521,10 +311,9 @@ moderately high risk in the following elements:
 
 According to the
 \href{https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf}{Mid-Atlantic
-2024 EAFM risk assessment update} (MAFMC 2024d), Black Sea Bass scored
+2024 EAFM risk assessment update} (MAFMC 2024b), Black Sea Bass scored
 high and/or moderately high risk in the following elements (elements
 with low or low-moderate scores not described here):
->>>>>>> a6c310b817680484812574c67577f67016d48692
 
 \begin{itemize}
 \tightlist
@@ -543,11 +332,7 @@ with low or low-moderate scores not described here):
   \item
     Decline in the biomass of benthic invertebrate prey
   \item
-<<<<<<< HEAD
-    Decline in black sea bass body condition in the Mid Atlantic Bight
-=======
     Decline in black sea bass body condition
->>>>>>> a6c310b817680484812574c67577f67016d48692
   \end{itemize}
 \item
   High risk to the recreational fishery due to:
@@ -572,42 +357,6 @@ with low or low-moderate scores not described here):
   \end{itemize}
 \end{itemize}
 
-<<<<<<< HEAD
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.03\linewidth}
-
-{\centering 
-
-}
-
-\end{minipage}%
-%
-\begin{minipage}[t]{0.40\linewidth}
-
-{\centering 
-
-\hfill
-
-}
-
-\end{minipage}%
-\newline
-\begin{minipage}[t]{0.57\linewidth}
-
-{\centering 
-
-\includegraphics{/home/atyrell/SOE_ESP_Data/bsb/images/condition.jpg}
-\includegraphics{/home/atyrell/SOE_ESP_Data/bsb/images/risk_plot.png}
-
-}
-
-\end{minipage}%
-
-\end{figure}
-=======
 \end{minipage}%
 %
 \begin{minipage}{0.03\linewidth}
@@ -621,7 +370,6 @@ with low or low-moderate scores not described here):
 \includegraphics{C:/Users/abigail.tyrell/Documents/code/bsb/images/risk_plot.png}\end{minipage}%
 
 \end{figure}%
->>>>>>> a6c310b817680484812574c67577f67016d48692
 
 \newpage
 
@@ -633,63 +381,6 @@ with low or low-moderate scores not described here):
  }
 \BgThispage
 
-<<<<<<< HEAD
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00C4>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00D6>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00DC>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00E4>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00F6>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00FC>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00DF>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00C6>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00E6>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00D8>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00F8>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00C5>' to native encoding
-\end{verbatim}
-
-\begin{verbatim}
-Warning in FUN(X[[i]], ...): unable to translate '<U+00E5>' to native encoding
-\end{verbatim}
-
-\newgeometry{top=0.25in, left=0.25in, right=0.25in, bottom=0.25in}
-
-=======
->>>>>>> a6c310b817680484812574c67577f67016d48692
 \global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
@@ -702,71 +393,6 @@ Warning in FUN(X[[i]], ...): unable to translate '<U+00E5>' to native encoding
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-<<<<<<< HEAD
-\begin{longtable}[c]{|p{0.90in}|p{0.75in}|p{3.00in}|p{3.00in}}
-
-
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
-
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Indicator}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Status\ In\ 2024}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Implications}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Time\ Series*}}}}} \\
-
-\noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
-
-\hhline{|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}\endfirsthead 
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
-
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Indicator}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Status\ In\ 2024}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Implications}}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{\textbf{Time\ Series*}}}}} \\
-
-\noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
-
-\hhline{|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}\endhead
-
-
-
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Mean\ winter\ (Feb-Mar)\ bottom\ temperature\ (C)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{North:\ Below\ threshold\ South:\ Near\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Cold\ winter\ temperatures\ may\ increase\ the\ mortality\ of\ young-of-the-year\ fish,\ resulting\ in\ smaller\ year\ classes.\ The\ stock\ assessment\ models\ the\ stock\ as\ two\ separate\ subunits,\ separated\ approximately\ at\ Hudson\ Canyon.\ The\ 2024\ average\ winter\ bottom\ temperature\ in\ the\ northern\ subunit\ was\ colder\ than\ black\ sea\ bass's\ lower\ threshold\ of\ 8C.\ Bottom\ temperature\ data\ comes\ from\ GLORYS,\ a\ modeled\ product.\ Winter\ bottom\ temperature\ is\ used\ in\ the\ model\ as\ a\ factor\ that\ influences\ recruitment.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1.5in]{bsb_report_card_files/figure-pdf/unnamed-chunk-7-1.png}} \\
-
-\noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
-
-\hhline{|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
-
-
-
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Shelf\ water\ volume\ (km3)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{No\ data\ for\ 2024}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Shelf\ water\ volume\ is\ a\ proxy\ for\ suitable\ winter\ habitat;\ higher\ shelf\ water\ volume\ indicates\ less\ suitable\ habitat,\ potentially\ leading\ to\ northern\ fish\ migrating\ into\ the\ southern\ subregion.\ The\ shelf\ water\ volume\ dataset\ is\ created\ from\ in\ situ\ data,\ and\ there\ has\ been\ no\ winter\ sampling\ since\ 2021,\ highlighting\ the\ need\ for\ additional\ indicators\ to\ inform\ stock\ subunit\ mixing.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1.5in]{bsb_report_card_files/figure-pdf/unnamed-chunk-7-2.png}} \\
-
-\noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
-
-\hhline{|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
-
-
-
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Black\ sea\ bass\ MRIP\ recreational\ trips\ (millions\ of\ annual\ trips)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Above\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Recent\ trip\ numbers\ are\ near\ an\ all-time\ high,\ but\ have\ decreased\ from\ 2023.\ Catch\ (not\ shown)\ generally\ reflects\ trip\ patterns,\ while\ landings\ (not\ shown)\ have\ remained\ steady.\ High\ regulatory\ complexity\ is\ likely\ contributing\ to\ recreational\ fishing\ trends.}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-7-3.png}} \\
-
-\noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
-
-\hhline{|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
-
-
-
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Commercial\ revenue\ per\ vessel\ (2024\ USD)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Above\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Commercial\ revenue\ per\ vessel\ follows\ an\ overall\ increasing\ trend\ most\ likely\ driven\ by\ the\ continued\ decline\ of\ active\ vessels\ and\ an\ overall\ increase\ in\ total\ commercial\ landed\ pounds\ over\ the\ past\ decade.\ <a0>\ }}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-7-4.png}} \\
-
-\noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
-
-\hhline{|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
-
-
-
-\multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.9in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Number\ of\ commercial\ vessels\ (\#)}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{Below\ long-term\ average}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\raggedright}m{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{10}{10}\selectfont{\global\setmainfont{Times New Roman}{The\ number\ of\ active\ vessels\ has\ been\ decreasing\ since\ 2017,\ which\ could\ impact\ revenue\ distributions\ and\ fleet\ composition.<a0>}}}} & \multicolumn{1}{!{\color[HTML]{666666}\vrule width 0.75pt}>{\cellcolor[HTML]{FFFFFF}\centering}m{\dimexpr 3in+0\tabcolsep}!{\color[HTML]{666666}\vrule width 0.75pt}}{\includegraphics[width=3in, height=1in]{bsb_report_card_files/figure-pdf/unnamed-chunk-7-5.png}} \\
-
-\noalign{\global\arrayrulewidth 0.75pt}\arrayrulecolor[HTML]{666666}
-
-\hhline{|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-|>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
-
-
-
-\end{longtable}
-=======
 \begin{longtable*}[c]{|p{0.90in}|p{0.75in}|p{2.50in}|p{3.00in}}
 
 
@@ -816,7 +442,6 @@ Warning in FUN(X[[i]], ...): unable to translate '<U+00E5>' to native encoding
 
 
 \end{longtable*}
->>>>>>> a6c310b817680484812574c67577f67016d48692
 
 
 
@@ -828,32 +453,15 @@ Warning in FUN(X[[i]], ...): unable to translate '<U+00E5>' to native encoding
 
 \renewcommand*{\arraystretch}{1}
 
-<<<<<<< HEAD
-* The y-axis units are included in the ``Indicator'' column of the
-table.
-
-\centering
-
-Please contact \url{nefsc.esp.leads@noaa.gov} with any questions or
-comments.
-
-\vspace{0.5cm}
-\raggedright
-
-=======
 \vspace{-0.4cm}
 
 \footnotesize * The y-axis units are included in the ``Indicator''
 column of the table. In all figures, the dashed line represents the time
 series mean, and the solid green lines indicate ± 1 standard deviation.
->>>>>>> a6c310b817680484812574c67577f67016d48692
 Commercial data were derived from the commercial dealer database hosted
 at the Greater Atlantic Regional Office. All dollar values have been
 adjusted to 2024 real dollars using the
 \href{https://fred.stlouisfed.org/series/GDPDEF}{Gross Domestic Implicit
-<<<<<<< HEAD
-Price Deflator}.
-=======
 Price Deflator}.\newline\newline
 
 \centering\normalsize
@@ -867,51 +475,55 @@ presented in this report.
 \newpage
 \newgeometry{top=1in, left=1in, right=1in, bottom=1in}
 
-\section{References}
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
 
-\raggedright
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-fratantoni_description_2015}
+Fratantoni, Paula Sue, Tamara Holzwarth, and Maureen H. Taylor. 2015.
+{``Description of Oceanographic Conditions on the Northeast {U}.{S}.
+Continental Shelf During 2014.''}
+\url{https://repository.library.noaa.gov/view/noaa/5047}.
 
-Fratantoni, P.S., Holzworth-Davis, T., \& Taylor, M.H. (2015).
-Description of oceanographic conditions on the Northeast US Continental
-Shelf during 2014. US Dept Commer, Northeast Fisheries Science Center.
-Ref Doc. 15-21; 41 p.~http://dx.doi.org/10.7289/V5SQ8XD2
-\newline\newline
+\bibitem[\citeproctext]{ref-jeanmichel_copernicus_2021}
+Jean-Michel, Lellouche, Greiner Eric, Bourdallé-Badie Romain, Garric
+Gilles, Melet Angélique, Drévillon Marie, Bricaud Clément, et al. 2021.
+{``The {Copernicus} {Global} 1/12° {Oceanic} and {Sea} {Ice} {GLORYS12}
+{Reanalysis}.''} \emph{Frontiers in Earth Science} 9 (July): 698876.
+\url{https://doi.org/10.3389/feart.2021.698876}.
 
-Jean-Michel, L., Eric, G., Romain, B.-B., Gilles, G., Angélique, M.,
-Marie, D., Clément, B., Mathieu, H., Olivier, L. G., Charly, R., Tony,
-C., Charles-Emmanuel, T., Florent, G., Giovanni, R., Mounir, B., Yann,
-D., \& Pierre-Yves, L. T. (2021). The Copernicus Global 1/12° Oceanic
-and Sea Ice GLORYS12 Reanalysis. Frontiers in Earth Science, 9, 698876.
-https://doi.org/10.3389/feart.2021.698876 \newline\newline
+\bibitem[\citeproctext]{ref-mafmc_black_2024}
+MAFMC. 2024a. {``Black {Sea} {Bass} {Fishery} {Information}
+{Document}.''}
+\url{https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6683032fa306b9070227348b/1719862063436/2024_BSB-fishery-info-doc.pdf}.
 
-MAFMC. (2024a). Black Sea Bass Fishery Information Document.
-https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6683032fa306b9070227348b/1719862063436/2024\_BSB-fishery-info-doc.pdf
-\newline\newline
+\bibitem[\citeproctext]{ref-mafmc_midatlantic_2024}
+---------. 2024b. {``Mid-{Atlantic} {EAFM} {Risk} {Assessment}: 2024.''}
+\url{https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf}.
 
-MAFMC. (2024b). Summer Flounder, Scup, and Black Sea Bass Fishery
-Performance Report.
-https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6697d5dde4c39b20168045b7/1721226717179/b\_SFSBSB-FPR-Jul-2024.pdf
-\newline\newline
+\bibitem[\citeproctext]{ref-mafmc_summer_2024}
+---------. 2024c. {``Summer {Flounder}, {Scup}, and {Black} {Sea} {Bass}
+{Fishery} {Performance} {Report}.''}
+\url{https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6697d5dde4c39b20168045b7/1721226717179/b_SFSBSB-FPR-Jul-2024.pdf}.
 
-MAFMC. (2024c). Summer Flounder, Scup, and Black Sea Bass Monitoring
-Committee (MC) November 19, 2024 Webinar Meeting Summary 2025
-Recreational Management Measures.
-https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/674755f846e791454569703f/1732728312681/01\_2025+SF+Rec+Measures.pdf
-\newline\newline
+\bibitem[\citeproctext]{ref-mafmc_summer_2024b}
+---------. 2024d. {``Summer {Flounder}, {Scup}, and {Black} {Sea} {Bass}
+{Monitoring} {Committee} ({MC}) {November} 19, 2024 {Webinar} {Meeting}
+{Summary} 2025 {Recreational} {Management} {Measures}.''}
+\url{https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/674755f846e791454569703f/1732728312681/01_2025+SF+Rec+Measures.pdf}.
 
-MAFMC. (2024d). Mid-Atlantic EAFM Risk Assessment: 2024.
-https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05\_EAFM+Risk+Assessment.pdf
-\newline\newline
+\bibitem[\citeproctext]{ref-nefsc_report_2023}
+NEFSC. 2023. {``Report of the {Black} {Sea} {Bass} ({Centropristis}
+Striata) {Research} {Track} {Stock} {Assessment} {Working} {Group}.''}
+\url{https://d23h0vhsm26o6d.cloudfront.net/11a.-2023_BSB_UNIT_RTWG_Report_V2_12_2_2023.pdf}.
 
-NEFSC. (2023). Report of the Black Sea Bass (Centropristis striata)
-Research Track Stock Assessment Working Group.
-https://d23h0vhsm26o6d.cloudfront.net/11a.-2023\_BSB\_UNIT\_RTWG\_Report\_V2\_12\_2\_2023.pdf
-\newline\newline
+\bibitem[\citeproctext]{ref-tabandera_black_2024}
+Tabandera, Ricky, Abigail Tyrell, Marissa McMahan, and Patricia Perez.
+2024. {``Black Sea Bass Ecosystem Considerations and Indicator
+Development.''} \url{https://doi.org/10.25923/EZ9G-AF05}.
 
-Tabandera, R., Tyrell, A., McMahan, M., Perez, P., Hankowsky, K., \&
-Large, S. (2024). Black sea bass ecosystem considerations and indicator
-development. https://doi.org/10.25923/ez9g-af05
->>>>>>> a6c310b817680484812574c67577f67016d48692
+\end{CSLReferences}
 
 
 
