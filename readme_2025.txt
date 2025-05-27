@@ -16,3 +16,7 @@ Bottom temperature data was processed at `docs/winter_bt_annual_update.Rmd`. Bot
 # Plots
 
 Commercial and recreational fisheries datat were plotted with `scripts/fig_functions.R`. Environmental data was plotted with `scripts/bt_swv_facet_plots.R`. Plots are saved in `images`.
+
+# References
+
+References were formatted using the Cambridge Univeristy Press (numeric) style downloaded from the CSL project [GitHub repository](https://github.com/citation-style-language/styles). More information can be found at https://citationstyles.org/

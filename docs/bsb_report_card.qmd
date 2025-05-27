@@ -13,7 +13,7 @@ format:
     keep-tex: true
     papersize: letter
 params:
-  widths: !expr c(0.9, 0.75, 2.5, 3)
+  widths: !expr c(0.9, 0.75, 2, 3)
   img1: !expr here::here("images/bsb spatiotemporal conceptual model.png")
   img2: !expr here::here("images/new_condition.png")
   img3: !expr here::here("images/risk_plot.png")
@@ -23,6 +23,7 @@ latex_engine: xelatex
 bibliography: bsb_references.bib
 nocite: |
   @*
+csl: cambridge-university-press-numeric.csl
 ---
 
 ```{r setup, include=FALSE}
@@ -62,7 +63,8 @@ This is a short-form update to the full Ecosystem and Socioeconomic Profile [@ta
 
 \subsection{Fishing Community Observations}
 
--   Steady or increasing availability; concerns about high discards
+-   Steady or increasing availability 
+-   Concerns about high discards
 -   Restrictive and complex regulations limit fishing opportunities
 -   For additional information, see @mafmc_black_2024, @mafmc_summer_2024, and @mafmc_summer_2024b
 
@@ -76,7 +78,7 @@ This is a short-form update to the full Ecosystem and Socioeconomic Profile [@ta
 \vspace{-0.25cm}
 \subsection{Recreational Fishery}
 
--   Number of targeted trips, catch, and landings all down from 2023 [@mafmc_black_2024]
+-   Targeted trips, catch, and landings all down from 2023 [@mafmc_black_2024]
 -   However, number of trips is still above the historic average
 -   Recreational catch-per-angler index not yet updated for 2024
 
@@ -152,7 +154,7 @@ ggplot2::ggsave(risk_fig,
 
 <!-- not sure why this background isn't working -->
 
-<!-- \newgeometry{top=0.75in, left=0.75in, right=0.75in, bottom=0.75in} -->
+\newgeometry{top=0.75in, left=0.75in, right=0.75in, bottom=0.75in}
 
 ```{r}
 data <- NEesp2::format_tbl_data(file = params$tbl_file,
