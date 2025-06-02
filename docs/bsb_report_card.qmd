@@ -173,8 +173,22 @@ tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "header")
 
 ```{r}
 # this doesn't seem to do anything
-tbl <- flextable::height_all(tbl, height = 2, part = "body", unit = "in")
-tbl <- flextable::hrule(tbl, rule = "atleast", part = "body")
+# tbl <- flextable::height_all(tbl, height = 2, part = "body", unit = "in")
+# tbl <- flextable::hrule(tbl, rule = "atleast", part = "body")
+
+# add superscripts
+tbl <- flextable::compose(tbl, 
+                          part = "body", 
+                          i = 1, 
+                          j = 1, 
+                          value = flextable::as_paragraph("Mean winter (Feb-Mar) bottom temperature (\u00B0C)"))
+tbl <- flextable::compose(tbl, 
+                          part = "body", 
+                          i = 2, 
+                          j = 1, 
+                          value = flextable::as_paragraph("Shelf water volume (km", 
+                                                          flextable::as_sup("3"), 
+                                                          ")"))
 
 tbl
 
