@@ -60,7 +60,7 @@ list(
     swv_plt,
     plt_bsb(all_data,
             ind_name = "Shelf_Water_Volume",
-            new_breaks = c(seq(1990, 2010, by = 10), 2015, 2021),
+            new_breaks = c(seq(1990, 2010, by = 10), 2015, 2019, 2022),
             img_dir = image_dir
     )
   ),

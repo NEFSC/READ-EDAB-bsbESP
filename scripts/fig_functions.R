@@ -55,11 +55,17 @@
 plt_bsb <- function(data,
                            ind_name, # indicator name to filter by, will also be part of the file name
                            new_breaks = NA,
-                    img_dir
+                    img_dir,
+                    years = 1989:2024
                            ) {
 
   this_dat <- data |>
-    dplyr::filter(stringr::str_detect(INDICATOR_NAME, ind_name)) |>
+    dplyr::filter(stringr::str_detect(INDICATOR_NAME, ind_name))
+
+  this_dat <- this_dat |>
+    # add NA for missig years
+    dplyr::full_join(expand.grid(YEAR = years,
+                                 INDICATOR_NAME = unique(this_dat$INDICATOR_NAME))) |>
     dplyr::arrange(YEAR)
 
   facet <- length(unique(this_dat$INDICATOR_NAME)) > 1
