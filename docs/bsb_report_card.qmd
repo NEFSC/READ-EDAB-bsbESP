@@ -1,5 +1,5 @@
 ---
-title: "Black Sea Bass (\\protect\\textit{Centropristis striata}) \\linebreak Ecosystem & Socioeconomic Profile Report Card"
+title: "Black Sea Bass (\\protect\\textit{Centropristis striata}) \\linebreak Snapshot Ecosystem & Socioeconomic Profile"
 format: 
   pdf:
     margin-left: "0.5in"
@@ -195,11 +195,11 @@ tbl
 # flextable::save_as_image(tbl, here::here("images/indicator_table.png"))
 ```
 \vspace{-0.4cm}
-\footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).\newline\newline
+\footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).\newline
 
 \centering\normalsize
 
-We welcome your observations! Please contact northeast.ecosystem.highlights@noaa.gov with any on-the-water insights or changes observed in the black sea bass fishery and nefsc.esp.leads@noaa.gov with questions or comments on the information presented in this report.
+We welcome your observations! Please contact [northeast.ecosystem.highlights@noaa.gov](northeast.ecosystem.highlights@noaa.gov) with any on-the-water insights or changes observed in the black sea bass fishery and [nefsc.esp.leads@noaa.gov](nefsc.esp.leads@noaa.gov) with questions or comments on the information presented in this report.
 
 \newpage
 \newgeometry{top=1in, left=1in, right=1in, bottom=1in}
