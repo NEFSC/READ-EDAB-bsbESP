@@ -19,15 +19,18 @@ params:
   img3: !expr here::here("images/risk_plot.png")
   tbl_file: !expr here::here("docs/bsb_indicator_table.csv")
   img_dir: !expr here::here("images")
+  terminal_year: 2024
 latex_engine: xelatex
 bibliography: bsb_references.bib
 nocite: |
-  @*
+  @jeanmichel_copernicus_2021, @fratantoni_description_2015
 csl: cambridge-university-press-numeric.csl
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
 devtools::load_all(here::here("../READ-EDAB-NEesp2"))
 # here::i_am("inst/esp_template/06_docs/report card pg 1.qmd")
 ```
@@ -156,13 +159,13 @@ ggplot2::ggsave(risk_fig,
 
 \newgeometry{top=0.75in, left=0.75in, right=0.75in, bottom=0.75in}
 
-```{r}
+```{r tbl1, include = FALSE}
 data <- NEesp2::format_tbl_data(file = params$tbl_file,
                             term_year = params$terminal_year,
                             dir = params$img_dir)
 ```
 
-```{r}
+```{r tbl2, include = FALSE}
 tbl <- NEesp2::rpt_card_table(data,
                        widths = params$widths)
 tbl <- flextable::set_header_labels(tbl, `Time Series` = "Time Series*")
@@ -171,7 +174,7 @@ tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "body")
 tbl <- flextable::font(tbl, fontname = "Times New Roman", part = "header")
 ```
 
-```{r}
+```{r tbl3, include = FALSE}
 # this doesn't seem to do anything
 # tbl <- flextable::height_all(tbl, height = 2, part = "body", unit = "in")
 # tbl <- flextable::hrule(tbl, rule = "atleast", part = "body")
@@ -190,10 +193,15 @@ tbl <- flextable::compose(tbl,
                                                           flextable::as_sup("3"), 
                                                           ")"))
 
+# tbl <- ftExtra::colformat_md(tbl)
 tbl
-
 # flextable::save_as_image(tbl, here::here("images/indicator_table.png"))
 ```
+
+```{r}
+tbl
+```
+
 \vspace{-0.4cm}
 \footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).\newline
 
@@ -205,3 +213,8 @@ We welcome your observations! Please contact [northeast.ecosystem.highlights@noa
 \newgeometry{top=1in, left=1in, right=1in, bottom=1in}
 
 # References
+::: {#refs}
+:::
+
+<!-- Fix ref ordering -->
+fix ref order (delete me): [@jeanmichel_copernicus_2021; @fratantoni_description_2015]
