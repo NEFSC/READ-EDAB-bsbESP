@@ -104,21 +104,28 @@ This is a short-form update to the full Ecosystem and Socioeconomic Profile [@ta
 \raggedright
 
 <!-- maybe this is being centered because it's the only section without a header? -->
+\subsection{Moderate-high to high risk of the stock not achieving optimal biomass due to:}
 
-According to the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf) [@mafmc_midatlantic_2024], Black Sea Bass scored high and/or moderately high risk in the following elements (elements with low or low-moderate scores not described here):
+-   Very high exposure to changes in climate
+-   Observed and potential changes in distribution; northward shift into the Gulf of Maine
+-   Dependence on threatened estuarine habitat
+-   Decline in the biomass of benthic invertebrate prey
+-   Decline in black sea bass body condition (see right)
 
--   Moderate-high to high risk to the stock due to:
-    -   Very high exposure to changes in climate
-    -   Observed and potential changes in distribution; northward shift into the Gulf of Maine
-    -   Dependence on threatened estuarine habitat
-    -   Decline in the biomass of benthic invertebrate prey
-    -   Decline in black sea bass body condition
--   High risk to the recreational fishery due to:
-    -   Catch exceeding harvest limits in several years
-    -   High regulatory complexity; frequent changes and varying interstate regulations; regulatory changes in allocations
--   Moderate-high risk to the commercial fishery due to:
-    -   Commercial revenue in wind development areas
-    -   High discards & discard mortality
+\vspace{-0.25cm}
+\subsection{High risk of the recreational fishery not achieving optimal yield due to:}
+
+-   Catch exceeding harvest limits in several years
+-   High regulatory complexity; frequent changes and varying interstate regulations; regulatory changes in allocations
+
+\vspace{-0.25cm}
+\subsection{Moderate-high risk of the commercial fishery not achieving optimal yield due to:}
+
+-   Commercial revenue in wind development areas
+-   High discards & discard mortality
+
+\vspace{-0.25cm}
+Please see the [Mid-Atlantic 2024 EAFM risk assessment update](https://static1.squarespace.com/static/511cdc7fe4b00307a2628ac6/t/6747560a3cf66936045e5547/1732728332670/05_EAFM+Risk+Assessment.pdf) for more details and explanation of the low and low-moderate risks to black sea bass and its associated fisheries.
 
 
 ```{r, eval = FALSE}
