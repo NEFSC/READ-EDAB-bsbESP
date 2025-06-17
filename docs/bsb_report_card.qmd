@@ -210,7 +210,7 @@ tbl
 ```
 
 \vspace{-0.4cm}
-\footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).The code used to create this report can be viewed online: [github.com/NEFSC/READ-EDAB/bsbESP](github.com/NEFSC/READ-EDAB/bsbESP) \newline
+\footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF). The code used to create this report can be viewed online: [github.com/NEFSC/READ-EDAB-bsbESP](github.com/NEFSC/READ-EDAB/bsbESP) \newline
 
 \centering\normalsize
 
