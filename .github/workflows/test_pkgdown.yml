@@ -1,0 +1,58 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+on:
+  # push:
+  #   branches: 
+  #   - main
+  # pull_request:
+  # release:
+  #   types: published
+  workflow_dispatch:
+
+name: test pkgdown
+
+permissions: read-all
+
+jobs:
+  pkgdown:
+    runs-on: ubuntu-latest
+    # Only restrict concurrency for non-PR jobs
+    concurrency:
+      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+          
+      - name: Load R packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          sudo R CMD javareconf
+          Rscript -e 'install.packages(c("pkgdown", "stringi", "car", "devtools"), dependencies = TRUE)'
+          
+      - name: Load more R packages
+        run: |
+         Rscript -e 'install.packages(c("textshaping", "ragg"))
+         devtools::install_github("amirmasoudabdol/preferably", upgrade = "never")'
+    
+      - name: Render pkgdown
+        run: 
+          Rscript -e 'pkgdown::build_site()'
+
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          clean: false
+          branch: gh-pages
+          folder: docs
