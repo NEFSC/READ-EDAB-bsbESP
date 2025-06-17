@@ -36,14 +36,28 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 
 
 \providecommand{\tightlist}{%
@@ -177,6 +191,7 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
+
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -193,6 +208,7 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
+
 \title{Black Sea Bass (\protect\textit{Centropristis striata})
 \linebreak Snapshot Ecosystem \& Socioeconomic Profile}
 \author{}
@@ -201,15 +217,8 @@
 \begin{document}
 \maketitle
 
-\setstretch{1}
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}}
- }
-\BgThispage
 
+\setstretch{1}
 \vspace{-2.5cm}
 \section{Spring 2025}
 
@@ -288,7 +297,7 @@ observed link between cold temperature and smaller year classes {[}2{]}.
 \tightlist
 \item
   The stock assessment models the stock as two subunits, divided at the
-  Hudson Canyon (see right)
+  Hudson Canyon (see left)
 \item
   Cold winter in the north but near average in the south
 \item
@@ -371,14 +380,6 @@ fisheries.\end{minipage}%
 \end{figure}%
 
 \newpage
-
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}}
- }
-\BgThispage
 
 \newgeometry{top=0.75in, left=0.75in, right=0.75in, bottom=0.75in}
 
@@ -463,7 +464,8 @@ Commercial data were derived from the commercial dealer database hosted
 at the Greater Atlantic Regional Office. All dollar values have been
 adjusted to 2024 real dollars using the
 \href{https://fred.stlouisfed.org/series/GDPDEF}{Gross Domestic Implicit
-Price Deflator}.\newline
+Price Deflator}.The code used to create this report can be viewed
+online: \url{github.com/NEFSC/READ-EDAB/bsbESP} \newline
 
 \centering\normalsize
 
@@ -533,6 +535,7 @@ during 2014}. (2015).}
 \end{CSLReferences}
 
 fix ref order (delete me): {[}6--7{]}
+
 
 
 

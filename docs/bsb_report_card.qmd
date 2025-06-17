@@ -35,13 +35,13 @@ devtools::load_all(here::here("../READ-EDAB-NEesp2"))
 # here::i_am("inst/esp_template/06_docs/report card pg 1.qmd")
 ```
 
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}}
- }
-\BgThispage
+<!-- \backgroundsetup{ -->
+<!--   scale=1, -->
+<!--   angle=0, -->
+<!--   opacity=0, -->
+<!--   contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg1.jpg}} -->
+<!--  } -->
+<!-- \BgThispage -->
 
 \vspace{-2.5cm}
 \section{Spring 2025}
@@ -88,7 +88,7 @@ This is a short-form update to the full Ecosystem and Socioeconomic Profile [@ta
 \vspace{-0.25cm}
 \subsection{Ecosystem}
 
--   The stock assessment models the stock as two subunits, divided at the Hudson Canyon (see right)
+-   The stock assessment models the stock as two subunits, divided at the Hudson Canyon (see left)
 -   Cold winter in the north but near average in the south
 -   Poor or below average fish condition (i.e., weight at a given length; see below)
 ::::
@@ -154,13 +154,13 @@ ggplot2::ggsave(risk_fig,
 
 \newpage
 
-\backgroundsetup{
-  scale=1,
-  angle=0,
-  opacity=0,
-  contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}}
- }
-\BgThispage
+<!-- \backgroundsetup{ -->
+<!--   scale=1, -->
+<!--   angle=0, -->
+<!--   opacity=0, -->
+<!--   contents={\includegraphics[width=\paperwidth,height=\paperheight]{bg_pg2.jpg}} -->
+<!--  } -->
+<!-- \BgThispage -->
 
 <!-- not sure why this background isn't working -->
 
@@ -210,7 +210,7 @@ tbl
 ```
 
 \vspace{-0.4cm}
-\footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).\newline
+\footnotesize \* The y-axis units are included in the "Indicator" column of the table. In all figures, the dashed line represents the time series mean, and the solid green lines indicate ± 1 standard deviation. Commercial data were derived from the commercial dealer database hosted at the Greater Atlantic Regional Office. All dollar values have been adjusted to 2024 real dollars using the [Gross Domestic Implicit Price Deflator](https://fred.stlouisfed.org/series/GDPDEF).The code used to create this report can be viewed online: [github.com/NEFSC/READ-EDAB/bsbESP](github.com/NEFSC/READ-EDAB/bsbESP) \newline
 
 \centering\normalsize
 
