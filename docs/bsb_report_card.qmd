@@ -14,7 +14,7 @@ format:
     papersize: letter
 params:
   widths: !expr c(0.9, 0.75, 2, 3)
-  img1: !expr here::here("images/bsb spatiotemporal conceptual model.png")
+  img1: !expr here::here("images/edab-habitat-blseabass-composite-nefsc.png")
   img2: !expr here::here("images/new_condition.png")
   img3: !expr here::here("images/risk_plot.png")
   tbl_file: !expr here::here("docs/bsb_indicator_table.csv")
@@ -54,6 +54,8 @@ This is a short-form update to the full Ecosystem and Socioeconomic Profile [@ta
 
 :::: {}
 ![](`r params$img1`)
+\footnotesize Figure source: [https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem)
+\normalsize
 ::::
 
 :::: {}
