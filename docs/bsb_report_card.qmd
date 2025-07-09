@@ -54,7 +54,7 @@ This is a short-form update to the full Ecosystem and Socioeconomic Profile [@ta
 
 :::: {}
 ![](`r params$img1`)
-\footnotesize Figure source: [https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem)
+\footnotesize\raggedright Figure source: [https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem)
 \normalsize
 ::::
 
@@ -90,7 +90,7 @@ This is a short-form update to the full Ecosystem and Socioeconomic Profile [@ta
 \vspace{-0.25cm}
 \subsection{Ecosystem}
 
--   The stock assessment models the stock as two subunits, divided at the Hudson Canyon (see left)
+-   The stock assessment models the stock as two subunits, divided at the Hudson Canyon
 -   Cold winter in the north but near average in the south
 -   Poor or below average fish condition (i.e., weight at a given length; see below)
 ::::
