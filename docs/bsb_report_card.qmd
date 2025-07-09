@@ -17,7 +17,7 @@ params:
   img1: !expr here::here("images/edab-habitat-blseabass-composite-nefsc.png")
   img2: !expr here::here("images/new_condition.png")
   img3: !expr here::here("images/risk_plot.png")
-  tbl_file: !expr here::here("docs/bsb_indicator_table.csv")
+  tbl_file: !expr here::here("docs/bsb_indicator_table.xlsx")
   img_dir: !expr here::here("images")
   terminal_year: 2024
 latex_engine: xelatex
@@ -225,5 +225,3 @@ We welcome your observations! Please contact [northeast.ecosystem.highlights@noa
 ::: {#refs}
 :::
 
-<!-- Fix ref ordering -->
-fix ref order (delete me): [@jeanmichel_copernicus_2021; @fratantoni_description_2015]
