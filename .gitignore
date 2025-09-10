@@ -1,3 +1,5 @@
 .Rproj.user
-*.nc$
+**.nc$
+*/*.nc$
+*Rhistory$
 .Rhistory

@@ -20,66 +20,28 @@ library(tarchetypes) # Load other packages as needed.
 tar_source("scripts/fig_functions.R")
 tar_source("scripts/clean_data.R")
 
+# update survdat pull with script scripts/pull_survdat.R if needed
+
 syear <- 2025
 image_dir <- here::here("images")
 txt_dir <- here::here("data")
 risk_plt_file <- here::here("images/risk_plot.png")
 
-if(!file.exists(risk_plt_file)) {
+if (!file.exists(risk_plt_file)) {
   file.create(risk_plt_file)
 }
 
 # targets workflow
 list(
+  source(here::here("scripts/targets_scripts/00_targets_download_data.R")),
 
-  # add the code to create this as its own target
-  # targets::tar_target(condition_img,
-  #   here::here("images/condition.jpg"),
-  #   format = "file"
-  # ),
-  #
-  #   targets::tar_target(risk_img,
-  #                       here::here("images/chart.png"),
-  #                       format = "file"),
+  source(here::here("scripts/targets_scripts/01_targets_read_files.R")),
 
- source(here::here("scripts/targets_scripts/01_targets_read_files.R")),
+  source(here::here("scripts/targets_scripts/02_targets_create_indicators.R")),
 
- source(here::here("scripts/targets_scripts/02_targets_create_indicators.R")),
+  source(here::here("scripts/targets_scripts/03_targets_format_data.R")),
 
- source(here::here("scripts/targets_scripts/03_targets_format_data.R")),
-
- source(here::here("scripts/targets_scripts/04_targets_create_plots.R")),
-
-  # add image file paths to table
-  targets::tar_target(
-    tbl_info,
-    NEesp2::add_fig_paths(
-      path = table_data,
-      list_files = c(
-        swv_plt,
-        bt_plt,
-        rec_trips_plt,
-        # rec_landings_plt,
-        com_rev_plt,
-        com_vessel_plt
-      )
-    )
-  ) #,
-
-  ## render report ----
-  # tarchetypes::tar_render(rpt_card,
-  #                         here::here("docs/bsb_report_card.qmd"),
-  #                         output_file = here::here("docs/targets_test.pdf"),
-  #                         params = list(tbl_file = tbl_info,
-  #                                       img1 = map_img,
-  #                                       # img2 = condition_img,
-  # img2 = cond_plt,
-  #                                       img3 = risk_img,
-  #                                       img_dir = here::here("images"))
-  #                         )
-  # tar_render issue seems to be associated with quarto or possibly pandoc?
-  # the .tex compiles in overleaf
-  # does not render direct from .qmd any more
+  source(here::here("scripts/targets_scripts/04_targets_create_plots.R")),
 )
 
 # targets::tar_visnetwork()
