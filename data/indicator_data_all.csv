@@ -1,0 +1,459 @@
+YEAR,DATA_VALUE,CATEGORY,INDICATOR_TYPE,INDICATOR_NAME,REGION
+1978,1983.868,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1978,2179.304,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1979,2079.261,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1979,1668.214,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1980,2037.1235,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1980,817.545,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1981,1991.737,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1981,1136.797,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1982,2072.695,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1982,2147.108,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1983,2141.625,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1984,2124.608,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1984,1939.29,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1985,1099.378,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1985,783.059,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1986,1423.68,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1986,573.518,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1987,2107.618,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1987,1295.154,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1988,2455.862,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1989,4870483,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1989,8971546,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1989,328185,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1989,6.466071599,Physical Oceanography,Ecosystem,bottom_temperature,North
+1989,7.329214458,Physical Oceanography,Ecosystem,bottom_temperature,South
+1989,6.973840839,Physical Oceanography,Ecosystem,bottom_temperature,All
+1990,3230544,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1990,9320774,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1990,348976,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1990,8.030730354,Physical Oceanography,Ecosystem,bottom_temperature,North
+1990,8.69411038,Physical Oceanography,Ecosystem,bottom_temperature,South
+1990,8.420983217,Physical Oceanography,Ecosystem,bottom_temperature,All
+1990,1946.41,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1991,3493575,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1991,11867718,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1991,250350.7,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1991,7.431869325,Physical Oceanography,Ecosystem,bottom_temperature,North
+1991,8.283171164,Physical Oceanography,Ecosystem,bottom_temperature,South
+1991,7.932672736,Physical Oceanography,Ecosystem,bottom_temperature,All
+1991,2223.9085,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1991,1720.681,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1992,3171674,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1992,8261228,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1992,323687.1,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1992,6.959844148,Physical Oceanography,Ecosystem,bottom_temperature,North
+1992,8.758996791,Physical Oceanography,Ecosystem,bottom_temperature,South
+1992,8.018248746,Physical Oceanography,Ecosystem,bottom_temperature,All
+1992,2266.058,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1992,2457.9775,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1993,5115481,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1993,9739489,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1993,397220.4,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1993,5.603562279,Physical Oceanography,Ecosystem,bottom_temperature,North
+1993,6.388640911,Physical Oceanography,Ecosystem,bottom_temperature,South
+1993,6.065407935,Physical Oceanography,Ecosystem,bottom_temperature,All
+1993,2420.381333,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1993,2632.597,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1994,2987294,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1994,9056694,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1994,340540,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1994,6.334015543,Physical Oceanography,Ecosystem,bottom_temperature,North
+1994,6.484265114,Physical Oceanography,Ecosystem,bottom_temperature,South
+1994,6.422404284,Physical Oceanography,Ecosystem,bottom_temperature,All
+1994,2043.3105,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1994,1874.0515,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1995,4309452,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1995,15768383,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1995,364435,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1995,7.507860203,Physical Oceanography,Ecosystem,bottom_temperature,North
+1995,8.109674754,Physical Oceanography,Ecosystem,bottom_temperature,South
+1995,7.861895359,Physical Oceanography,Ecosystem,bottom_temperature,All
+1995,1375.741,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1995,1101.9,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1996,7242281,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1996,11068253,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1996,364302,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1996,5.650695927,Physical Oceanography,Ecosystem,bottom_temperature,North
+1996,6.156468867,Physical Oceanography,Ecosystem,bottom_temperature,South
+1996,5.948231774,Physical Oceanography,Ecosystem,bottom_temperature,All
+1996,2465.096,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1996,2369.843,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1996,3196928,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+1996,654,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+1996,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+1996,6691176,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+1996,10231,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+1997,6011253,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1997,14436773,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1997,521681.5,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1997,8.16297909,Physical Oceanography,Ecosystem,bottom_temperature,North
+1997,8.472656134,Physical Oceanography,Ecosystem,bottom_temperature,South
+1997,8.345155743,Physical Oceanography,Ecosystem,bottom_temperature,All
+1997,2232.9615,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1997,2268.408,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1997,2650863,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+1997,698,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+1997,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+1997,7164709,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+1997,10265,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+1998,1289352,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1998,7242612,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1998,136390.7,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1998,6.056565706,Physical Oceanography,Ecosystem,bottom_temperature,North
+1998,7.325320848,Physical Oceanography,Ecosystem,bottom_temperature,South
+1998,6.802948333,Physical Oceanography,Ecosystem,bottom_temperature,All
+1998,2549.4375,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1998,3231.103333,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1998,2607465,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+1998,761,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+1998,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+1998,7825060,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+1998,10283,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+1999,1098551,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+1999,12953992,Recreational,Socioeconomic,total_recreational_catch_n,NA
+1999,233598,Recreational,Socioeconomic,total_recreational_trips_n,NA
+1999,8.228132326,Physical Oceanography,Ecosystem,bottom_temperature,North
+1999,8.228338618,Physical Oceanography,Ecosystem,bottom_temperature,South
+1999,8.228253683,Physical Oceanography,Ecosystem,bottom_temperature,All
+1999,2137.5705,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+1999,2129.744,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+1999,2945073,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+1999,804,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+1999,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+1999,8915624,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+1999,11089,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2000,4505980,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2000,25191099,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2000,373110,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2000,7.633274639,Physical Oceanography,Ecosystem,bottom_temperature,North
+2000,7.97342443,Physical Oceanography,Ecosystem,bottom_temperature,South
+2000,7.833377784,Physical Oceanography,Ecosystem,bottom_temperature,All
+2000,1748.075,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2000,757.8135,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2000,2714809,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2000,730,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2000,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2000,8337646,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2000,11421,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2001,6367680,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2001,19294324,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2001,447759,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2001,6.99106858,Physical Oceanography,Ecosystem,bottom_temperature,North
+2001,7.220091714,Physical Oceanography,Ecosystem,bottom_temperature,South
+2001,7.125798192,Physical Oceanography,Ecosystem,bottom_temperature,All
+2001,2199.342333,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2001,2314.8005,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2001,2934433,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2001,735,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2001,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2001,7545581,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2001,10266,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2002,5633728,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2002,21105854,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2002,457155.1,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2002,8.59571283,Physical Oceanography,Ecosystem,bottom_temperature,North
+2002,9.822156956,Physical Oceanography,Ecosystem,bottom_temperature,South
+2002,9.317204754,Physical Oceanography,Ecosystem,bottom_temperature,All
+2002,2146.892,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2002,1019.741,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2002,3557194,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2002,741,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2002,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2002,9926986,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2002,13397,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2003,5725417,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2003,16410094,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2003,463278,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2003,5.682907932,Physical Oceanography,Ecosystem,bottom_temperature,North
+2003,6.772058303,Physical Oceanography,Ecosystem,bottom_temperature,South
+2003,6.323632756,Physical Oceanography,Ecosystem,bottom_temperature,All
+2003,2240.295,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2003,1080.825,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2003,3029076,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2003,690,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2003,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2003,9862260,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2003,14293,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2004,3396299,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2004,12617986,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2004,269853,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2004,5.037443167,Physical Oceanography,Ecosystem,bottom_temperature,North
+2004,6.163938307,Physical Oceanography,Ecosystem,bottom_temperature,South
+2004,5.700137152,Physical Oceanography,Ecosystem,bottom_temperature,All
+2004,2332.774,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2004,1382.112,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2004,3048281,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2004,614,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2004,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2004,9989887,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2004,16270,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2005,3565149,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2005,12290771,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2005,434848.7,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2005,5.563462461,Physical Oceanography,Ecosystem,bottom_temperature,North
+2005,6.290130475,Physical Oceanography,Ecosystem,bottom_temperature,South
+2005,5.990946349,Physical Oceanography,Ecosystem,bottom_temperature,All
+2005,2321.986,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2005,2568.9355,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2005,2897939,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2005,595,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2005,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2005,10941083,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2005,18388,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2006,2699267,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2006,12212014,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2006,457052,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2006,8.393419188,Physical Oceanography,Ecosystem,bottom_temperature,North
+2006,8.969505335,Physical Oceanography,Ecosystem,bottom_temperature,South
+2006,8.732318852,Physical Oceanography,Ecosystem,bottom_temperature,All
+2006,2107.918,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2006,2068.637,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2006,2839421,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2006,597,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2006,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2006,11516379,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2006,19290,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2007,3500718,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2007,14197487,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2007,676719,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2007,7.507122983,Physical Oceanography,Ecosystem,bottom_temperature,North
+2007,8.017453972,Physical Oceanography,Ecosystem,bottom_temperature,South
+2007,7.807340236,Physical Oceanography,Ecosystem,bottom_temperature,All
+2007,2033.889,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2007,1155.444333,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2007,2248905,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2007,616,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2007,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2007,9707997,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2007,3,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2007,15760,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2008,3576832,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2008,22085482,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2008,495428,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2008,7.254213194,Physical Oceanography,Ecosystem,bottom_temperature,North
+2008,9.264487558,Physical Oceanography,Ecosystem,bottom_temperature,South
+2008,8.43681637,Physical Oceanography,Ecosystem,bottom_temperature,All
+2008,2255.900333,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2008,2462.273667,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2008,1941393,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2008,567,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2008,5,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2008,8100019,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2008,4,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2008,14286,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2009,5629227,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2009,20695206,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2009,870738,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2009,8.473333793,Physical Oceanography,Ecosystem,bottom_temperature,North
+2009,7.594322035,Physical Oceanography,Ecosystem,bottom_temperature,South
+2009,7.956229205,Physical Oceanography,Ecosystem,bottom_temperature,All
+2009,2204.3645,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2009,1344.814,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2009,1175183,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2009,502,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2009,5,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2009,5001215,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2009,2,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2009,9963,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2010,8199456,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2010,27053982,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2010,1095333,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2010,6.466629039,Physical Oceanography,Ecosystem,bottom_temperature,North
+2010,6.384801077,Physical Oceanography,Ecosystem,bottom_temperature,South
+2010,6.418491327,Physical Oceanography,Ecosystem,bottom_temperature,All
+2010,2112.291,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2010,1712.2225,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2010,1732834,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2010,609,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2010,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2010,7396198,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2010,3,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2010,12145,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2011,3373707,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2011,13677089,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2011,454214,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2011,6.226767369,Physical Oceanography,Ecosystem,bottom_temperature,North
+2011,7.263455981,Physical Oceanography,Ecosystem,bottom_temperature,South
+2011,6.836630017,Physical Oceanography,Ecosystem,bottom_temperature,All
+2011,2342.405,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2011,2088.207,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2011,1688438,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2011,595,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2011,5,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2011,7543459,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2011,4,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2011,12678,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2012,7248735,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2012,37344820,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2012,697535.6,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2012,10.46342684,Physical Oceanography,Ecosystem,bottom_temperature,North
+2012,10.00272128,Physical Oceanography,Ecosystem,bottom_temperature,South
+2012,10.19240321,Physical Oceanography,Ecosystem,bottom_temperature,All
+2012,2025.028,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2012,1328.730333,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2012,1727228,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2012,611,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2012,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2012,7720735,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2012,4,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2012,12636,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2013,5732523,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2013,27193225,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2013,664322.1,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2013,7.393318551,Physical Oceanography,Ecosystem,bottom_temperature,North
+2013,8.00246964,Physical Oceanography,Ecosystem,bottom_temperature,South
+2013,7.751669643,Physical Oceanography,Ecosystem,bottom_temperature,All
+2013,1892.0525,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2013,1132.212,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2013,2277419,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2013,601,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2013,5,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2013,9769396,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2013,4,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2013,16255,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2014,7694210,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2014,27110041,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2014,827577.4,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2014,7.02180694,Physical Oceanography,Ecosystem,bottom_temperature,North
+2014,7.741538069,Physical Oceanography,Ecosystem,bottom_temperature,South
+2014,7.445210001,Physical Oceanography,Ecosystem,bottom_temperature,All
+2014,2070.508,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2014,1040.258,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2014,2400703,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2014,602,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2014,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2014,10057582,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2014,4,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2014,16707,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2015,9400715,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2015,28600702,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2015,1263485.5,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2015,7.815166975,Physical Oceanography,Ecosystem,bottom_temperature,North
+2015,6.793568179,Physical Oceanography,Ecosystem,bottom_temperature,South
+2015,7.214181357,Physical Oceanography,Ecosystem,bottom_temperature,All
+2015,779.645,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2015,2352157,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2015,597,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2015,5,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2015,10119365,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2015,2,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2015,16950,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2016,12200258,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2016,39467554,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2016,1102005,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2016,8.44315318,Physical Oceanography,Ecosystem,bottom_temperature,North
+2016,9.317559702,Physical Oceanography,Ecosystem,bottom_temperature,South
+2016,8.957548602,Physical Oceanography,Ecosystem,bottom_temperature,All
+2016,2588694,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2016,587,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2016,5,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2016,11798092,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2016,2,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2016,20099,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2017,11851001,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2017,45157251,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2017,1153189,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2017,7.900301056,Physical Oceanography,Ecosystem,bottom_temperature,North
+2017,8.593801584,Physical Oceanography,Ecosystem,bottom_temperature,South
+2017,8.308273192,Physical Oceanography,Ecosystem,bottom_temperature,All
+2017,2058.938,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2017,1572.972,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2017,4014762,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2017,713,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2017,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2017,15350378,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2017,2,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2017,21529,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2018,7903829,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2018,25638413,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2018,1159492.3,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2018,7.199159834,Physical Oceanography,Ecosystem,bottom_temperature,North
+2018,7.747986678,Physical Oceanography,Ecosystem,bottom_temperature,South
+2018,7.522023409,Physical Oceanography,Ecosystem,bottom_temperature,All
+2018,1885.759,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2018,3402176,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2018,659,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2018,5,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2018,14518561,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2018,3,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2018,22031,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2019,8450036,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2019,32979130,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2019,1367989,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2019,7.347171588,Physical Oceanography,Ecosystem,bottom_temperature,North
+2019,7.450281135,Physical Oceanography,Ecosystem,bottom_temperature,South
+2019,7.40782882,Physical Oceanography,Ecosystem,bottom_temperature,All
+2019,2211.974,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2019,2012.758,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2019,3545389,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2019,647,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2019,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2019,14458496,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2019,2,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2019,22347,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2020,8371167,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2020,33901705,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2020,1582995.5,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2020,8.829726404,Physical Oceanography,Ecosystem,bottom_temperature,North
+2020,9.153901528,Physical Oceanography,Ecosystem,bottom_temperature,South
+2020,9.027738386,Physical Oceanography,Ecosystem,bottom_temperature,All
+2020,1869.236,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2020,4203831,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2020,570,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2020,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2020,11979796,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2020,1,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2020,21017,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2021,11215198,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2021,41212670,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2021,1642972.5,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2021,8.555891207,Physical Oceanography,Ecosystem,bottom_temperature,North
+2021,8.342668414,Physical Oceanography,Ecosystem,bottom_temperature,South
+2021,8.4256509,Physical Oceanography,Ecosystem,bottom_temperature,All
+2021,1297.578,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2021,4747912,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2021,565,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2021,4,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2021,14878699,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2021,2,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2021,26334,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2022,7774143,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2022,41902363,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2022,1591714.3,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2022,8.683112546,Physical Oceanography,Ecosystem,bottom_temperature,North
+2022,9.330675756,Physical Oceanography,Ecosystem,bottom_temperature,South
+2022,9.078655773,Physical Oceanography,Ecosystem,bottom_temperature,All
+2022,2034.662,Physical Oceanography,Ecosystem,shelf_water_volume_North,North
+2022,1076.739,Physical Oceanography,Ecosystem,shelf_water_volume_South,South
+2022,5337037,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2022,531,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2022,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2022,14858810,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2022,4,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2022,27983,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2023,6811015,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2023,40402818,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2023,1487630,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2023,8.700444988,Physical Oceanography,Ecosystem,bottom_temperature,North
+2023,9.385808975,Physical Oceanography,Ecosystem,bottom_temperature,South
+2023,9.119077608,Physical Oceanography,Ecosystem,bottom_temperature,All
+2023,4653466,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2023,413,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2023,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2023,12298425,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2023,3,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2023,29851,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
+2024,4249566,Recreational,Socioeconomic,total_recreational_landings_lbs,NA
+2024,30118687,Recreational,Socioeconomic,total_recreational_catch_n,NA
+2024,1239056,Recreational,Socioeconomic,total_recreational_trips_n,NA
+2024,6.849140135,Physical Oceanography,Ecosystem,bottom_temperature,North
+2024,8.274111585,Physical Oceanography,Ecosystem,bottom_temperature,South
+2024,7.719538264,Physical Oceanography,Ecosystem,bottom_temperature,All
+2024,5086122,Commercial,Socioeconomic,Commercial_BLACK_SEABASS_Landings_LBS,NA
+2024,393,Commercial,Socioeconomic,N_Commercial_Vessels_Landing_BLACK_SEABASS,NA
+2024,3,Commercial,Socioeconomic,AVGPRICE_BLACK_SEABASS_2024_DOLlb,NA
+2024,12093710,Commercial,Socioeconomic,TOTALANNUALREV_BLACK_SEABASS_2024Dols,NA
+2024,2,Commercial,Socioeconomic,AVGANNUAL_DIESEL_PRICE2024dols,NA
+2024,30930,Commercial,Socioeconomic,AVGVESREVperYr_BLACK_SEABASS_2024_DOLlb,NA
